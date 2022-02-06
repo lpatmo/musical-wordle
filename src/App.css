@@ -24,15 +24,18 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.audioSettings {
+  display: flex;
+  margin-top: 1em;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+button {
+  outline: none;
+  border: none;
+  padding: 10px 20px;
+  font-size: 0.8em;
+  margin: 5px;
+  background: black;
+  color: white;
+  cursor: pointer;
 }
