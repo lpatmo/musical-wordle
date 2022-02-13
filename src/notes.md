@@ -20,3 +20,4 @@
 13. Stretch: a new musical sequence is chosen every day from the data file
 14. Stretch: musical hint -- "It is one of these three songs"
 15. Stretch: save guesses in localStorage, so that if I refresh the page I see my guesses saved.
+16. Let user hear what they typed if they click on a sound button on the right of the tiles
