@@ -98,7 +98,7 @@ function Board({ answer }) {
             <p>Guess: {JSON.stringify(guess)}</p>
             <p>Answer: {JSON.stringify(answer)}</p>
             <form className={styles.board} onSubmit={handleSubmit}>
-                {/*TOOO: Map through guesses state instead of hardcoding below*/}
+                {/*TOOO: Map through guesses state instead of hardcoding below. See: https://github.com/lpatmo/musical-wordle/issues/5 */}
                 <div>
                     <input type="text" name="note-1-1" disabled={currentRow !== 0} maxLength={1} onChange={handleChange} />
                     <input type="text" name="note-1-2" disabled={currentRow !== 0} maxLength={1} onChange={handleChange} />
