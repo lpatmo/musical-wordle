@@ -118,39 +118,39 @@ function Board({ answer }) {
                     <button onClick={() => playSequence(answer, guess, 1)}><icon>play</icon></button>
                 </div>
                 <div>
-                    <input type="text" name="note-3-1" disabled={currentRow !== 1} maxLength={1} onChange={handleChange} />
-                    <input type="text" name="note-3-2" disabled={currentRow !== 1} maxLength={1} onChange={handleChange} />
-                    <input type="text" name="note-3-3" disabled={currentRow !== 1} maxLength={1} onChange={handleChange} />
-                    <input type="text" name="note-3-4" disabled={currentRow !== 1} maxLength={1} onChange={handleChange} />
-                    <input type="text" name="note-3-5" disabled={currentRow !== 1} maxLength={1} onChange={handleChange} />
-                    <input type="text" name="note-3-6" disabled={currentRow !== 1} maxLength={1} onChange={handleChange} />
+                    <input type="text" name="note-3-1" disabled={currentRow !== 2} maxLength={1} onChange={handleChange} />
+                    <input type="text" name="note-3-2" disabled={currentRow !== 2} maxLength={1} onChange={handleChange} />
+                    <input type="text" name="note-3-3" disabled={currentRow !== 2} maxLength={1} onChange={handleChange} />
+                    <input type="text" name="note-3-4" disabled={currentRow !== 2} maxLength={1} onChange={handleChange} />
+                    <input type="text" name="note-3-5" disabled={currentRow !== 2} maxLength={1} onChange={handleChange} />
+                    <input type="text" name="note-3-6" disabled={currentRow !== 2} maxLength={1} onChange={handleChange} />
                     <button onClick={() => playSequence(answer, guess, 1)}><icon>play</icon></button>
                 </div>
                 <div>
-                    <input type="text" name="note-4-1" disabled={currentRow !== 1} maxLength={1} onChange={handleChange} />
-                    <input type="text" name="note-4-2" disabled={currentRow !== 1} maxLength={1} onChange={handleChange} />
-                    <input type="text" name="note-4-3" disabled={currentRow !== 1} maxLength={1} onChange={handleChange} />
-                    <input type="text" name="note-4-4" disabled={currentRow !== 1} maxLength={1} onChange={handleChange} />
-                    <input type="text" name="note-4-5" disabled={currentRow !== 1} maxLength={1} onChange={handleChange} />
-                    <input type="text" name="note-4-6" disabled={currentRow !== 1} maxLength={1} onChange={handleChange} />
+                    <input type="text" name="note-4-1" disabled={currentRow !== 3} maxLength={1} onChange={handleChange} />
+                    <input type="text" name="note-4-2" disabled={currentRow !== 3} maxLength={1} onChange={handleChange} />
+                    <input type="text" name="note-4-3" disabled={currentRow !== 3} maxLength={1} onChange={handleChange} />
+                    <input type="text" name="note-4-4" disabled={currentRow !== 3} maxLength={1} onChange={handleChange} />
+                    <input type="text" name="note-4-5" disabled={currentRow !== 3} maxLength={1} onChange={handleChange} />
+                    <input type="text" name="note-4-6" disabled={currentRow !== 3} maxLength={1} onChange={handleChange} />
                     <button onClick={() => playSequence(answer, guess, 1)}><icon>play</icon></button>
                 </div>
                 <div>
-                    <input type="text" name="note-5-1" disabled={currentRow !== 1} maxLength={1} onChange={handleChange} />
-                    <input type="text" name="note-5-2" disabled={currentRow !== 1} maxLength={1} onChange={handleChange} />
-                    <input type="text" name="note-5-3" disabled={currentRow !== 1} maxLength={1} onChange={handleChange} />
-                    <input type="text" name="note-5-4" disabled={currentRow !== 1} maxLength={1} onChange={handleChange} />
-                    <input type="text" name="note-5-5" disabled={currentRow !== 1} maxLength={1} onChange={handleChange} />
-                    <input type="text" name="note-5-6" disabled={currentRow !== 1} maxLength={1} onChange={handleChange} />
+                    <input type="text" name="note-5-1" disabled={currentRow !== 4} maxLength={1} onChange={handleChange} />
+                    <input type="text" name="note-5-2" disabled={currentRow !== 4} maxLength={1} onChange={handleChange} />
+                    <input type="text" name="note-5-3" disabled={currentRow !== 4} maxLength={1} onChange={handleChange} />
+                    <input type="text" name="note-5-4" disabled={currentRow !== 4} maxLength={1} onChange={handleChange} />
+                    <input type="text" name="note-5-5" disabled={currentRow !== 4} maxLength={1} onChange={handleChange} />
+                    <input type="text" name="note-5-6" disabled={currentRow !== 4} maxLength={1} onChange={handleChange} />
                     <button onClick={() => playSequence(answer, guess, 1)}><icon>play</icon></button>
                 </div>
                 <div>
-                    <input type="text" name="note-6-1" disabled={currentRow !== 1} maxLength={1} onChange={handleChange} />
-                    <input type="text" name="note-6-2" disabled={currentRow !== 1} maxLength={1} onChange={handleChange} />
-                    <input type="text" name="note-6-3" disabled={currentRow !== 1} maxLength={1} onChange={handleChange} />
-                    <input type="text" name="note-6-4" disabled={currentRow !== 1} maxLength={1} onChange={handleChange} />
-                    <input type="text" name="note-6-5" disabled={currentRow !== 1} maxLength={1} onChange={handleChange} />
-                    <input type="text" name="note-6-6" disabled={currentRow !== 1} maxLength={1} onChange={handleChange} />
+                    <input type="text" name="note-6-1" disabled={currentRow !== 5} maxLength={1} onChange={handleChange} />
+                    <input type="text" name="note-6-2" disabled={currentRow !== 5} maxLength={1} onChange={handleChange} />
+                    <input type="text" name="note-6-3" disabled={currentRow !== 5} maxLength={1} onChange={handleChange} />
+                    <input type="text" name="note-6-4" disabled={currentRow !== 5} maxLength={1} onChange={handleChange} />
+                    <input type="text" name="note-6-5" disabled={currentRow !== 5} maxLength={1} onChange={handleChange} />
+                    <input type="text" name="note-6-6" disabled={currentRow !== 5} maxLength={1} onChange={handleChange} />
                     <button onClick={() => playSequence(answer, guess, 1)}><icon>play</icon></button>
                 </div>
 
