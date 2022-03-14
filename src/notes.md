@@ -31,16 +31,28 @@
 
 ## Issues Blocking MVP
 
-- Allow for 6 total guess (no more, no less)
+- Guessing Mechanics
 
+  - (MEDIUM) Display six empty rows when game starts and update state to be a 2D array
+
+  - (BIG) Push each guess into state (guesses array) when user submits (LOGIC)
+
+    - Display each guess as it's submitted (VISUAL)
+
+  - Allow for 6 total guess (no more, no less)
   - See the answer after guessing six times (none of it right)
     - disable/disappear submission button after six guesses
   - If you get it right, you can't make any more guess
-    - disable/disappear submission button after correct answer submitted
-    - victory message/notification
+  - disable/disappear submission button after correct answer submitted
+  - victory message/notification
 
-- (SMALL) Display six empty rows when game starts
-- (MEDIUM) Display the guesses in the grid as they are submitted
+- SOUND
+
+  - (SMALL) Display a volume icon next to each row
+  - (MEDIUM) When volume icon is clicked on, it plays only the sound from that guess
+
+- (MEDIUM) Validate against number of occurrences of a note (e.g. CCCCCC for Twinkle Little Star should return only two greens and 4 whites for the rest)
+
 - No editing of previous guesses
 
 - (MEDIUM) Backspace should shift focus to previous input square if current input square is empty
@@ -48,3 +60,26 @@
 - (MEDIUM) Make mobile friendly/make responsive
 
 - (SMALL) Refactor JS in Board.js in line 64 (there are two joins that do the same thing; there's a neater way to write the)
+
+let numGuess = 0
+
+boardState [
+["","","","","",""],
+["","","","","",""],
+["","","","","",""],
+["","","","","",""],
+["","","","","",""],
+["","","","","",""]
+]
+
+make guess, push in numGuess position, numGuess++
+
+if numGuess > 5, then game over
+
+[], len = 0
+[["","","","","",""]], len = 1
+
+if len = 0, then (empty grid)
+if len != 1, then first row, empty
+
+if len == 6, then NOTHING

@@ -83,10 +83,10 @@ function Board({ answer }) {
             }
             for (let i = 0; i < guessStr.length; i++) {
                 if (guessStr[i] === answerStr[i]) {
-                    console.log("should be green", i)
-                    document.querySelector(`input[name="note-1-${i + 1}"]`).style.background = 'green';
+                    console.log("Square with right note should be green", i)
+                    document.querySelector(`input[name="note-${currentRow+1}-${i + 1}"]`).style.background = 'green';
                 } else if (answerStr.includes(guessStr[i])) {
-                    document.querySelector(`input[name="note-1-${i + 1}"]`).style.background = 'yellow';
+                    document.querySelector(`input[name="note-${currentRow+1}-${i + 1}"]`).style.background = 'yellow';
                 }
             }
             setError("Please try again")
@@ -124,7 +124,7 @@ function Board({ answer }) {
                     <input type="text" name="note-3-4" disabled={currentRow !== 2} maxLength={1} onChange={handleChange} />
                     <input type="text" name="note-3-5" disabled={currentRow !== 2} maxLength={1} onChange={handleChange} />
                     <input type="text" name="note-3-6" disabled={currentRow !== 2} maxLength={1} onChange={handleChange} />
-                    <button onClick={() => playSequence(answer, guess, 1)}><icon>play</icon></button>
+                    <button onClick={() => playSequence(answer, guess, 2)}><icon>play</icon></button>
                 </div>
                 <div>
                     <input type="text" name="note-4-1" disabled={currentRow !== 3} maxLength={1} onChange={handleChange} />
@@ -133,7 +133,7 @@ function Board({ answer }) {
                     <input type="text" name="note-4-4" disabled={currentRow !== 3} maxLength={1} onChange={handleChange} />
                     <input type="text" name="note-4-5" disabled={currentRow !== 3} maxLength={1} onChange={handleChange} />
                     <input type="text" name="note-4-6" disabled={currentRow !== 3} maxLength={1} onChange={handleChange} />
-                    <button onClick={() => playSequence(answer, guess, 1)}><icon>play</icon></button>
+                    <button onClick={() => playSequence(answer, guess, 3)}><icon>play</icon></button>
                 </div>
                 <div>
                     <input type="text" name="note-5-1" disabled={currentRow !== 4} maxLength={1} onChange={handleChange} />
@@ -142,7 +142,7 @@ function Board({ answer }) {
                     <input type="text" name="note-5-4" disabled={currentRow !== 4} maxLength={1} onChange={handleChange} />
                     <input type="text" name="note-5-5" disabled={currentRow !== 4} maxLength={1} onChange={handleChange} />
                     <input type="text" name="note-5-6" disabled={currentRow !== 4} maxLength={1} onChange={handleChange} />
-                    <button onClick={() => playSequence(answer, guess, 1)}><icon>play</icon></button>
+                    <button onClick={() => playSequence(answer, guess, 4)}><icon>play</icon></button>
                 </div>
                 <div>
                     <input type="text" name="note-6-1" disabled={currentRow !== 5} maxLength={1} onChange={handleChange} />
@@ -151,7 +151,7 @@ function Board({ answer }) {
                     <input type="text" name="note-6-4" disabled={currentRow !== 5} maxLength={1} onChange={handleChange} />
                     <input type="text" name="note-6-5" disabled={currentRow !== 5} maxLength={1} onChange={handleChange} />
                     <input type="text" name="note-6-6" disabled={currentRow !== 5} maxLength={1} onChange={handleChange} />
-                    <button onClick={() => playSequence(answer, guess, 1)}><icon>play</icon></button>
+                    <button onClick={() => playSequence(answer, guess, 5)}><icon>play</icon></button>
                 </div>
 
                 <button type="submit">Submit</button>
