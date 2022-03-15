@@ -12,8 +12,14 @@
 
 ### How to pull the latest changes from upstream main so that it lands inside your fork
 
-`git pull upstream main`
-This assumes that `upstream` refers to the main repo at https://github.com/lpatmo/musical-wordle.git which you can check if you type `git remote -v`
+1. `git checkout main`
+2. `git pull upstream main`
+   This assumes that `upstream` refers to the main repo at https://github.com/lpatmo/musical-wordle.git which you can check if you type `git remote -v`
+
+If you're in a branch and you want your branch to get the latest updates, do:
+
+3. `git checkout [BRANCH]
+4. `git rebase main`
 
 ### How to pull and run the changes of a forked branch for a PR that you are reviewing
 
