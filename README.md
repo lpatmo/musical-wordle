@@ -22,7 +22,7 @@ If you're in a branch and you want your branch to get the latest updates, do:
 4. `git rebase main`
 5. `git push --force`
 
-### How to pull and run the changes of a forked branch for a PR that you are reviewing
+### How to pull and run the branches of a forked repo for a PR that you are reviewing
 
 1. `git remote add [NICKNAME] [URL]` (Go to the user's forked repo and find the URL of the repo)
 2. `git fetch [NICKNAME]`
