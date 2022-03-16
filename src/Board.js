@@ -21,15 +21,11 @@ function Board({ answer }) {
 
     function handleChange(e) {
         const { value, name } = e.target;
-        console.log("value", value)
-        console.log("name", name)
 
         let fieldIndex = parseInt(name.split("-")[2], 10);
         let currentTile = document.querySelector(`input[name="note-1-${fieldIndex}"]`)
         //Validate against non-valid notes
-        console.log('value', value)
         if (!"abcdefg".includes(value.toLowerCase())) {
-            console.log('not a note')
             //show error message
 
             setError(`${value.toUpperCase()} is not a valid note.`)
@@ -44,7 +40,7 @@ function Board({ answer }) {
             /*TODO: look into using nextElementSibling*/
             setError("")
             currentTile.style.border = "none";
-            const nextInput = document.querySelector(`input[name="note-1-${fieldIndex + 1}"]`);
+            const nextInput = document.querySelector(`input[name="note-${currentRow + 1}-${fieldIndex + 1}"]`);
             if (nextInput !== null) {
                 nextInput.focus();
             }
@@ -65,28 +61,24 @@ function Board({ answer }) {
 
     function handleSubmit(e) {
         e.preventDefault();
-        console.log('answer revamped', answer.sequence.join("").split("").filter((val) => !Number.isInteger(parseInt(val))).join(""))
         const answerStr = answer.sequence.join("").split("").filter((val) => !Number.isInteger(parseInt(val))).join("");
         const guessStr = guess[currentRow];
         if (guessStr === answerStr) {
             document.querySelectorAll('input[name^="note"]').forEach((el) => el.style.background = 'green');
             setMessage("Congratulations!")
         } else {
-            console.log('guessStr', guessStr)
-            console.log('answerStr', answerStr)
             if (guessStr.length < 6) {
-                console.log('length is less than 6')
                 setError("Please fill out all the notes.")
                 return;
             } else {
                 setCurrentRow(currentRow + 1)
+                //TODO: Focus on the first tile in the next row if user has submitted 6 notes
             }
             for (let i = 0; i < guessStr.length; i++) {
                 if (guessStr[i] === answerStr[i]) {
-                    console.log("Square with right note should be green", i)
-                    document.querySelector(`input[name="note-${currentRow+1}-${i + 1}"]`).style.background = 'green';
+                    document.querySelector(`input[name="note-${currentRow + 1}-${i + 1}"]`).style.background = 'green';
                 } else if (answerStr.includes(guessStr[i])) {
-                    document.querySelector(`input[name="note-${currentRow+1}-${i + 1}"]`).style.background = 'yellow';
+                    document.querySelector(`input[name="note-${currentRow + 1}-${i + 1}"]`).style.background = 'yellow';
                 }
             }
             setError("Please try again")
