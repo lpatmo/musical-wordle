@@ -12,18 +12,44 @@ function Board({ answer }) {
     const [message, setMessage] = useState("");
 
     useEffect(() => {
-        window.addEventListener("keydown", function (event) {
-            if (event.key === "Backspace") {
-                console.log('I pressed backspace')
+        function handleKeyDown(event) {
+            switch (event.key) {
+                case 'Backspace':
+                    const currentTile = guess[currentRow].length;
+                    /*If user types in invalid note, remove error border after user hits backspace*/
+                    let currentTileEl = document.querySelector(`input[name="note-${currentRow + 1}-${currentTile + 1}"]`)
+                    currentTileEl.style.border = "none";
+                    setError("");
+
+                    /*Updated guess state after backspace*/
+                    const updatedGuess = guess.map((guessStr, i) => {
+                        if (i === currentRow) {
+                            return guessStr.slice(0, guessStr.length - 1);
+                        } else {
+                            return guessStr;
+                        }
+                    })
+                    setGuess(updatedGuess);
+
+                    /*Focus on previous title*/
+                    if (currentTile > 0) {
+                        const prevTile = document.querySelector(`input[name="note-${currentRow + 1}-${currentTile}"]`)
+                        prevTile.focus();
+                    }
+                    break;
+                default:
+                    break;
             }
-        })
-    }, [])
+        }
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown)
+    }, [guess, currentRow])
 
     function handleChange(e) {
         const { value, name } = e.target;
 
         let fieldIndex = parseInt(name.split("-")[2], 10);
-        let currentTile = document.querySelector(`input[name="note-1-${fieldIndex}"]`)
+        let currentTile = document.querySelector(`input[name="note-${currentRow + 1}-${fieldIndex}"]`)
         //Validate against non-valid notes
         if (!"abcdefg".includes(value.toLowerCase())) {
             //show error message
