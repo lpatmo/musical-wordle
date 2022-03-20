@@ -15,14 +15,6 @@ function Board({ answer }) {
     function handleKeyDown(event) {
       switch (true) {
         case event.key === "Backspace":
-          const currentTile = guess[currentRow].length;
-          /*If user types in invalid note, remove error border after user hits backspace*/
-          let currentTileEl = document.querySelector(
-            `input[name="note-${currentRow + 1}-${currentTile + 1}"]`
-          );
-          currentTileEl.style.border = "none";
-          setError("");
-
           /*Updated guess state after backspace*/
           const updatedGuess = guess.map((guessStr, i) => {
             if (i === currentRow) {
@@ -33,13 +25,6 @@ function Board({ answer }) {
           });
           setGuess(updatedGuess);
           setError("");
-          /*Focus on previous title*/
-          if (currentTile > 0) {
-            const prevTile = document.querySelector(
-              `input[name="note-${currentRow + 1}-${currentTile}"]`
-            );
-            prevTile.focus();
-          }
           break;
         case isNote(event.key):
           /*Update guess state after valid note*/
@@ -162,42 +147,42 @@ function Board({ answer }) {
             name="note-1-1"
             disabled={currentRow !== 0}
             maxLength={1}
-            value={guess[0][0]}
+            value={guess[0][0] || ""}
           />
           <input
             type="text"
             name="note-1-2"
             disabled={currentRow !== 0}
             maxLength={1}
-            value={guess[0][1]}
+            value={guess[0][1] || ""}
           />
           <input
             type="text"
             name="note-1-3"
             disabled={currentRow !== 0}
             maxLength={1}
-            value={guess[0][2]}
+            value={guess[0][2] || ""}
           />
           <input
             type="text"
             name="note-1-4"
             disabled={currentRow !== 0}
             maxLength={1}
-            value={guess[0][3]}
+            value={guess[0][3] || ""}
           />
           <input
             type="text"
             name="note-1-5"
             disabled={currentRow !== 0}
             maxLength={1}
-            value={guess[0][4]}
+            value={guess[0][4] || ""}
           />
           <input
             type="text"
             name="note-1-6"
             disabled={currentRow !== 0}
             maxLength={1}
-            value={guess[0][5]}
+            value={guess[0][5] || ""}
           />
           <button onClick={() => playSequence(answer, guess, 0)}>
             <icon>play</icon>
@@ -209,42 +194,42 @@ function Board({ answer }) {
             name="note-2-1"
             disabled={currentRow !== 1}
             maxLength={1}
-            value={guess[1][0]}
+            value={guess[1][0] || ""}
           />
           <input
             type="text"
             name="note-2-2"
             disabled={currentRow !== 1}
             maxLength={1}
-            value={guess[1][1]}
+            value={guess[1][1] || ""}
           />
           <input
             type="text"
             name="note-2-3"
             disabled={currentRow !== 1}
             maxLength={1}
-            value={guess[1][2]}
+            value={guess[1][2] || ""}
           />
           <input
             type="text"
             name="note-2-4"
             disabled={currentRow !== 1}
             maxLength={1}
-            value={guess[1][3]}
+            value={guess[1][3] || ""}
           />
           <input
             type="text"
             name="note-2-5"
             disabled={currentRow !== 1}
             maxLength={1}
-            value={guess[1][4]}
+            value={guess[1][4] || ""}
           />
           <input
             type="text"
             name="note-2-6"
             disabled={currentRow !== 1}
             maxLength={1}
-            value={guess[1][5]}
+            value={guess[1][5] || ""}
           />
           <button onClick={() => playSequence(answer, guess, 1)}>
             <icon>play</icon>
@@ -256,42 +241,42 @@ function Board({ answer }) {
             name="note-3-1"
             disabled={currentRow !== 2}
             maxLength={1}
-            value={guess[2][0]}
+            value={guess[2][0] || ""}
           />
           <input
             type="text"
             name="note-3-2"
             disabled={currentRow !== 2}
             maxLength={1}
-            value={guess[2][1]}
+            value={guess[2][1] || ""}
           />
           <input
             type="text"
             name="note-3-3"
             disabled={currentRow !== 2}
             maxLength={1}
-            value={guess[2][2]}
+            value={guess[2][2] || ""}
           />
           <input
             type="text"
             name="note-3-4"
             disabled={currentRow !== 2}
             maxLength={1}
-            value={guess[2][3]}
+            value={guess[2][3] || ""}
           />
           <input
             type="text"
             name="note-3-5"
             disabled={currentRow !== 2}
             maxLength={1}
-            value={guess[2][4]}
+            value={guess[2][4] || ""}
           />
           <input
             type="text"
             name="note-3-6"
             disabled={currentRow !== 2}
             maxLength={1}
-            value={guess[2][5]}
+            value={guess[2][5] || ""}
           />
           <button onClick={() => playSequence(answer, guess, 2)}>
             <icon>play</icon>
@@ -303,42 +288,42 @@ function Board({ answer }) {
             name="note-4-1"
             disabled={currentRow !== 3}
             maxLength={1}
-            value={guess[3][0]}
+            value={guess[3][0] || ""}
           />
           <input
             type="text"
             name="note-4-2"
             disabled={currentRow !== 3}
             maxLength={1}
-            value={guess[3][1]}
+            value={guess[3][1] || ""}
           />
           <input
             type="text"
             name="note-4-3"
             disabled={currentRow !== 3}
             maxLength={1}
-            value={guess[3][2]}
+            value={guess[3][2] || ""}
           />
           <input
             type="text"
             name="note-4-4"
             disabled={currentRow !== 3}
             maxLength={1}
-            value={guess[3][3]}
+            value={guess[3][3] || ""}
           />
           <input
             type="text"
             name="note-4-5"
             disabled={currentRow !== 3}
             maxLength={1}
-            value={guess[3][4]}
+            value={guess[3][4] || ""}
           />
           <input
             type="text"
             name="note-4-6"
             disabled={currentRow !== 3}
             maxLength={1}
-            value={guess[3][5]}
+            value={guess[3][5] || ""}
           />
           <button onClick={() => playSequence(answer, guess, 3)}>
             <icon>play</icon>
@@ -350,42 +335,42 @@ function Board({ answer }) {
             name="note-5-1"
             disabled={currentRow !== 4}
             maxLength={1}
-            value={guess[4][0]}
+            value={guess[4][0] || ""}
           />
           <input
             type="text"
             name="note-5-2"
             disabled={currentRow !== 4}
             maxLength={1}
-            value={guess[4][1]}
+            value={guess[4][1] || ""}
           />
           <input
             type="text"
             name="note-5-3"
             disabled={currentRow !== 4}
             maxLength={1}
-            value={guess[4][2]}
+            value={guess[4][2] || ""}
           />
           <input
             type="text"
             name="note-5-4"
             disabled={currentRow !== 4}
             maxLength={1}
-            value={guess[4][3]}
+            value={guess[4][3] || ""}
           />
           <input
             type="text"
             name="note-5-5"
             disabled={currentRow !== 4}
             maxLength={1}
-            value={guess[4][4]}
+            value={guess[4][4] || ""}
           />
           <input
             type="text"
             name="note-5-6"
             disabled={currentRow !== 4}
             maxLength={1}
-            value={guess[4][5]}
+            value={guess[4][5] || ""}
           />
           <button onClick={() => playSequence(answer, guess, 4)}>
             <icon>play</icon>
@@ -397,42 +382,42 @@ function Board({ answer }) {
             name="note-6-1"
             disabled={currentRow !== 5}
             maxLength={1}
-            value={guess[5][0]}
+            value={guess[5][0] || ""}
           />
           <input
             type="text"
             name="note-6-2"
             disabled={currentRow !== 5}
             maxLength={1}
-            value={guess[5][1]}
+            value={guess[5][1] || ""}
           />
           <input
             type="text"
             name="note-6-3"
             disabled={currentRow !== 5}
             maxLength={1}
-            value={guess[5][2]}
+            value={guess[5][2] || ""}
           />
           <input
             type="text"
             name="note-6-4"
             disabled={currentRow !== 5}
             maxLength={1}
-            value={guess[5][3]}
+            value={guess[5][3] || ""}
           />
           <input
             type="text"
             name="note-6-5"
             disabled={currentRow !== 5}
             maxLength={1}
-            value={guess[5][4]}
+            value={guess[5][4] || ""}
           />
           <input
             type="text"
             name="note-6-6"
             disabled={currentRow !== 5}
             maxLength={1}
-            value={guess[5][5]}
+            value={guess[5][5] || ""}
           />
           <button onClick={() => playSequence(answer, guess, 5)}>
             <icon>play</icon>
