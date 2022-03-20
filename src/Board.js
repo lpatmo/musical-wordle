@@ -43,8 +43,10 @@ function Board({ answer }) {
           break;
         case event.key === "Enter":
           handleSubmit(event);
+          //TODO: handleSubmit validation needs to be fixed.
           break;
         default:
+          //TODO: Alphanumeric?
           setError(`${event.key.toUpperCase()} is not a valid note.`);
           break;
       }
@@ -56,48 +58,6 @@ function Board({ answer }) {
   function isNote(str) {
     return str.length === 1 && "abcdefg".includes(str.toLowerCase());
   }
-  /* function handleChange(e) {
-    const { value, name } = e.target;
-
-    let fieldIndex = parseInt(name.split("-")[2], 10);
-    let currentTile = document.querySelector(
-      `input[name="note-${currentRow + 1}-${fieldIndex}"]`
-    );
-    //Validate against non-valid notes
-    if (!"abcdefg".includes(value.toLowerCase())) {
-      //show error message
-
-      setError(`${value.toUpperCase()} is not a valid note.`);
-
-      //reset tile
-      currentTile.value = "";
-      currentTile.style.border = "5px solid red";
-
-      //TODO: shake tile
-    } else if (value.length === 1) {
-      //Focus on the next input element if maxLength reached
-      //TODO: look into using nextElementSibling
-      setError("");
-      currentTile.style.border = "none";
-      const nextInput = document.querySelector(
-        `input[name="note-${currentRow + 1}-${fieldIndex + 1}"]`
-      );
-      if (nextInput !== null) {
-        nextInput.focus();
-      }
-
-      // Update the guess state by replacing items in an array
-      const updatedGuess = guess.map((guessStr, i) => {
-        if (i === currentRow) {
-          return guessStr + value.toUpperCase();
-        } else {
-          return guessStr;
-        }
-      });
-      setGuess(updatedGuess);
-    }
-    //TODO: focus on the previous input element if backspace pressed
-  }*/
 
   function handleSubmit(e) {
     e.preventDefault();
