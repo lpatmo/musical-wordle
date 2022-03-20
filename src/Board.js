@@ -42,7 +42,7 @@ function Board({ answer }) {
           setError("");
           break;
         case event.key === "Enter":
-          //handle validation/submission here
+          handleSubmit(event);
           break;
         default:
           setError(`${event.key.toUpperCase()} is not a valid note.`);
