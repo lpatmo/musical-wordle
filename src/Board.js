@@ -43,10 +43,10 @@ function Board({ answer }) {
           break;
         case event.key === "Enter":
           handleSubmit(event);
-          //TODO: handleSubmit validation needs to be fixed.
+          /*TODO: handleSubmit validation needs to be fixed.*/
           break;
         default:
-          //TODO: Alphanumeric?
+          /*TODO: Alphanumeric?*/
           setError(`${event.key.toUpperCase()} is not a valid note.`);
           break;
       }
