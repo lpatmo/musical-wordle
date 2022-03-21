@@ -42,8 +42,8 @@ function Board({ answer }) {
           setError("");
           break;
         case event.key === "Enter":
-          handleSubmit(event);
-          /*TODO: handleSubmit validation needs to be fixed.*/
+          /*handleSubmit(event);
+          TODO: handleSubmit validation needs to be fixed.*/
           break;
         default:
           /*TODO: Alphanumeric?*/
