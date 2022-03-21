@@ -32,7 +32,7 @@ function Board({ answer }) {
             setGuess(
               guess.map((guessStr, i) => {
                 if (i === currentRow) {
-                  return guessStr + event.key;
+                  return guessStr + event.key.toUpperCase();
                 } else {
                   return guessStr;
                 }
