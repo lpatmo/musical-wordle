@@ -10,6 +10,10 @@
 
 `git checkout -b [BRANCHNAME]`
 
+## How to delete a branch
+
+`git branch -D [BRANCHNAME]`
+
 ### How to pull the latest changes from upstream main so that it lands inside your fork
 
 1. `git checkout main`
