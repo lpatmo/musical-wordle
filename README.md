@@ -18,7 +18,7 @@
 
 If you're in a branch and you want your branch to get the latest updates, do:
 
-3. `git checkout [BRANCH]
+3. `git checkout [BRANCH]`
 4. `git rebase main`
 5. `git push --force`
 
