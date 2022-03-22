@@ -25,7 +25,7 @@ function App() {
         <h1>Musical Wordle</h1>
         <p>Ear training practice! Can you guess the first six notes?</p>
         <div className="audioSettings">
-          <button type="button" onClick={() => playSequence(answer)}><FontAwesomeIcon icon={faPlay} /></button>
+          <button type="button" onClick={() => playSequence(answer)}><FontAwesomeIcon icon={faPlay} /> Play the notes</button>
         </div>
         <Board answer={answer} />
         <p>Show hint</p>
