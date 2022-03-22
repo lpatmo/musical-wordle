@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Board.module.css";
 import playSequence from "./helpers/playSequence";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlay } from '@fortawesome/free-solid-svg-icons'
+
+
 
 function Board({ answer }) {
   const [guess, setGuess] = useState(new Array(6).fill(""));
@@ -145,7 +149,7 @@ function Board({ answer }) {
             value={guess[0][5] || ""}
           />
           <button onClick={() => playSequence(answer, guess, 0)}>
-            <icon>play</icon>
+           <FontAwesomeIcon icon={faPlay} />
           </button>
         </div>
         <div>
@@ -192,7 +196,7 @@ function Board({ answer }) {
             value={guess[1][5] || ""}
           />
           <button onClick={() => playSequence(answer, guess, 1)}>
-            <icon>play</icon>
+            <FontAwesomeIcon icon={faPlay} />
           </button>
         </div>
         <div>
@@ -239,7 +243,7 @@ function Board({ answer }) {
             value={guess[2][5] || ""}
           />
           <button onClick={() => playSequence(answer, guess, 2)}>
-            <icon>play</icon>
+            <FontAwesomeIcon icon={faPlay} />
           </button>
         </div>
         <div>
@@ -286,7 +290,7 @@ function Board({ answer }) {
             value={guess[3][5] || ""}
           />
           <button onClick={() => playSequence(answer, guess, 3)}>
-            <icon>play</icon>
+            <FontAwesomeIcon icon={faPlay} />
           </button>
         </div>
         <div>
@@ -333,7 +337,7 @@ function Board({ answer }) {
             value={guess[4][5] || ""}
           />
           <button onClick={() => playSequence(answer, guess, 4)}>
-            <icon>play</icon>
+            <FontAwesomeIcon icon={faPlay} />
           </button>
         </div>
         <div>
@@ -380,7 +384,7 @@ function Board({ answer }) {
             value={guess[5][5] || ""}
           />
           <button onClick={() => playSequence(answer, guess, 5)}>
-            <icon>play</icon>
+            <FontAwesomeIcon icon={faPlay} />
           </button>
         </div>
 

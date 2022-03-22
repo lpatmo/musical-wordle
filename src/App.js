@@ -2,8 +2,10 @@
 import './App.css';
 import { useState, useEffect } from 'react';
 import Board from './Board';
-import { data } from './data/data.js'
-import playSequence from './helpers/playSequence'
+import { data } from './data/data.js';
+import playSequence from './helpers/playSequence';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlay } from '@fortawesome/free-solid-svg-icons';
 
 
 function App() {
@@ -23,7 +25,7 @@ function App() {
         <h1>Musical Wordle</h1>
         <p>Ear training practice! Can you guess the first six notes?</p>
         <div className="audioSettings">
-          <button type="button" onClick={() => playSequence(answer)}>Play</button>
+          <button type="button" onClick={() => playSequence(answer)}><FontAwesomeIcon icon={faPlay} /></button>
         </div>
         <Board answer={answer} />
         <p>Show hint</p>
