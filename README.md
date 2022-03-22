@@ -6,7 +6,7 @@
 
    Note: the URL of the main repo is https://github.com/lpatmo/musical-wordle.git. You can find this by clicking ont he "code" button dropdown on https://github.com/lpatmo/musical-wordle.
 
-### How to create a new branch
+## How to create a new branch
 
 `git checkout -b [BRANCHNAME]`
 
@@ -14,7 +14,7 @@
 
 `git branch -D [BRANCHNAME]`
 
-### How to pull the latest changes from upstream main so that it lands inside your fork
+## How to pull the latest changes from upstream main so that it lands inside your fork
 
 1. `git checkout main`
 2. `git pull upstream main`
@@ -26,7 +26,7 @@ If you're in a branch and you want your branch to get the latest updates, do:
 4. `git rebase main`
 5. `git push --force`
 
-### How to pull and run the branches of a forked repo for a PR that you are reviewing
+## How to pull and run the branches of a forked repo for a PR that you are reviewing
 
 1. `git remote add [NICKNAME] [URL]` (Go to the user's forked repo and find the URL of the repo)
 2. `git fetch [NICKNAME]`
@@ -35,7 +35,7 @@ If you're in a branch and you want your branch to get the latest updates, do:
 5. `npm start` from inside this branch to check out the PR changes from the forked repo.
 6. When you are done, `git checkout main` to go back to your own `main` branch.
 
-### Best practice for reviewing and committing code
+## Best practice for reviewing and committing code
 
 1. Try to comment on individual lines in PRs. If everything looks good, you can type `LGTM`.
 2. When committing, try to prefix commits with the issue you are working on. For example: `git commit -am "[ISSUE-15] Update docs with some best practices"`
