@@ -12,6 +12,7 @@
   text-align: center;
   border: none;
   margin: 5px;
+  pointer-events: none;
 }
 .board input:focus {
   border: 2px solid black;
