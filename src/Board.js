@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Board.module.css";
 import playSequence from "./helpers/playSequence";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlay } from '@fortawesome/free-solid-svg-icons'
-
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlay } from "@fortawesome/free-solid-svg-icons";
 
 function Board({ answer }) {
   const [guess, setGuess] = useState(new Array(6).fill(""));
@@ -49,9 +47,10 @@ function Board({ answer }) {
           /*handleSubmit(event);
           TODO: handleSubmit validation needs to be fixed.*/
           break;
-        default:
-          /*TODO: Alphanumeric?*/
+        case RegExp("^[a-zA-Z0-9]$").test(event.key):
           setError(`${event.key.toUpperCase()} is not a valid note.`);
+          break;
+        default:
           break;
       }
     }
@@ -149,7 +148,7 @@ function Board({ answer }) {
             value={guess[0][5] || ""}
           />
           <button onClick={() => playSequence(answer, guess, 0)}>
-           <FontAwesomeIcon icon={faPlay} />
+            <FontAwesomeIcon icon={faPlay} />
           </button>
         </div>
         <div>
