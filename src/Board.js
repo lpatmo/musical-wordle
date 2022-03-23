@@ -16,6 +16,8 @@ function Board({ answer }) {
             .map(noteCluster=>noteCluster.split('')[0])
             .join('');
 
+        const answerFreqCount = getFreqCount(answerStr);
+
         const guessStr = guess[currentRow];
         if (guessStr === answerStr) {
             document
@@ -36,10 +38,12 @@ function Board({ answer }) {
                 document.querySelector(
                     `input[name="note-${currentRow + 1}-${i + 1}"]`
                 ).style.background = "green";
-            } else if (answerStr.includes(guessStr[i])) {
+                answerFreqCount[answerStr[i]]-=1;
+            } else if (answerStr.includes(guessStr[i]) && answerFreqCount[guessStr[i]] > 0) {
                 document.querySelector(
                     `input[name="note-${currentRow + 1}-${i + 1}"]`
                 ).style.background = "yellow";
+                answerFreqCount[guessStr[i]]-=1;
             }
         }
         setError("Please try again");
@@ -92,6 +96,19 @@ function Board({ answer }) {
 
     function isNote(str) {
         return str.length === 1 && "abcdefg".includes(str.toLowerCase());
+    }
+
+    function getFreqCount(noteSeq){
+        let freq = {};
+        for (let i=0; i<noteSeq.length;i++) {
+            let character = noteSeq.charAt(i);
+            if (freq[character]) {
+               freq[character]++;
+            } else {
+               freq[character] = 1;
+            }
+        }
+        return freq;
     }
 
     return (
