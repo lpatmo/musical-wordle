@@ -46,7 +46,7 @@ function Board({ answer }) {
             }
             setError("Please try again");
         }
-    }, [answer?.sequence, currentRow, guess])
+    }, [answer, currentRow, guess])
 
     useEffect(() => {
         function handleKeyDown(event) {
@@ -79,13 +79,13 @@ function Board({ answer }) {
                     setError("");
                     break;
                 case event.key === "Enter":
-                    handleSubmit(event)
+                    handleSubmit(event);
                     break;
                 case RegExp("^[a-zA-Z0-9]$").test(event.key):
                     setError(`${event.key.toUpperCase()} is not a valid note.`);
-                     break;
-                 default:
-                     break;
+                    break;
+                default:
+                    break;
             }
         }
         window.addEventListener("keydown", handleKeyDown);
