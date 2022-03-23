@@ -23,30 +23,29 @@ function Board({ answer }) {
                 .querySelectorAll(`input[name^="note-${currentRow + 1}"]`)
                 .forEach((el) => (el.style.background = "green"));
             setMessage("Congratulations!");
+        } else if (guessStr.length < 6) {
+            setError("Please fill out all the notes.");
+            return;
         } else {
-            if (guessStr.length < 6) {
-                setError("Please fill out all the notes.");
-                return;
-            } else {
-                /*If user has submitted 6 notes, play the notes when they submit*/
-                playSequence(answer, guess, currentRow);
-                /*Increment the row*/
-                setCurrentRow(currentRow + 1);
-            }
-            for (let i = 0; i < guessStr.length; i++) {
-                if (guessStr[i] === answerStr[i]) {
-                    document.querySelector(
-                        `input[name="note-${currentRow + 1}-${i + 1}"]`
-                    ).style.background = "green";
-                } else if (answerStr.includes(guessStr[i])) {
-                    document.querySelector(
-                        `input[name="note-${currentRow + 1}-${i + 1}"]`
-                    ).style.background = "yellow";
-                }
-            }
-            setError("Please try again");
+            /*If user has submitted 6 notes, play the notes when they submit*/
+            playSequence(answer, guess, currentRow);
+            /*Increment the row*/
+            setCurrentRow(currentRow + 1);
         }
-    }, [answer, currentRow, guess])
+        for (let i = 0; i < guessStr.length; i++) {
+            if (guessStr[i] === answerStr[i]) {
+                document.querySelector(
+                    `input[name="note-${currentRow + 1}-${i + 1}"]`
+                ).style.background = "green";
+            } else if (answerStr.includes(guessStr[i])) {
+                document.querySelector(
+                    `input[name="note-${currentRow + 1}-${i + 1}"]`
+                ).style.background = "yellow";
+            }
+        }
+        setError("Please try again");
+    }
+        , [answer, currentRow, guess])
 
     useEffect(() => {
         function handleKeyDown(event) {
@@ -192,7 +191,7 @@ function Board({ answer }) {
                         maxLength={1}
                         value={guess[1][5] || ""}
                     />
-                    <button onClick={() => playSequence(answer, guess, 1)}>
+                    <button onClick={(e) => { e.preventDefault(); playSequence(answer, guess, 1) }}>
                         <FontAwesomeIcon icon={faPlay} />
                     </button>
                 </div>
@@ -239,7 +238,7 @@ function Board({ answer }) {
                         maxLength={1}
                         value={guess[2][5] || ""}
                     />
-                    <button onClick={() => playSequence(answer, guess, 2)}>
+                    <button onClick={(e) => { e.preventDefault(); playSequence(answer, guess, 2) }}>
                         <FontAwesomeIcon icon={faPlay} />
                     </button>
                 </div>
@@ -286,7 +285,7 @@ function Board({ answer }) {
                         maxLength={1}
                         value={guess[3][5] || ""}
                     />
-                    <button onClick={() => playSequence(answer, guess, 3)}>
+                    <button onClick={(e) => { e.preventDefault(); playSequence(answer, guess, 3) }}>
                         <FontAwesomeIcon icon={faPlay} />
                     </button>
                 </div>
@@ -333,7 +332,7 @@ function Board({ answer }) {
                         maxLength={1}
                         value={guess[4][5] || ""}
                     />
-                    <button onClick={() => playSequence(answer, guess, 4)}>
+                    <button onClick={(e) => { e.preventDefault(); playSequence(answer, guess, 4) }}>
                         <FontAwesomeIcon icon={faPlay} />
                     </button>
                 </div>
@@ -380,7 +379,7 @@ function Board({ answer }) {
                         maxLength={1}
                         value={guess[5][5] || ""}
                     />
-                    <button onClick={() => playSequence(answer, guess, 5)}>
+                    <button onClick={(e) => { e.preventDefault(); playSequence(answer, guess, 5) }}>
                         <FontAwesomeIcon icon={faPlay} />
                     </button>
                 </div>
