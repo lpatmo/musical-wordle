@@ -13,7 +13,7 @@ function Board({ answer }) {
     const handleSubmit = useCallback((e) => {
         e.preventDefault();
         const answerStr = answer.sequence
-            .map(noteCluster=>noteCluster.split('')[0])
+            .map(noteCluster => noteCluster.split('')[0])
             .join('');
 
         const guessStr = guess[currentRow];
@@ -23,6 +23,7 @@ function Board({ answer }) {
                 .querySelectorAll(`input[name^="note-${currentRow}"]`)
                 .forEach((el) => (el.style.background = "green"));
             setMessage("Congratulations!");
+            setError("")
         } else if (guessStr.length < 6) {
             setError("Please fill out all the notes.");
             return;
@@ -44,8 +45,7 @@ function Board({ answer }) {
             }
         }
         setError("Please try again");
-    }
-        , [answer, currentRow, guess])
+    }, [answer, currentRow, guess]);
 
     useEffect(() => {
         function handleKeyDown(event) {
