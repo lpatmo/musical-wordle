@@ -1,10 +1,8 @@
 import React, { useEffect, useState, useCallback } from "react";
 import styles from "./Board.module.css";
 import playSequence from "./helpers/playSequence";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlay } from '@fortawesome/free-solid-svg-icons'
-
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlay } from "@fortawesome/free-solid-svg-icons";
 
 function Board({ answer }) {
     const [guess, setGuess] = useState(new Array(6).fill(""));
@@ -83,10 +81,11 @@ function Board({ answer }) {
                 case event.key === "Enter":
                     handleSubmit(event)
                     break;
-                default:
-                    /*TODO: Alphanumeric?*/
+                case RegExp("^[a-zA-Z0-9]$").test(event.key):
                     setError(`${event.key.toUpperCase()} is not a valid note.`);
-                    break;
+                     break;
+                 default:
+                     break;
             }
         }
         window.addEventListener("keydown", handleKeyDown);
@@ -96,7 +95,6 @@ function Board({ answer }) {
     function isNote(str) {
         return str.length === 1 && "abcdefg".includes(str.toLowerCase());
     }
-
 
     return (
         <>
