@@ -30,6 +30,9 @@ function Board({ answer }) {
                 setError("Please fill out all the notes.");
                 return;
             } else {
+                /*If user has submitted 6 notes, play the notes when they submit*/
+                playSequence(answer, guess, currentRow);
+                /*Increment the row*/
                 setCurrentRow(currentRow + 1);
             }
             for (let i = 0; i < guessStr.length; i++) {
@@ -144,7 +147,7 @@ function Board({ answer }) {
                         maxLength={1}
                         value={guess[0][5] || ""}
                     />
-                    <button onClick={() => playSequence(answer, guess, 0)}>
+                    <button onClick={(e) => { e.preventDefault(); playSequence(answer, guess, 0) }}>
                         <FontAwesomeIcon icon={faPlay} />
                     </button>
                 </div>
