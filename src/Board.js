@@ -22,7 +22,7 @@ function Board({ answer }) {
             document
                 .querySelectorAll(`input[name^="note-${currentRow + 1}"]`)
                 .forEach((el) => (el.style.background = "green"));
-            setMessage("Congratulations!");
+            setMessage("Congratulations! You correctly guessed "+answer['song']+ ' in ' + guess.join('').length/6 + '/' + guess.length + " tries!");
         } else if (guessStr.length < 6) {
             setError("Please fill out all the notes.");
             return;
