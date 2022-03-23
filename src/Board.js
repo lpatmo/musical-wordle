@@ -63,12 +63,13 @@ function Board({ answer }) {
   }
 
   function handleSubmit(e) {
+    
     e.preventDefault();
+
     const answerStr = answer.sequence
-      .join("")
-      .split("")
-      .filter((val) => !Number.isInteger(parseInt(val)))
-      .join("");
+        .map(noteCluster=>noteCluster.split('')[0])
+        .join('');
+
     const guessStr = guess[currentRow];
     if (guessStr === answerStr) {
       document
