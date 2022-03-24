@@ -112,6 +112,7 @@ function Board({ answer }) {
                                     maxLength={1}
                                     value={guess[row][column] || ""}
                                     tabIndex={-1}
+                                    readOnly
                                 />)
                             })}
                             <button onClick={(e) => { e.preventDefault(); playSequence(answer, guess, row) }}>
