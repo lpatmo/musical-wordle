@@ -32,6 +32,7 @@ function Board({ answer }) {
             playSequence(answer, guess, currentRow);
             /*Increment the row*/
             setCurrentRow(currentRow + 1);
+            setError("Please try again");
         }
         for (let i = 0; i < guessStr.length; i++) {
             if (guessStr[i] === answerStr[i]) {
@@ -44,7 +45,6 @@ function Board({ answer }) {
                 ).style.background = "yellow";
             }
         }
-        setError("Please try again");
     }, [answer, currentRow, guess]);
 
     useEffect(() => {
@@ -102,9 +102,10 @@ function Board({ answer }) {
             <form className={styles.board} onSubmit={handleSubmit}>
                 {guess.map((char, row) => {
                     return (
-                        <div>
-                            {guess.map((tile, column) => {
+                        <div key={row}>
+                            {[0, 1, 2, 3, 4, 5].map((column) => {
                                 return (<input
+                                    key={column}
                                     type="text"
                                     name={`note-${row}-${column}`}
                                     disabled={currentRow !== row}
