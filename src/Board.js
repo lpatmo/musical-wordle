@@ -100,58 +100,20 @@ function Board({ answer }) {
             <p>Guess: {JSON.stringify(guess)}</p>
             <p>Answer: {JSON.stringify(answer)}</p>
             <form className={styles.board} onSubmit={handleSubmit}>
-                {guess.map((row, i) => {
+                {guess.map((char, row) => {
                     return (
                         <div>
-                            <input
-                                type="text"
-                                name={`note-${i}-0`}
-                                disabled={currentRow !== i}
-                                maxLength={1}
-                                value={guess[i][0] || ""}
-                                tabIndex={-1}
-                            />
-                            <input
-                                type="text"
-                                name={`note-${i}-1`}
-                                disabled={currentRow !== i}
-                                maxLength={1}
-                                value={guess[i][1] || ""}
-                                tabIndex={-1}
-                            />
-                            <input
-                                type="text"
-                                name={`note-${i}-2`}
-                                disabled={currentRow !== i}
-                                maxLength={1}
-                                value={guess[i][2] || ""}
-                                tabIndex={-1}
-                            />
-                            <input
-                                type="text"
-                                name={`note-${i}-3`}
-                                disabled={currentRow !== i}
-                                maxLength={1}
-                                value={guess[i][3] || ""}
-                                tabIndex={-1}
-                            />
-                            <input
-                                type="text"
-                                name={`note-${i}-4`}
-                                disabled={currentRow !== i}
-                                maxLength={1}
-                                value={guess[i][4] || ""}
-                                tabIndex={-1}
-                            />
-                            <input
-                                type="text"
-                                name={`note-${i}-5`}
-                                disabled={currentRow !== i}
-                                maxLength={1}
-                                value={guess[i][5] || ""}
-                                tabIndex={-1}
-                            />
-                            <button onClick={(e) => { e.preventDefault(); playSequence(answer, guess, i) }}>
+                            {guess.map((tile, column) => {
+                                return (<input
+                                    type="text"
+                                    name={`note-${row}-${column}`}
+                                    disabled={currentRow !== row}
+                                    maxLength={1}
+                                    value={guess[row][column] || ""}
+                                    tabIndex={-1}
+                                />)
+                            })}
+                            <button onClick={(e) => { e.preventDefault(); playSequence(answer, guess, row) }}>
                                 <FontAwesomeIcon icon={faPlay} />
                             </button>
                         </div>
