@@ -36,19 +36,26 @@ function Board({ answer }) {
             setCurrentRow(currentRow + 1);
             setError("Please try again");
         }
+
+        /*Checks for all correct notes, adjusts frequency counter*/
         for (let i = 0; i < guessStr.length; i++) {
             if (guessStr[i] === answerStr[i]) {
                 document.querySelector(
                     `input[name="note-${currentRow}-${i}"]`
                 ).style.background = "green";
                 answerFreqCount[answerStr[i]]-=1;
-            } else if (answerStr.includes(guessStr[i]) && answerFreqCount[guessStr[i]] > 0) {
-                document.querySelector(
-                    `input[name="note-${currentRow}-${i}"]`
-                ).style.background = "yellow";
-                answerFreqCount[guessStr[i]]-=1;
-            }
+            } 
         }
+
+        /*Checks for all misplaced but correct notes, adjusts frequency counter*/
+        for (let i = 0; i < guessStr.length; i++){
+            if (answerStr.includes(guessStr[i]) && answerFreqCount[guessStr[i]] > 0) {
+            document.querySelector(
+                `input[name="note-${currentRow}-${i}"]`
+            ).style.background = "yellow";
+            answerFreqCount[guessStr[i]]-=1;
+        }}
+
     }, [answer, currentRow, guess]);
 
     useEffect(() => {
