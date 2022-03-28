@@ -40,14 +40,14 @@ button {
   padding: 10px 20px;
   font-size: 0.8em;
   margin: 5px;
-  background: black;
-  color: white;
+  background: var(--btn-color-1);
+  color: var(--btn-color-2);
   cursor: pointer;
   transition: 300ms ease-in-out;
 }
 
 button:hover {
-  background: white;
-  color: black;
+  background: var(--btn-color-2);
+  color: var(--btn-color-1);
   transform: translate(2px, 2px);
 }
