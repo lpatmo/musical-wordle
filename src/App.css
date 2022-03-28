@@ -38,4 +38,11 @@ button {
   background: black;
   color: white;
   cursor: pointer;
+  transition: 300ms ease-in-out;
+}
+
+button:hover {
+  background: white;
+  color: black;
+  transform: translate(2px, 2px);
 }
