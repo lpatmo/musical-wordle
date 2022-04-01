@@ -119,21 +119,6 @@ function Board({ answer }) {
         handleKeyDown({ key: note });
     }
 
-    function getFreqCount(noteSeq) {
-        let freq = {};
-        for (let i = 0; i < noteSeq.length; i++) {
-            let character = noteSeq.charAt(i);
-            if (freq[character]) {
-                freq[character]++;
-            } else {
-                freq[character] = 1;
-            }
-        }
-        return freq;
-    }
-
-
-
     return (
         <>
             <p>Guess: {JSON.stringify(guess)}</p>
