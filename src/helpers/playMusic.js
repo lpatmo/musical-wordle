@@ -44,7 +44,8 @@ export function playNote(note, answer, currentNote) {
 
     /*TODO: Consider adding an :active class to the piano key that was pressed*/
     Soundfont.instrument(ac, 'acoustic_grand_piano').then(function (piano) {
-        piano.play(`${note.toUpperCase()}${octave}`, ac.currentTime, { duration: 0.4 })
+        piano.stop();
+        piano.play(`${note.toUpperCase()}${octave}`, ac.currentTime, { duration: 0.5 })
     })
     return;
 }
