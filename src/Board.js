@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useCallback } from "react";
 import styles from "./Board.module.css";
-import playSequence from "./helpers/playSequence";
+import { playNote, playSequence } from "./helpers/playMusic";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlay } from "@fortawesome/free-solid-svg-icons";
+import { faPlay, faCircleRight } from "@fortawesome/free-solid-svg-icons";
+import Piano from './Piano'
 
 function Board({ answer }) {
     const [guess, setGuess] = useState(new Array(6).fill(""));
@@ -41,75 +42,81 @@ function Board({ answer }) {
                 document.querySelector(
                     `input[name="note-${currentRow}-${i}"]`
                 ).style.background = "green";
-                answerFreqCount[answerStr[i]]-=1;
+                answerFreqCount[answerStr[i]] -= 1;
             } else if (answerStr.includes(guessStr[i]) && answerFreqCount[guessStr[i]] > 0) {
                 document.querySelector(
                     `input[name="note-${currentRow}-${i}"]`
                 ).style.background = "yellow";
-                answerFreqCount[guessStr[i]]-=1;
+                answerFreqCount[guessStr[i]] -= 1;
             }
         }
     }, [answer, currentRow, guess]);
 
-    useEffect(() => {
-        function handleKeyDown(event) {
-            switch (true) {
-                case event.key === "Backspace":
-                    /*Updated guess state after backspace*/
-                    const updatedGuess = guess.map((guessStr, i) => {
-                        if (i === currentRow) {
-                            return guessStr.slice(0, guessStr.length - 1);
-                        } else {
-                            return guessStr;
-                        }
-                    });
-                    setGuess(updatedGuess);
-                    setError("");
-                    break;
-                case isNote(event.key):
-                    /*Update guess state after valid note*/
-                    if (guess[currentRow].length < 6) {
-                        setGuess(
-                            guess.map((guessStr, i) => {
-                                if (i === currentRow) {
-                                    return guessStr + event.key.toUpperCase();
-                                } else {
-                                    return guessStr;
-                                }
-                            })
-                        );
+    const handleKeyDown = useCallback((event) => {
+        switch (true) {
+            case event.key === "Backspace":
+                /*Updated guess state after backspace*/
+                const updatedGuess = guess.map((guessStr, i) => {
+                    if (i === currentRow) {
+                        return guessStr.slice(0, guessStr.length - 1);
+                    } else {
+                        return guessStr;
                     }
-                    setError("");
-                    break;
-                case event.key === "Enter":
-                    handleSubmit(event);
-                    break;
-                case RegExp("^[a-zA-Z0-9]$").test(event.key):
-                    setError(`${event.key.toUpperCase()} is not a valid note.`);
-                    break;
-                default:
-                    break;
-            }
+                });
+                setGuess(updatedGuess);
+                setError("");
+                break;
+            case isNote(event.key):
+                /*Update guess state after valid note*/
+                if (guess[currentRow].length < 6) {
+                    setGuess(
+                        guess.map((guessStr, i) => {
+                            if (i === currentRow) {
+                                return guessStr + event.key.toUpperCase();
+                            } else {
+                                return guessStr;
+                            }
+                        })
+                    );
+                }
+                /*Play the note in the same octave as the corresponding answer*/
+                playNote(event.key, answer, guess[currentRow].length)
+                setError("");
+                break;
+            case event.key === "Enter":
+                handleSubmit(event);
+                break;
+            case RegExp("^[a-zA-Z0-9]$").test(event.key):
+                setError(`${event.key.toUpperCase()} is not a valid note.`);
+                break;
+            default:
+                break;
         }
+    }, [answer, currentRow, guess, handleSubmit]);
+
+    useEffect(() => {
         window.addEventListener("keydown", handleKeyDown);
         return () => window.removeEventListener("keydown", handleKeyDown);
-    }, [guess, currentRow, handleSubmit]);
+    }, [guess, currentRow, handleSubmit, handleKeyDown]);
 
     function isNote(str) {
         return str.length === 1 && "abcdefg".includes(str.toLowerCase());
     }
 
-    function getFreqCount(noteSeq){
+    function getFreqCount(noteSeq) {
         let freq = {};
-        for (let i=0; i<noteSeq.length;i++) {
+        for (let i = 0; i < noteSeq.length; i++) {
             let character = noteSeq.charAt(i);
             if (freq[character]) {
-               freq[character]++;
+                freq[character]++;
             } else {
-               freq[character] = 1;
+                freq[character] = 1;
             }
         }
         return freq;
+    }
+    function handlePianoPress(note) {
+        handleKeyDown({ key: note });
     }
 
     return (
@@ -138,10 +145,11 @@ function Board({ answer }) {
                         </div>
                     )
                 })}
-                <button type="submit">Submit</button>
+                <button type="submit">Submit <FontAwesomeIcon icon={faCircleRight} /></button>
             </form>
             {error && <p className={styles.error}>{error}</p>}
             {message && message}
+            <Piano handlePianoPress={handlePianoPress} />
         </>
     );
 }
