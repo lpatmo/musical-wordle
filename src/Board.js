@@ -17,14 +17,12 @@ function Board({ answer }) {
             .map(noteCluster => noteCluster.split('')[0])
             .join('');
 
-        const answerFreqCount = getFreqCount(answerStr);
-
         const guessStr = guess[currentRow];
         if (guessStr === answerStr) {
             playSequence(answer, guess, currentRow);
             document
                 .querySelectorAll(`input[name^="note-${currentRow}"]`)
-                .forEach((el) => (el.style.background = "green"));
+                .forEach((el) => (el.classList.add(styles.correct)));
             setMessage("Congratulations!");
             setError("")
         } else if (guessStr.length < 6) {
