@@ -36,7 +36,9 @@ export function playSequence(answer, guess, currentRow) {
  */
 
 export function playNote(note, answer, currentNote) {
-    console.log('note and currentRow', note, currentNote)
+    if (currentNote === 6) {
+        return;
+    }
     const ac = new AudioContext();
     const octave = answer.sequence[currentNote].slice(1, 2)
 
