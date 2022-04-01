@@ -18,8 +18,11 @@ function Board({ answer }) {
             .join('');
 
         const guessStr = guess[currentRow];
+<<<<<<< HEAD
         const answerFreqCount = getFreqCount(answerStr);
 
+=======
+>>>>>>> Added CSS variables using wordle colors; DOM manipulation adds class instead of altering style of elements
         if (guessStr === answerStr) {
             playSequence(answer, guess, currentRow);
             document
@@ -42,12 +45,20 @@ function Board({ answer }) {
                 document.querySelector(
                     `input[name="note-${currentRow}-${i}"]`
                 ).classList.add(styles.correct);
+<<<<<<< HEAD
                 answerFreqCount[answerStr[i]] -= 1;
             } else if (answerStr.includes(guessStr[i]) && answerFreqCount[guessStr[i]] > 0) {
                 document.querySelector(
                     `input[name="note-${currentRow}-${i}"]`
                 ).classList.add(styles.misplaced);
                 answerFreqCount[guessStr[i]] -= 1;
+=======
+            
+            } else if (answerStr.includes(guessStr[i])) {
+                document.querySelector(
+                    `input[name="note-${currentRow}-${i}"]`
+                ).classList.add(styles.misplaced);
+>>>>>>> Added CSS variables using wordle colors; DOM manipulation adds class instead of altering style of elements
             } else {
                 document.querySelector(
                     `input[name="note-${currentRow}-${i}"]`
@@ -107,6 +118,7 @@ function Board({ answer }) {
         return str.length === 1 && "abcdefg".includes(str.toLowerCase());
     }
 
+<<<<<<< HEAD
     function getFreqCount(noteSeq) {
         let freq = {};
         for (let i = 0; i < noteSeq.length; i++) {
@@ -123,6 +135,8 @@ function Board({ answer }) {
         handleKeyDown({ key: note });
     }
 
+=======
+>>>>>>> Added CSS variables using wordle colors; DOM manipulation adds class instead of altering style of elements
     return (
         <>
             <p>Guess: {JSON.stringify(guess)}</p>
