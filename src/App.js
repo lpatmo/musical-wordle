@@ -3,7 +3,7 @@ import './App.css';
 import { useState, useEffect } from 'react';
 import Board from './Board';
 import { data } from './data/data.js';
-import playSequence from './helpers/playSequence';
+import { playSequence } from './helpers/playMusic';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay } from '@fortawesome/free-solid-svg-icons';
 
@@ -29,7 +29,6 @@ function App() {
           <button type="button" onClick={() => playSequence(answer)}><FontAwesomeIcon icon={faPlay} /> Play the notes</button>
         </div>
         <Board answer={answer} />
-        <p>Show hint</p>
       </header>
     </div>
   );
