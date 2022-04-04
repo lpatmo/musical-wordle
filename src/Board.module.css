@@ -19,6 +19,7 @@
   border: none;
   margin: 5px;
   pointer-events: none;
+  font-weight: bold;
 }
 .board input:focus {
   border: 2px solid black;
@@ -31,16 +32,13 @@
 .correct {
   background: var(--wordle-correct-color);
   color: var(--wordle-answer-text-color);
-  font-weight: bold;
 }
 
 .misplaced {
   background: var(--wordle-misplaced-color);
   color: var(--wordle-answer-text-color);
-  font-weight: bold;
 }
 
 .incorrect {
   color: var(--wordle-answer-text-color);
-  font-weight: bold;
 }

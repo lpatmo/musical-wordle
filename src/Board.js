@@ -18,6 +18,8 @@ function Board({ answer }) {
             .join('');
 
         const guessStr = guess[currentRow];
+        const answerFreqCount = getFreqCount(answerStr);
+
         if (guessStr === answerStr) {
             playSequence(answer, guess, currentRow);
             document
@@ -39,13 +41,17 @@ function Board({ answer }) {
             if (guessStr[i] === answerStr[i]) {
                 document.querySelector(
                     `input[name="note-${currentRow}-${i}"]`
-                ).style.background = "green";
+                ).classList.add(styles.correct);
                 answerFreqCount[answerStr[i]] -= 1;
             } else if (answerStr.includes(guessStr[i]) && answerFreqCount[guessStr[i]] > 0) {
                 document.querySelector(
                     `input[name="note-${currentRow}-${i}"]`
-                ).style.background = "yellow";
+                ).classList.add(styles.misplaced);
                 answerFreqCount[guessStr[i]] -= 1;
+            } else {
+                document.querySelector(
+                    `input[name="note-${currentRow}-${i}"]`
+                ).classList.add(styles.incorrect);
             }
         }
     }, [answer, currentRow, guess]);
