@@ -17,14 +17,14 @@ function Board({ answer }) {
             .map(noteCluster => noteCluster.split('')[0])
             .join('');
 
+        const guessStr = guess[currentRow];
         const answerFreqCount = getFreqCount(answerStr);
 
-        const guessStr = guess[currentRow];
         if (guessStr === answerStr) {
             playSequence(answer, guess, currentRow);
             document
                 .querySelectorAll(`input[name^="note-${currentRow}"]`)
-                .forEach((el) => (el.style.background = "green"));
+                .forEach((el) => (el.classList.add(styles.correct)));
             setMessage("Congratulations!");
             setError("")
         } else if (guessStr.length < 6) {
@@ -41,13 +41,17 @@ function Board({ answer }) {
             if (guessStr[i] === answerStr[i]) {
                 document.querySelector(
                     `input[name="note-${currentRow}-${i}"]`
-                ).style.background = "green";
+                ).classList.add(styles.correct);
                 answerFreqCount[answerStr[i]] -= 1;
             } else if (answerStr.includes(guessStr[i]) && answerFreqCount[guessStr[i]] > 0) {
                 document.querySelector(
                     `input[name="note-${currentRow}-${i}"]`
-                ).style.background = "yellow";
+                ).classList.add(styles.misplaced);
                 answerFreqCount[guessStr[i]] -= 1;
+            } else {
+                document.querySelector(
+                    `input[name="note-${currentRow}-${i}"]`
+                ).classList.add(styles.incorrect);
             }
         }
     }, [answer, currentRow, guess]);

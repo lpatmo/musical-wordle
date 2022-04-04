@@ -1,3 +1,9 @@
+:root {
+  --wordle-correct-color: #538d4e;
+  --wordle-misplaced-color: #c9b458;
+  --wordle-answer-text-color: white;
+}
+
 .board {
   margin-top: 2em;
 }
@@ -13,6 +19,7 @@
   border: none;
   margin: 5px;
   pointer-events: none;
+  font-weight: bold;
 }
 .board input:focus {
   border: 2px solid black;
@@ -20,4 +27,18 @@
 
 .error {
   color: red;
+}
+
+.correct {
+  background: var(--wordle-correct-color);
+  color: var(--wordle-answer-text-color);
+}
+
+.misplaced {
+  background: var(--wordle-misplaced-color);
+  color: var(--wordle-answer-text-color);
+}
+
+.incorrect {
+  color: var(--wordle-answer-text-color);
 }
