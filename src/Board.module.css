@@ -29,7 +29,20 @@
   color: red;
 }
 
-<<<<<<< HEAD
+.correct {
+  background: var(--wordle-correct-color);
+  color: var(--wordle-answer-text-color);
+}
+
+.misplaced {
+  background: var(--wordle-misplaced-color);
+  color: var(--wordle-answer-text-color);
+}
+
+.incorrect {
+  color: var(--wordle-answer-text-color);
+}
+
 .modal {
   display: flex;
   flex-direction: column;
@@ -46,18 +59,3 @@
   max-width:100%;
   max-height:100%;
 }
-=======
-.correct {
-  background: var(--wordle-correct-color);
-  color: var(--wordle-answer-text-color);
-}
-
-.misplaced {
-  background: var(--wordle-misplaced-color);
-  color: var(--wordle-answer-text-color);
-}
-
-.incorrect {
-  color: var(--wordle-answer-text-color);
-}
->>>>>>> main
