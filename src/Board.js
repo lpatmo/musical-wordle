@@ -181,7 +181,7 @@ function Board({ answer }) {
         </button>
       </form>
       {error && <p className={styles.error}>{error}</p>}
-      {message && message}
+      {message && <div className={styles.modal}>{message}</div>}
       <Piano handlePianoPress={handlePianoPress} />
     </>
   );
