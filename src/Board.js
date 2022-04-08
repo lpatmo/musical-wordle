@@ -35,6 +35,7 @@ function Board({ answer }) {
             guess.length +
             " tries!"
         );
+        window.addEventListener("click", removeModal);
       } else if (guessStr.length < 6) {
         setError("Please fill out all the notes.");
         return;
@@ -42,6 +43,7 @@ function Board({ answer }) {
         setMessage(
           "Better luck next time! The song was " + answer["song"] + "."
         );
+        window.addEventListener("click", removeModal);
       } else {
         /*If user has submitted 6 notes, play the notes when they submit*/
         playSequence(answer, guess, currentRow);
@@ -117,6 +119,10 @@ function Board({ answer }) {
     },
     [answer, currentRow, guess, handleSubmit]
   );
+  const removeModal = useCallback((event) => {
+    setMessage("");
+    window.removeEventListener("click", removeModal);
+  }, []);
 
   useEffect(() => {
     window.addEventListener("keydown", handleKeyDown);
