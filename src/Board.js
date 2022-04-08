@@ -38,6 +38,10 @@ function Board({ answer }) {
       } else if (guessStr.length < 6) {
         setError("Please fill out all the notes.");
         return;
+      } else if (guess.join("").length / 6 === 6) {
+        setMessage(
+          "Better luck next time! The song was " + answer["song"] + "."
+        );
       } else {
         /*If user has submitted 6 notes, play the notes when they submit*/
         playSequence(answer, guess, currentRow);
