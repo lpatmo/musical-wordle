@@ -1,28 +1,30 @@
 import React, { useEffect, useState, useCallback } from "react";
 import styles from "./Board.module.css";
-import playSequence from "./helpers/playSequence";
+import { playNote, playSequence } from "./helpers/playMusic";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlay } from "@fortawesome/free-solid-svg-icons";
+import { faPlay, faCircleRight } from "@fortawesome/free-solid-svg-icons";
+import Piano from "./Piano";
 
 function Board({ answer }) {
   const [guess, setGuess] = useState(new Array(6).fill(""));
   const [currentRow, setCurrentRow] = useState(0);
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
-
   const handleSubmit = useCallback(
     (e) => {
       e.preventDefault();
       const answerStr = answer.sequence
-        .join("")
-        .split("")
-        .filter((val) => !Number.isInteger(parseInt(val)))
+        .map((noteCluster) => noteCluster.split("")[0])
         .join("");
+
       const guessStr = guess[currentRow];
+      const answerFreqCount = getFreqCount(answerStr);
+
       if (guessStr === answerStr) {
+        playSequence(answer, guess, currentRow);
         document
-          .querySelectorAll(`input[name^="note-${currentRow + 1}"]`)
-          .forEach((el) => (el.style.background = "green"));
+          .querySelectorAll(`input[name^="note-${currentRow}"]`)
+          .forEach((el) => el.classList.add(styles.correct));
         setMessage(
           "Congratulations! You correctly guessed " +
             answer["song"] +
@@ -32,6 +34,7 @@ function Board({ answer }) {
             guess.length +
             " tries!"
         );
+        setError("");
       } else if (guessStr.length < 6) {
         setError("Please fill out all the notes.");
         return;
@@ -44,25 +47,34 @@ function Board({ answer }) {
         playSequence(answer, guess, currentRow);
         /*Increment the row*/
         setCurrentRow(currentRow + 1);
+        setError("Please try again");
       }
       for (let i = 0; i < guessStr.length; i++) {
         if (guessStr[i] === answerStr[i]) {
-          document.querySelector(
-            `input[name="note-${currentRow + 1}-${i + 1}"]`
-          ).style.background = "green";
-        } else if (answerStr.includes(guessStr[i])) {
-          document.querySelector(
-            `input[name="note-${currentRow + 1}-${i + 1}"]`
-          ).style.background = "yellow";
+          document
+            .querySelector(`input[name="note-${currentRow}-${i}"]`)
+            .classList.add(styles.correct);
+          answerFreqCount[answerStr[i]] -= 1;
+        } else if (
+          answerStr.includes(guessStr[i]) &&
+          answerFreqCount[guessStr[i]] > 0
+        ) {
+          document
+            .querySelector(`input[name="note-${currentRow}-${i}"]`)
+            .classList.add(styles.misplaced);
+          answerFreqCount[guessStr[i]] -= 1;
+        } else {
+          document
+            .querySelector(`input[name="note-${currentRow}-${i}"]`)
+            .classList.add(styles.incorrect);
         }
       }
-      setError("Please try again");
     },
     [answer, currentRow, guess]
   );
 
-  useEffect(() => {
-    function handleKeyDown(event) {
+  const handleKeyDown = useCallback(
+    (event) => {
       switch (true) {
         case event.key === "Backspace":
           /*Updated guess state after backspace*/
@@ -89,6 +101,8 @@ function Board({ answer }) {
               })
             );
           }
+          /*Play the note in the same octave as the corresponding answer*/
+          playNote(event.key, answer, guess[currentRow].length);
           setError("");
           break;
         case event.key === "Enter":
@@ -100,13 +114,29 @@ function Board({ answer }) {
         default:
           break;
       }
-    }
+    },
+    [answer, currentRow, guess, handleSubmit]
+  );
+
+  useEffect(() => {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [guess, currentRow, handleSubmit]);
+  }, [guess, currentRow, handleSubmit, handleKeyDown]);
 
-  function isNote(str) {
-    return str.length === 1 && "abcdefg".includes(str.toLowerCase());
+  function getFreqCount(noteSeq) {
+    let freq = {};
+    for (let i = 0; i < noteSeq.length; i++) {
+      let character = noteSeq.charAt(i);
+      if (freq[character]) {
+        freq[character]++;
+      } else {
+        freq[character] = 1;
+      }
+    }
+    return freq;
+  }
+  function handlePianoPress(note) {
+    handleKeyDown({ key: note });
   }
 
   return (
@@ -114,323 +144,40 @@ function Board({ answer }) {
       <p>Guess: {JSON.stringify(guess)}</p>
       <p>Answer: {JSON.stringify(answer)}</p>
       <form className={styles.board} onSubmit={handleSubmit}>
-        {/*TOOO: Map through guesses state instead of hardcoding below. See: https://github.com/lpatmo/musical-wordle/issues/5 */}
-        <div>
-          <input
-            type="text"
-            name="note-1-1"
-            disabled={currentRow !== 0}
-            maxLength={1}
-            value={guess[0][0] || ""}
-          />
-          <input
-            type="text"
-            name="note-1-2"
-            disabled={currentRow !== 0}
-            maxLength={1}
-            value={guess[0][1] || ""}
-          />
-          <input
-            type="text"
-            name="note-1-3"
-            disabled={currentRow !== 0}
-            maxLength={1}
-            value={guess[0][2] || ""}
-          />
-          <input
-            type="text"
-            name="note-1-4"
-            disabled={currentRow !== 0}
-            maxLength={1}
-            value={guess[0][3] || ""}
-          />
-          <input
-            type="text"
-            name="note-1-5"
-            disabled={currentRow !== 0}
-            maxLength={1}
-            value={guess[0][4] || ""}
-          />
-          <input
-            type="text"
-            name="note-1-6"
-            disabled={currentRow !== 0}
-            maxLength={1}
-            value={guess[0][5] || ""}
-          />
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              playSequence(answer, guess, 0);
-            }}
-          >
-            <FontAwesomeIcon icon={faPlay} />
-          </button>
-        </div>
-        <div>
-          <input
-            type="text"
-            name="note-2-1"
-            disabled={currentRow !== 1}
-            maxLength={1}
-            value={guess[1][0] || ""}
-          />
-          <input
-            type="text"
-            name="note-2-2"
-            disabled={currentRow !== 1}
-            maxLength={1}
-            value={guess[1][1] || ""}
-          />
-          <input
-            type="text"
-            name="note-2-3"
-            disabled={currentRow !== 1}
-            maxLength={1}
-            value={guess[1][2] || ""}
-          />
-          <input
-            type="text"
-            name="note-2-4"
-            disabled={currentRow !== 1}
-            maxLength={1}
-            value={guess[1][3] || ""}
-          />
-          <input
-            type="text"
-            name="note-2-5"
-            disabled={currentRow !== 1}
-            maxLength={1}
-            value={guess[1][4] || ""}
-          />
-          <input
-            type="text"
-            name="note-2-6"
-            disabled={currentRow !== 1}
-            maxLength={1}
-            value={guess[1][5] || ""}
-          />
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              playSequence(answer, guess, 1);
-            }}
-          >
-            <FontAwesomeIcon icon={faPlay} />
-          </button>
-        </div>
-        <div>
-          <input
-            type="text"
-            name="note-3-1"
-            disabled={currentRow !== 2}
-            maxLength={1}
-            value={guess[2][0] || ""}
-          />
-          <input
-            type="text"
-            name="note-3-2"
-            disabled={currentRow !== 2}
-            maxLength={1}
-            value={guess[2][1] || ""}
-          />
-          <input
-            type="text"
-            name="note-3-3"
-            disabled={currentRow !== 2}
-            maxLength={1}
-            value={guess[2][2] || ""}
-          />
-          <input
-            type="text"
-            name="note-3-4"
-            disabled={currentRow !== 2}
-            maxLength={1}
-            value={guess[2][3] || ""}
-          />
-          <input
-            type="text"
-            name="note-3-5"
-            disabled={currentRow !== 2}
-            maxLength={1}
-            value={guess[2][4] || ""}
-          />
-          <input
-            type="text"
-            name="note-3-6"
-            disabled={currentRow !== 2}
-            maxLength={1}
-            value={guess[2][5] || ""}
-          />
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              playSequence(answer, guess, 2);
-            }}
-          >
-            <FontAwesomeIcon icon={faPlay} />
-          </button>
-        </div>
-        <div>
-          <input
-            type="text"
-            name="note-4-1"
-            disabled={currentRow !== 3}
-            maxLength={1}
-            value={guess[3][0] || ""}
-          />
-          <input
-            type="text"
-            name="note-4-2"
-            disabled={currentRow !== 3}
-            maxLength={1}
-            value={guess[3][1] || ""}
-          />
-          <input
-            type="text"
-            name="note-4-3"
-            disabled={currentRow !== 3}
-            maxLength={1}
-            value={guess[3][2] || ""}
-          />
-          <input
-            type="text"
-            name="note-4-4"
-            disabled={currentRow !== 3}
-            maxLength={1}
-            value={guess[3][3] || ""}
-          />
-          <input
-            type="text"
-            name="note-4-5"
-            disabled={currentRow !== 3}
-            maxLength={1}
-            value={guess[3][4] || ""}
-          />
-          <input
-            type="text"
-            name="note-4-6"
-            disabled={currentRow !== 3}
-            maxLength={1}
-            value={guess[3][5] || ""}
-          />
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              playSequence(answer, guess, 3);
-            }}
-          >
-            <FontAwesomeIcon icon={faPlay} />
-          </button>
-        </div>
-        <div>
-          <input
-            type="text"
-            name="note-5-1"
-            disabled={currentRow !== 4}
-            maxLength={1}
-            value={guess[4][0] || ""}
-          />
-          <input
-            type="text"
-            name="note-5-2"
-            disabled={currentRow !== 4}
-            maxLength={1}
-            value={guess[4][1] || ""}
-          />
-          <input
-            type="text"
-            name="note-5-3"
-            disabled={currentRow !== 4}
-            maxLength={1}
-            value={guess[4][2] || ""}
-          />
-          <input
-            type="text"
-            name="note-5-4"
-            disabled={currentRow !== 4}
-            maxLength={1}
-            value={guess[4][3] || ""}
-          />
-          <input
-            type="text"
-            name="note-5-5"
-            disabled={currentRow !== 4}
-            maxLength={1}
-            value={guess[4][4] || ""}
-          />
-          <input
-            type="text"
-            name="note-5-6"
-            disabled={currentRow !== 4}
-            maxLength={1}
-            value={guess[4][5] || ""}
-          />
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              playSequence(answer, guess, 4);
-            }}
-          >
-            <FontAwesomeIcon icon={faPlay} />
-          </button>
-        </div>
-        <div>
-          <input
-            type="text"
-            name="note-6-1"
-            disabled={currentRow !== 5}
-            maxLength={1}
-            value={guess[5][0] || ""}
-          />
-          <input
-            type="text"
-            name="note-6-2"
-            disabled={currentRow !== 5}
-            maxLength={1}
-            value={guess[5][1] || ""}
-          />
-          <input
-            type="text"
-            name="note-6-3"
-            disabled={currentRow !== 5}
-            maxLength={1}
-            value={guess[5][2] || ""}
-          />
-          <input
-            type="text"
-            name="note-6-4"
-            disabled={currentRow !== 5}
-            maxLength={1}
-            value={guess[5][3] || ""}
-          />
-          <input
-            type="text"
-            name="note-6-5"
-            disabled={currentRow !== 5}
-            maxLength={1}
-            value={guess[5][4] || ""}
-          />
-          <input
-            type="text"
-            name="note-6-6"
-            disabled={currentRow !== 5}
-            maxLength={1}
-            value={guess[5][5] || ""}
-          />
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              playSequence(answer, guess, 5);
-            }}
-          >
-            <FontAwesomeIcon icon={faPlay} />
-          </button>
-        </div>
-
-        <button type="submit">Submit</button>
+        {guess.map((char, row) => {
+          return (
+            <div key={row}>
+              {[0, 1, 2, 3, 4, 5].map((column) => {
+                return (
+                  <input
+                    key={column}
+                    type="text"
+                    name={`note-${row}-${column}`}
+                    disabled={currentRow !== row}
+                    maxLength={1}
+                    value={guess[row][column] || ""}
+                    tabIndex={-1}
+                    readOnly
+                  />
+                );
+              })}
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  playSequence(answer, guess, row);
+                }}
+              >
+                <FontAwesomeIcon icon={faPlay} />
+              </button>
+            </div>
+          );
+        })}
+        <button type="submit">
+          Submit <FontAwesomeIcon icon={faCircleRight} />
+        </button>
       </form>
       {error && <p className={styles.error}>{error}</p>}
+      <Piano handlePianoPress={handlePianoPress} />
       {message && <div className={styles.modal}>{message}</div>}
     </>
   );
