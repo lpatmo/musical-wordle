@@ -24,25 +24,20 @@ function Board({ answer }) {
       if (guessStr === answerStr) {
         playSequence(answer, guess, currentRow);
         document
-          .querySelectorAll(`input[name^="note-${currentRow + 1}"]`)
-          .forEach((el) => (el.style.background = "green"));
+          .querySelectorAll(`input[name^="note-${currentRow}"]`)
+          .forEach((el) => el.classList.add(styles.correct));
         setMessage(
-          "Congratulations! You correctly guessed " +
-            answer["song"] +
-            " in " +
-            guess.join("").length / 6 +
-            "/" +
-            guess.length +
-            " tries!"
+          `Congratulations! You correctly guessed '${answer["song"]}' in ${
+            guess.join("").length / 6
+          }/${guess.length} tries!`
         );
         window.addEventListener("click", removeModal);
       } else if (guessStr.length < 6) {
         setError("Please fill out all the notes.");
         return;
       } else if (guess.join("").length / 6 === 6) {
-        setMessage(
-          "Better luck next time! The song was " + answer["song"] + "."
-        );
+        setMessage(`Better luck next time! The song was '${answer["song"]}'.\n
+        Notes: ${answerStr}`);
         window.addEventListener("click", removeModal);
       } else {
         /*If user has submitted 6 notes, play the notes when they submit*/
