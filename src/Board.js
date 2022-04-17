@@ -14,7 +14,7 @@ function Board({ answer }) {
   const handleSubmit = useCallback(
     (e) => {
       e.preventDefault();
-      const answerStr = answer.sequence
+      let answerStr = answer.sequence
         .map((noteCluster) => noteCluster.split("")[0])
         .join("");
 
@@ -46,15 +46,26 @@ function Board({ answer }) {
         setCurrentRow(currentRow + 1);
         setError("Please try again");
       }
+      /* Check for correct notes */
       for (let i = 0; i < guessStr.length; i++) {
         if (guessStr[i] === answerStr[i]) {
           document
             .querySelector(`input[name="note-${currentRow}-${i}"]`)
             .classList.add(styles.correct);
           answerFreqCount[answerStr[i]] -= 1;
-        } else if (
-          answerStr.includes(guessStr[i]) &&
-          answerFreqCount[guessStr[i]] > 0
+          answerStr = answerStr.split('');
+          answerStr[i] = "X";
+          answerStr = answerStr.join('');
+          console.log(answerStr);
+        } 
+      }
+
+      /*Check for misplaced notes and wrong notes */
+      for (let i = 0; i < guessStr.length; i++) {
+       if (
+          answerStr.includes(guessStr[i]) 
+          && answerStr[i] !== "X" 
+          && answerFreqCount[guessStr[i]] > 0
         ) {
           document
             .querySelector(`input[name="note-${currentRow}-${i}"]`)
