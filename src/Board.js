@@ -10,6 +10,7 @@ function Board({ answer }) {
   const [currentRow, setCurrentRow] = useState(0);
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
+  const [gameOver, setGameOver] = useState(false);
 
   const handleSubmit = useCallback(
     (e) => {
@@ -22,6 +23,7 @@ function Board({ answer }) {
       const answerFreqCount = getFreqCount(answerStr);
 
       if (guessStr === answerStr) {
+        setGameOver(true);
         playSequence(answer, guess, currentRow);
         document
           .querySelectorAll(`input[name^="note-${currentRow}"]`)
@@ -36,6 +38,7 @@ function Board({ answer }) {
         setError("Please fill out all the notes.");
         return;
       } else if (guess.join("").length / 6 === 6) {
+        setGameOver(true);
         setMessage(`Better luck next time! The song was '${answer["song"]}'.\n
         Notes: ${answerStr}`);
         window.addEventListener("click", removeModal);
@@ -53,19 +56,19 @@ function Board({ answer }) {
             .querySelector(`input[name="note-${currentRow}-${i}"]`)
             .classList.add(styles.correct);
           answerFreqCount[answerStr[i]] -= 1;
-          answerStr = answerStr.split('');
+          answerStr = answerStr.split("");
           answerStr[i] = "X";
-          answerStr = answerStr.join('');
+          answerStr = answerStr.join("");
           console.log(answerStr);
-        } 
+        }
       }
 
       /*Check for misplaced notes and wrong notes */
       for (let i = 0; i < guessStr.length; i++) {
-       if (
-          answerStr.includes(guessStr[i]) 
-          && answerStr[i] !== "X" 
-          && answerFreqCount[guessStr[i]] > 0
+        if (
+          answerStr.includes(guessStr[i]) &&
+          answerStr[i] !== "X" &&
+          answerFreqCount[guessStr[i]] > 0
         ) {
           document
             .querySelector(`input[name="note-${currentRow}-${i}"]`)
@@ -84,6 +87,9 @@ function Board({ answer }) {
   const handleKeyDown = useCallback(
     (event) => {
       switch (true) {
+        case gameOver:
+          /*Do not accept user input if game is over */
+          break;
         case event.key === "Backspace":
           /*Updated guess state after backspace*/
           const updatedGuess = guess.map((guessStr, i) => {
@@ -123,7 +129,7 @@ function Board({ answer }) {
           break;
       }
     },
-    [answer, currentRow, guess, handleSubmit]
+    [answer, gameOver, currentRow, guess, handleSubmit]
   );
   const removeModal = useCallback((event) => {
     setMessage("");
