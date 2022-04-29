@@ -193,7 +193,7 @@ function Board({ answer }) {
         </button>
       </form>
       {error && <p className={styles.error}>{error}</p>}
-      {message && <div className={styles.modal}>{message}</div>}
+      {message && <div className={styles.modal}><button className={styles.modalCloseBtn} onClick={removeModal}>X (Close)</button><p>{message}</p></div>}
       {message && <div className={styles.modalOverlay}></div>}
 
       <Piano handlePianoPress={handlePianoPress} />
