@@ -65,6 +65,7 @@
   z-index: 10;
 }
 
+<<<<<<< HEAD
 .modalXClose {
   align-self: flex-end;
   /*border: 3px solid var(--wordle-text-color-lightmode);*/
@@ -91,6 +92,14 @@
   font-weight: bold;
   width: 25%;
   text-align: center;
+=======
+.modalCloseBtn {
+  align-self: flex-end;
+  border: 3px solid var(--wordle-text-color-lightmode);
+  background-color: var(--wordle-background-color-lightmode);
+  color: var(--wordle-text-color-lightmode);
+  font-size: 1.2rem;
+>>>>>>> 557f0f35ba1f0f5348e5b564a130600a6ad539b6
 }
 
 .modalCloseBtn:hover {
