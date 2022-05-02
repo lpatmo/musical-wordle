@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import styles from "./Board.module.css";
 import { playNote, playSequence } from "./helpers/playMusic";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlay, faCircleRight } from "@fortawesome/free-solid-svg-icons";
+import { faPlay, faCircleRight, faX } from "@fortawesome/free-solid-svg-icons";
 import Piano from "./Piano";
 
 function Board({ answer }) {
@@ -199,7 +199,13 @@ function Board({ answer }) {
         </button>
       </form>
       {error && <p className={styles.error}>{error}</p>}
-      {message && <div className={styles.modal}><button className={styles.modalCloseBtn} onClick={removeModal}>X (Close)</button><p>{message}</p></div>}
+      {message && <div className={styles.modal}>
+                    <button className={styles.modalXClose} onClick={removeModal}>
+                    <FontAwesomeIcon icon={faX}/>
+                    </button>
+                    <p>{message}</p>
+                    <button className={styles.modalCloseBtn} onClick={removeModal}>Close</button>
+                  </div>}
       {message && <div className={styles.modalOverlay}></div>}
 
       <Piano handlePianoPress={handlePianoPress} />
