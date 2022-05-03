@@ -2,7 +2,7 @@
 import './App.css';
 import { useState, useEffect } from 'react';
 import Board from './Board';
-import { data } from './data/data.js';
+//import { data } from './data/data.js';
 import { playSequence } from './helpers/playMusic';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay } from '@fortawesome/free-solid-svg-icons';
@@ -11,7 +11,7 @@ import { faPlay } from '@fortawesome/free-solid-svg-icons';
  *  1) Uncomment the following for mock data for validation testing
  *  2) Comment out above import from data.js
 */
-//import {data} from './data/mock-data.js';
+import {data} from './data/mock-data.js';
 
 
 function App() {

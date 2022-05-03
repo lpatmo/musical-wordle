@@ -74,7 +74,7 @@ function Board({ answer }) {
             .querySelector(`input[name="note-${currentRow}-${i}"]`)
             .classList.add(styles.misplaced);
           answerFreqCount[guessStr[i]] -= 1;
-        } else {
+        } else if ( answerStr[i] !== "X"){
           document
             .querySelector(`input[name="note-${currentRow}-${i}"]`)
             .classList.add(styles.incorrect);
