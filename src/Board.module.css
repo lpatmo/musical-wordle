@@ -67,7 +67,6 @@
 
 .modalXClose {
   align-self: flex-end;
-  /*border: 3px solid var(--wordle-text-color-lightmode);*/
   background-color: var(--wordle-background-color-lightmode);
   color: var(--wordle-text-color-lightmode);
   font-size: 1.2rem;
@@ -75,7 +74,6 @@
 }
 
 .modalXClose:hover {
-  border: 1px solid var(--wordle-text-color-lightmode);
   background-color: var(--wordle-background-color-selected-lightmode);
   color: var(--wordle-text-color-lightmode-selected);
   font-weight: bold;
