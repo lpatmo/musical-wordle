@@ -11,7 +11,11 @@ function Board({ answer }) {
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const [gameOver, setGameOver] = useState(false);
-
+  const [shareOutput, setShareOutput] = useState(
+    new Array(6).fill(null).map((row) => {
+      return Array(6).fill("⬛");
+    })
+  );
   const handleSubmit = useCallback(
     (e) => {
       e.preventDefault();
@@ -25,6 +29,7 @@ function Board({ answer }) {
       if (guessStr === answerStr) {
         setGameOver(true);
         playSequence(answer, guess, currentRow);
+        setShareOutput(shareOutput.slice(0, currentRow + 1));
         document
           .querySelectorAll(`input[name^="note-${currentRow}"]`)
           .forEach((el) => el.classList.add(styles.correct));
@@ -52,6 +57,7 @@ function Board({ answer }) {
       /* Check for correct notes */
       for (let i = 0; i < guessStr.length; i++) {
         if (guessStr[i] === answerStr[i]) {
+          shareOutput[currentRow][i] = "🟩";
           document
             .querySelector(`input[name="note-${currentRow}-${i}"]`)
             .classList.add(styles.correct);
@@ -70,11 +76,12 @@ function Board({ answer }) {
           answerStr[i] !== "X" &&
           answerFreqCount[guessStr[i]] > 0
         ) {
+          shareOutput[currentRow][i] = "🟨";
           document
             .querySelector(`input[name="note-${currentRow}-${i}"]`)
             .classList.add(styles.misplaced);
           answerFreqCount[guessStr[i]] -= 1;
-        } else if ( answerStr[i] !== "X"){
+        } else if (answerStr[i] !== "X") {
           document
             .querySelector(`input[name="note-${currentRow}-${i}"]`)
             .classList.add(styles.incorrect);
@@ -161,7 +168,17 @@ function Board({ answer }) {
     handleKeyDown({ key: note });
   }
   function shareResults() {
-    navigator.clipboard.writeText("");
+    console.log(shareOutput);
+    navigator.clipboard.writeText(
+      `Musical Wordle - '${answer["song"]}' ${guess.join("").length / 6}/${
+        guess.length
+      }\n` +
+        shareOutput
+          .map((row) => {
+            return row.join("");
+          })
+          .join("\n")
+    );
     alert("Copied results to clipboard");
   }
   return (
