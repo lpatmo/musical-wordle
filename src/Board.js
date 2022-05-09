@@ -2,7 +2,12 @@ import React, { useEffect, useState, useCallback } from "react";
 import styles from "./Board.module.css";
 import { playNote, playSequence } from "./helpers/playMusic";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlay, faCircleRight, faX } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPlay,
+  faCircleRight,
+  faX,
+  faShareAlt,
+} from "@fortawesome/free-solid-svg-icons";
 import Piano from "./Piano";
 
 function Board({ answer }) {
@@ -11,6 +16,7 @@ function Board({ answer }) {
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const [gameOver, setGameOver] = useState(false);
+  const [gameWon, setGameWon] = useState(false);
   const [shareOutput, setShareOutput] = useState(
     new Array(6).fill(null).map((row) => {
       return Array(6).fill("⬛");
@@ -27,6 +33,7 @@ function Board({ answer }) {
       const answerFreqCount = getFreqCount(answerStr);
 
       if (guessStr === answerStr) {
+        setGameWon(true);
         setGameOver(true);
         playSequence(answer, guess, currentRow);
         setShareOutput(shareOutput.slice(0, currentRow + 1));
@@ -65,7 +72,6 @@ function Board({ answer }) {
           answerStr = answerStr.split("");
           answerStr[i] = "X";
           answerStr = answerStr.join("");
-          console.log(answerStr);
         }
       }
 
@@ -168,11 +174,10 @@ function Board({ answer }) {
     handleKeyDown({ key: note });
   }
   function shareResults() {
-    console.log(shareOutput);
+    let stat = gameWon ? guess.join("").length / 6 : "X";
+    let beginText = `Musical Wordle - '${answer["song"]}' ${stat}/${guess.length}\n`;
     navigator.clipboard.writeText(
-      `Musical Wordle - '${answer["song"]}' ${guess.join("").length / 6}/${
-        guess.length
-      }\n` +
+      beginText +
         shareOutput
           .map((row) => {
             return row.join("");
@@ -234,7 +239,7 @@ function Board({ answer }) {
               shareResults();
             }}
           >
-            Share insertlogohere{" "}
+            Share <FontAwesomeIcon icon={faShareAlt}></FontAwesomeIcon>
           </button>
         </div>
       )}
