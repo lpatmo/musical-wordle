@@ -160,7 +160,10 @@ function Board({ answer }) {
   function handlePianoPress(note) {
     handleKeyDown({ key: note });
   }
-
+  function shareResults() {
+    navigator.clipboard.writeText("");
+    alert("Copied results to clipboard");
+  }
   return (
     <>
       <p>Guess: {JSON.stringify(guess)}</p>
@@ -199,13 +202,25 @@ function Board({ answer }) {
         </button>
       </form>
       {error && <p className={styles.error}>{error}</p>}
-      {message && <div className={styles.modal}>
-                    <button className={styles.modalXClose} onClick={removeModal}>
-                    <FontAwesomeIcon icon={faX}/>
-                    </button>
-                    <p>{message}</p>
-                    <button className={styles.modalCloseBtn} onClick={removeModal}>Close</button>
-                  </div>}
+      {message && (
+        <div className={styles.modal}>
+          <button className={styles.modalXClose} onClick={removeModal}>
+            <FontAwesomeIcon icon={faX} />
+          </button>
+          <p>{message}</p>
+          <button className={styles.modalCloseBtn} onClick={removeModal}>
+            Close
+          </button>
+          <button
+            className="shareButton"
+            onClick={() => {
+              shareResults();
+            }}
+          >
+            Share insertlogohere{" "}
+          </button>
+        </div>
+      )}
       {message && <div className={styles.modalOverlay}></div>}
 
       <Piano handlePianoPress={handlePianoPress} />
