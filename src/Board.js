@@ -11,6 +11,7 @@ function Board({ answer }) {
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const [gameOver, setGameOver] = useState(false);
+  const [answerVisible, setAnswerVisible] = useState(false);
 
   const handleSubmit = useCallback(
     (e) => {
@@ -161,10 +162,12 @@ function Board({ answer }) {
     handleKeyDown({ key: note });
   }
 
+  function toggleAnswer(){
+    setAnswerVisible(!answerVisible);
+  }
+
   return (
     <>
-      <p>Guess: {JSON.stringify(guess)}</p>
-      <p>Answer: {JSON.stringify(answer)}</p>
       <form className={styles.board} onSubmit={handleSubmit}>
         {guess.map((char, row) => {
           return (
@@ -209,6 +212,12 @@ function Board({ answer }) {
       {message && <div className={styles.modalOverlay}></div>}
 
       <Piano handlePianoPress={handlePianoPress} />
+      <button className={styles.answerButton} onClick={toggleAnswer}>Show answer</button>
+      {answerVisible && <div className={styles.answerBox}>
+        <p>Guess: {JSON.stringify(guess)}</p>
+        <p>Answer: {JSON.stringify(answer)}</p>
+      </div>
+      }
     </>
   );
 }
