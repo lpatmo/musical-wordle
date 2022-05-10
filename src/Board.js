@@ -176,15 +176,21 @@ function Board({ answer }) {
   function shareResults() {
     let stat = gameWon ? guess.join("").length / 6 : "X";
     let beginText = `Musical Wordle - '${answer["song"]}' ${stat}/${guess.length}\n`;
-    navigator.clipboard.writeText(
-      beginText +
-        shareOutput
-          .map((row) => {
-            return row.join("");
-          })
-          .join("\n")
-    );
-    alert("Copied results to clipboard");
+    navigator.clipboard
+      .writeText(
+        beginText +
+          shareOutput
+            .map((row) => {
+              return row.join("");
+            })
+            .join("\n")
+      )
+      .then(() => {
+        alert("Copied results to clipboard");
+      })
+      .catch(() => {
+        alert("Failed to copy results to clipboard");
+      });
   }
   return (
     <>
