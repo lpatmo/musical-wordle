@@ -212,7 +212,7 @@ function Board({ answer }) {
       {message && <div className={styles.modalOverlay}></div>}
 
       <Piano handlePianoPress={handlePianoPress} />
-      <button className={styles.answerButton} onClick={toggleAnswer}>Show answer</button>
+      <button className={styles.answerButton} onClick={toggleAnswer}>{answerVisible ? "Hide answer":"Show answer"}</button>
       {answerVisible && <div className={styles.answerBox}>
         <p>Guess: {JSON.stringify(guess)}</p>
         <p>Answer: {JSON.stringify(answer)}</p>
