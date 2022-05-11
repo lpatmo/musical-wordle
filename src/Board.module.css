@@ -114,3 +114,13 @@ input.incorrect {
   width: 100%;
   height: 100%;
 }
+
+.answerButton {
+  background-color: var(--background-lightmode);
+  border: 1px solid var(--wordle-background-color-selected-lightmode);
+  color: var(--text-color-lightmode);
+}
+
+div.answerBox {
+  display: block;
+}
