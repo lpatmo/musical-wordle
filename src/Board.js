@@ -22,6 +22,7 @@ function Board({ answer }) {
       return Array(6).fill("⬛");
     })
   );
+  const [answerVisible, setAnswerVisible] = useState(false);
   const handleSubmit = useCallback(
     (e) => {
       e.preventDefault();
@@ -173,7 +174,7 @@ function Board({ answer }) {
   function handlePianoPress(note) {
     handleKeyDown({ key: note });
   }
-  function shareResults() {
+  function shareResults() { //TODO: Refactor shareOutput to be calculated here without using state
     let stat = gameWon ? guess.join("").length / 6 : "X";
     let beginText = `Musical Wordle - '${answer["song"]}' ${stat}/${guess.length}\n`;
     navigator.clipboard
@@ -192,10 +193,13 @@ function Board({ answer }) {
         alert("Failed to copy results to clipboard");
       });
   }
+
+  function toggleAnswer(){
+    setAnswerVisible(!answerVisible);
+  }
+
   return (
     <>
-      <p>Guess: {JSON.stringify(guess)}</p>
-      <p>Answer: {JSON.stringify(answer)}</p>
       <form className={styles.board} onSubmit={handleSubmit}>
         {guess.map((char, row) => {
           return (
@@ -252,6 +256,12 @@ function Board({ answer }) {
       {message && <div className={styles.modalOverlay}></div>}
 
       <Piano handlePianoPress={handlePianoPress} />
+      <button className={styles.answerButton} onClick={toggleAnswer}>{answerVisible ? "Hide answer":"Show answer"}</button>
+      {answerVisible && <div className={styles.answerBox}>
+        <p>Guess: {JSON.stringify(guess)}</p>
+        <p>Answer: {JSON.stringify(answer)}</p>
+      </div>
+      }
     </>
   );
 }
