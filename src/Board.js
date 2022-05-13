@@ -2,7 +2,12 @@ import React, { useEffect, useState, useCallback } from "react";
 import styles from "./Board.module.css";
 import { playNote, playSequence } from "./helpers/playMusic";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlay, faCircleRight, faX } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPlay,
+  faCircleRight,
+  faX,
+  faShareAlt,
+} from "@fortawesome/free-solid-svg-icons";
 import Piano from "./Piano";
 
 function Board({ answer }) {
@@ -11,8 +16,13 @@ function Board({ answer }) {
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const [gameOver, setGameOver] = useState(false);
+  const [gameWon, setGameWon] = useState(false);
+  const [shareOutput, setShareOutput] = useState(
+    new Array(6).fill(null).map((row) => {
+      return Array(6).fill("⬛");
+    })
+  );
   const [answerVisible, setAnswerVisible] = useState(false);
-
   const handleSubmit = useCallback(
     (e) => {
       e.preventDefault();
@@ -24,8 +34,10 @@ function Board({ answer }) {
       const answerFreqCount = getFreqCount(answerStr);
 
       if (guessStr === answerStr) {
+        setGameWon(true);
         setGameOver(true);
         playSequence(answer, guess, currentRow);
+        setShareOutput(shareOutput.slice(0, currentRow + 1));
         document
           .querySelectorAll(`input[name^="note-${currentRow}"]`)
           .forEach((el) => el.classList.add(styles.correct));
@@ -53,6 +65,7 @@ function Board({ answer }) {
       /* Check for correct notes */
       for (let i = 0; i < guessStr.length; i++) {
         if (guessStr[i] === answerStr[i]) {
+          shareOutput[currentRow][i] = "🟩";
           document
             .querySelector(`input[name="note-${currentRow}-${i}"]`)
             .classList.add(styles.correct);
@@ -60,7 +73,6 @@ function Board({ answer }) {
           answerStr = answerStr.split("");
           answerStr[i] = "X";
           answerStr = answerStr.join("");
-          console.log(answerStr);
         }
       }
 
@@ -71,11 +83,12 @@ function Board({ answer }) {
           answerStr[i] !== "X" &&
           answerFreqCount[guessStr[i]] > 0
         ) {
+          shareOutput[currentRow][i] = "🟨";
           document
             .querySelector(`input[name="note-${currentRow}-${i}"]`)
             .classList.add(styles.misplaced);
           answerFreqCount[guessStr[i]] -= 1;
-        } else if ( answerStr[i] !== "X"){
+        } else if (answerStr[i] !== "X") {
           document
             .querySelector(`input[name="note-${currentRow}-${i}"]`)
             .classList.add(styles.incorrect);
@@ -161,6 +174,25 @@ function Board({ answer }) {
   function handlePianoPress(note) {
     handleKeyDown({ key: note });
   }
+  function shareResults() { //TODO: Refactor shareOutput to be calculated here without using state
+    let stat = gameWon ? guess.join("").length / 6 : "X";
+    let beginText = `Musical Wordle - '${answer["song"]}' ${stat}/${guess.length}\n`;
+    navigator.clipboard
+      .writeText(
+        beginText +
+          shareOutput
+            .map((row) => {
+              return row.join("");
+            })
+            .join("\n")
+      )
+      .then(() => {
+        alert("Copied results to clipboard");
+      })
+      .catch(() => {
+        alert("Failed to copy results to clipboard");
+      });
+  }
 
   function toggleAnswer(){
     setAnswerVisible(!answerVisible);
@@ -202,13 +234,25 @@ function Board({ answer }) {
         </button>
       </form>
       {error && <p className={styles.error}>{error}</p>}
-      {message && <div className={styles.modal}>
-                    <button className={styles.modalXClose} onClick={removeModal}>
-                    <FontAwesomeIcon icon={faX}/>
-                    </button>
-                    <p>{message}</p>
-                    <button className={styles.modalCloseBtn} onClick={removeModal}>Close</button>
-                  </div>}
+      {message && (
+        <div className={styles.modal}>
+          <button className={styles.modalXClose} onClick={removeModal}>
+            <FontAwesomeIcon icon={faX} />
+          </button>
+          <p>{message}</p>
+          <button className={styles.modalCloseBtn} onClick={removeModal}>
+            Close
+          </button>
+          <button
+            className="shareButton"
+            onClick={() => {
+              shareResults();
+            }}
+          >
+            Share <FontAwesomeIcon icon={faShareAlt}></FontAwesomeIcon>
+          </button>
+        </div>
+      )}
       {message && <div className={styles.modalOverlay}></div>}
 
       <Piano handlePianoPress={handlePianoPress} />
