@@ -37,5 +37,5 @@ If you're in a branch and you want your branch to get the latest updates, do:
 
 ## Best practice for reviewing and committing code
 
-1. Try to comment on individual lines in PRs. If everything looks good, you can type `LGTM`.
+1. Try to comment on individual lines in pull requests. If everything looks good, you can type `LGTM`.
 2. When committing, try to prefix commits with the issue you are working on. For example: `git commit -am "[ISSUE-15] Update docs with some best practices"`
