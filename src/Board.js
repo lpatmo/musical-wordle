@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useContext } from "react";
 import styles from "./Board.module.css";
 import { playNote, playSequence } from "./helpers/playMusic";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,8 +9,11 @@ import {
   faShareAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import Piano from "./Piano";
+import VolumeContext from './AppContext'
 
 function Board({ answer }) {
+  const volume = useContext(VolumeContext);
+  console.log('volume from board', volume)
   const [guess, setGuess] = useState(new Array(6).fill(""));
   const [currentRow, setCurrentRow] = useState(0);
   const [error, setError] = useState("");
@@ -36,7 +39,7 @@ function Board({ answer }) {
       if (guessStr === answerStr) {
         setGameWon(true);
         setGameOver(true);
-        playSequence(answer, guess, currentRow);
+        playSequence(answer, guess, currentRow, volume);
         setShareOutput(shareOutput.slice(0, currentRow + 1));
         document
           .querySelectorAll(`input[name^="note-${currentRow}"]`)
@@ -57,7 +60,7 @@ function Board({ answer }) {
         window.addEventListener("click", removeModal);
       } else {
         /*If user has submitted 6 notes, play the notes when they submit*/
-        playSequence(answer, guess, currentRow);
+        playSequence(answer, guess, currentRow, volume);
         /*Increment the row*/
         setCurrentRow(currentRow + 1);
         setError("Please try again");
@@ -130,7 +133,7 @@ function Board({ answer }) {
             );
           }
           /*Play the note in the same octave as the corresponding answer*/
-          playNote(event.key, answer, guess[currentRow].length);
+          playNote(event.key, answer, guess[currentRow].length, volume);
           setError("");
           break;
         case event.key === "Enter":
@@ -221,7 +224,7 @@ function Board({ answer }) {
               <button
                 onClick={(e) => {
                   e.preventDefault();
-                  playSequence(answer, guess, row);
+                  playSequence(answer, guess, row, volume);
                 }}
               >
                 <FontAwesomeIcon icon={faPlay} />
