@@ -27,9 +27,6 @@ function App() {
   const [volume, setVolume] = useState(1.5);
   const [mobileOrSafari, setMobileOrSafari] = useState(false);
 
-  function handleVolume(e, newVolume) {
-    setVolume(newVolume)
-  }
   useEffect(() => {
     let randomIndex = Math.floor(Math.random() * data.length)
     setAnswer(data[randomIndex]);
@@ -59,13 +56,8 @@ function App() {
                 <VolumeDown /> <Slider aria-label="Volume" value={volume} onChange={handleVolume} min={0} max={5} /> <VolumeUp />
               </Stack>
 
-
             </Box>
-<<<<<<< HEAD
             <Board answer={answer}/>
-=======
-            <Board answer={answer} />
->>>>>>> parent of c19c4a9 (Test passing down getVolume as a function)
           </>}
 
         </header>
