@@ -46,27 +46,27 @@ function App() {
 
   return (
     <VolumeContext.Provider value={volume}>
-    <div className="App">
-      <header className="App-header">
-        <h1>Musical Wordle</h1>
-        <p>Ear training practice! Can you guess the first six notes of this tune?</p>
-        {mobileOrSafari ? <p className="error">Sorry, this game is not available on Safari or on mobile devices.</p> : <>
+      <div className="App">
+        <header className="App-header">
+          <h1>Musical Wordle</h1>
+          <p>Ear training practice! Can you guess the first six notes of this tune?</p>
+          {mobileOrSafari ? <p className="error">Sorry, this game is not available on Safari or on mobile devices.</p> : <>
 
-          <button type="button" onClick={() => playSequence(answer, undefined, undefined, volume)}><FontAwesomeIcon icon={faPlay} /> Play the notes</button>
-          <Box sx={{ width: 300 }} className="audioSettingsWrapper">
+            <button type="button" onClick={() => playSequence(answer, undefined, undefined, volume)}><FontAwesomeIcon icon={faPlay} /> Play the notes</button>
+            <Box sx={{ width: 300 }}>
 
-            <Stack spacing={3} direction="row" sx={{ mb: 3 }} alignItems="center" className="audioSettings">
-              <VolumeDown /> <Slider aria-label="Volume" value={volume} onChange={handleVolume} min={0} max={5} /> <VolumeUp />
-            </Stack>
+              <Stack spacing={3} direction="row" sx={{ mb: 3 }} alignItems="center" className="audioSettings">
+                <VolumeDown /> <Slider aria-label="Volume" value={volume} onChange={handleVolume} min={0} max={5} /> <VolumeUp />
+              </Stack>
 
 
-          </Box>
-          <Board answer={answer} />
-        </>}
+            </Box>
+            <Board answer={answer} />
+          </>}
 
-      </header>
+        </header>
 
-    </div>
+      </div>
     </VolumeContext.Provider>
   );
 }
