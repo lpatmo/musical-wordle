@@ -40,6 +40,10 @@ function App() {
     }
   }, [])
 
+  function handleVolume(e, newVolume) { 
+    setVolume(newVolume);
+  }
+
 
   return (
     <VolumeContext.Provider value={volume}>
