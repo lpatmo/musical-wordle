@@ -13,7 +13,6 @@ import VolumeContext from './AppContext'
 
 function Board({ answer }) {
   const volume = useContext(VolumeContext);
-  console.log('volume from board', volume)
   const [guess, setGuess] = useState(new Array(6).fill(""));
   const [currentRow, setCurrentRow] = useState(0);
   const [error, setError] = useState("");
@@ -27,7 +26,6 @@ function Board({ answer }) {
   );
 
   function getVolume() {
-    console.log('VOLUME INSIDE BOARD', volume)
     return volume;
   }
 
@@ -138,6 +136,7 @@ function Board({ answer }) {
               })
             );
           }
+
           /*Play the note in the same octave as the corresponding answer*/
           playNote(event.key, answer, guess[currentRow].length, getVolume);
           setError("");
@@ -152,7 +151,7 @@ function Board({ answer }) {
           break;
       }
     },
-    [answer, gameOver, currentRow, guess, handleSubmit]
+    [answer, gameOver, currentRow, guess, handleSubmit, volume]
   );
   const removeModal = useCallback((event) => {
     setMessage("");

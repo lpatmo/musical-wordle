@@ -65,7 +65,7 @@ function App() {
 
 
             </Box>
-            <Board answer={answer} getVolume={getVolume}/>
+            <Board answer={answer}/>
           </>}
 
         </header>
