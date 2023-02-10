@@ -27,9 +27,7 @@ function App() {
   const [volume, setVolume] = useState(1.5);
   const [mobileOrSafari, setMobileOrSafari] = useState(false);
 
-  console.log('VOLUME', volume)
   function handleVolume(e, newVolume) {
-    console.log('newVolume', newVolume)
     setVolume(newVolume)
   }
   useEffect(() => {
