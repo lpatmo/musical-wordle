@@ -30,10 +30,6 @@ function App() {
   function handleVolume(e, newVolume) {
     setVolume(newVolume)
   }
-
-  function getVolume() {
-    return volume;
-  }
   useEffect(() => {
     let randomIndex = Math.floor(Math.random() * data.length)
     setAnswer(data[randomIndex]);
@@ -56,7 +52,7 @@ function App() {
           <p>Ear training practice! Can you guess the first six notes of this tune?</p>
           {mobileOrSafari ? <p className="error">Sorry, this game is not available on Safari or on mobile devices.</p> : <>
 
-            <button type="button" onClick={() => playSequence(answer, undefined, undefined, getVolume)}><FontAwesomeIcon icon={faPlay} /> Play the notes</button>
+            <button type="button" onClick={() => playSequence(answer, undefined, undefined, volume)}><FontAwesomeIcon icon={faPlay} /> Play the notes</button>
             <Box sx={{ width: 300 }}>
 
               <Stack spacing={3} direction="row" sx={{ mb: 3 }} alignItems="center" className="audioSettings">
@@ -65,7 +61,11 @@ function App() {
 
 
             </Box>
+<<<<<<< HEAD
             <Board answer={answer}/>
+=======
+            <Board answer={answer} />
+>>>>>>> parent of c19c4a9 (Test passing down getVolume as a function)
           </>}
 
         </header>
