@@ -58,7 +58,7 @@ function App() {
           <Box sx={{ width: 300 }} className="audioSettingsWrapper">
 
             <Stack spacing={3} direction="row" sx={{ mb: 3 }} alignItems="center" className="audioSettings">
-              <VolumeDown /> <Slider aria-label="Volume" value={volume} onChange={handleVolume} min={0} max={4} /> <VolumeUp />
+              <VolumeDown /> <Slider aria-label="Volume" value={volume} onChange={handleVolume} min={0} max={5} /> <VolumeUp />
             </Stack>
 
 
