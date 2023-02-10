@@ -25,6 +25,12 @@ function Board({ answer }) {
       return Array(6).fill("⬛");
     })
   );
+
+  function getVolume() {
+    console.log('VOLUME INSIDE BOARD', volume)
+    return volume;
+  }
+
   const [answerVisible, setAnswerVisible] = useState(false);
   const handleSubmit = useCallback(
     (e) => {
@@ -39,7 +45,7 @@ function Board({ answer }) {
       if (guessStr === answerStr) {
         setGameWon(true);
         setGameOver(true);
-        playSequence(answer, guess, currentRow, volume);
+        playSequence(answer, guess, currentRow, getVolume);
         setShareOutput(shareOutput.slice(0, currentRow + 1));
         document
           .querySelectorAll(`input[name^="note-${currentRow}"]`)
@@ -60,7 +66,7 @@ function Board({ answer }) {
         window.addEventListener("click", removeModal);
       } else {
         /*If user has submitted 6 notes, play the notes when they submit*/
-        playSequence(answer, guess, currentRow, volume);
+        playSequence(answer, guess, currentRow, getVolume);
         /*Increment the row*/
         setCurrentRow(currentRow + 1);
         setError("Please try again");
@@ -133,7 +139,7 @@ function Board({ answer }) {
             );
           }
           /*Play the note in the same octave as the corresponding answer*/
-          playNote(event.key, answer, guess[currentRow].length, volume);
+          playNote(event.key, answer, guess[currentRow].length, getVolume);
           setError("");
           break;
         case event.key === "Enter":
@@ -224,7 +230,7 @@ function Board({ answer }) {
               <button
                 onClick={(e) => {
                   e.preventDefault();
-                  playSequence(answer, guess, row, volume);
+                  playSequence(answer, guess, row, getVolume);
                 }}
               >
                 <FontAwesomeIcon icon={faPlay} />
