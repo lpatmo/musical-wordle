@@ -1,7 +1,11 @@
+  .piano {
+    display: flex;
+  }
 .piano ul {
   display: flex;
   list-style: none;
   padding: 0px;
+  margin: 0 auto;
 }
 .piano ul li {
   width: 1em;
