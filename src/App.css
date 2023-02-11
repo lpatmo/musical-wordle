@@ -21,6 +21,14 @@
   }
 }
 
+h1 {
+  margin: 0.5em 0;
+}
+
+p { 
+  margin: 0.5em 0;
+}
+
 .App-header {
   background-color: var(--background-lightmode);
   min-height: 100vh;
@@ -31,9 +39,8 @@
   font-size: calc(10px + 2vmin);
 }
 
-.audioSettings {
-  display: flex;
-  margin-top: 1em;
+.muteVolume { 
+  cursor: pointer;
 }
 
 button {

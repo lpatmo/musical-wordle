@@ -10,8 +10,8 @@ import Soundfont from 'soundfont-player';
  * @return 
  */
 
-export function playSequence(answer, guess, currentRow) {
-    console.log('answer and guess and currentRow', answer, guess, currentRow)
+export function playSequence(answer, guess, currentRow, volume) {
+    console.log('answer and guess and currentRow', answer, guess, currentRow, volume)
     const ac = new AudioContext();
 
     const transformedSequence = answer.sequence.map((note, i) => {
@@ -21,7 +21,8 @@ export function playSequence(answer, guess, currentRow) {
         return noteObj.note.length === 2;
     })
 
-    Soundfont.instrument(ac, 'acoustic_grand_piano').then(function (piano) {
+    Soundfont.instrument(ac, 'acoustic_grand_piano', {gain: volume}).then(function (piano) {
+        piano.stop();
         piano.schedule(ac.currentTime, transformedSequence)
     })
     return;
@@ -35,7 +36,7 @@ export function playSequence(answer, guess, currentRow) {
  * @return 
  */
 
-export function playNote(note, answer, currentNote) {
+export function playNote(note, answer, currentNote, volume) {
     if (currentNote === 6) {
         return;
     }
@@ -43,7 +44,7 @@ export function playNote(note, answer, currentNote) {
     const octave = answer.sequence[currentNote].slice(1, 2)
 
     /*TODO: Consider adding an :active class to the piano key that was pressed*/
-    Soundfont.instrument(ac, 'acoustic_grand_piano').then(function (piano) {
+    Soundfont.instrument(ac, 'acoustic_grand_piano', {gain: volume}).then(function (piano) {
         piano.stop();
         piano.play(`${note.toUpperCase()}${octave}`, ac.currentTime, { duration: 0.5 })
     })
