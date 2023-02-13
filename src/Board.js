@@ -207,7 +207,7 @@ function Board({ answer }) {
 
   return (
     <Grid container spacing={1} justifyContent="center">
-      <Grid item md={12} lg={6}>
+      <Grid item lg={12}>
         <Paper elevation={0}>
           <form className={styles.board} onSubmit={handleSubmit}>
             {guess.map((char, row) => {
@@ -266,7 +266,7 @@ function Board({ answer }) {
           {message && <div className={styles.modalOverlay}></div>}
         </Paper>
       </Grid>
-      <Grid item md={12} lg={6}>
+      <Grid item lg={12}>
        <Paper elevation={0}>
           <Piano handlePianoPress={handlePianoPress} />
           <button className={styles.answerButton} onClick={toggleAnswer}>{answerVisible ? "Hide answer" : "Show answer"}</button>
