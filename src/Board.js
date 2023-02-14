@@ -265,8 +265,6 @@ function Board({ answer }) {
           )}
           {message && <div className={styles.modalOverlay}></div>}
         </Paper>
-      </Grid>
-      <Grid item lg={12}>
        <Paper elevation={0}>
           <Piano handlePianoPress={handlePianoPress} />
           <button className={styles.answerButton} onClick={toggleAnswer}>{answerVisible ? "Hide answer" : "Show answer"}</button>
