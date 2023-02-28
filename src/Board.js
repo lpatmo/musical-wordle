@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback, useContext } from "react";
 import styles from "./Board.module.css";
-import { playNote, playSequence } from "./helpers/playMusic";
+import { playNote, playSequence, playCelebrationSequence } from "./helpers/playMusic";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
@@ -33,17 +33,17 @@ function Board({ answer }) {
   const handleSubmit = useCallback(
     (e) => {
       e.preventDefault();
-      let answerStr = answer.sequence
+      let answerStr = answer.sequence.slice(0,6)
         .map((noteCluster) => noteCluster.split("")[0])
         .join("");
-
+      console.log('answerStr', answerStr)
       const guessStr = guess[currentRow];
       const answerFreqCount = getFreqCount(answerStr);
 
       if (guessStr === answerStr) {
         setGameWon(true);
         setGameOver(true);
-        playSequence(answer, guess, currentRow, volume);
+        playCelebrationSequence(answer, volume);
         setShareOutput(shareOutput.slice(0, currentRow + 1));
         document
           .querySelectorAll(`input[name^="note-${currentRow}"]`)

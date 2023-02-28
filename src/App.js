@@ -3,7 +3,7 @@ import './App.css';
 import { useState, useEffect } from 'react';
 import Board from './Board';
 import { data } from './data/data.js';
-import { playSequence } from './helpers/playMusic';
+import { playSequence, playCelebrationSequence } from './helpers/playMusic';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay } from '@fortawesome/free-solid-svg-icons';
 import Slider from '@mui/material/Slider';
@@ -19,9 +19,6 @@ import VolumeContext from './AppContext'
  *  2) Comment out above import from data.js
 */
 //import {data} from './data/mock-data.js';
-
-
-
 
 function App() {
   const [answer, setAnswer] = useState();
