@@ -11,6 +11,7 @@ import VolumeDown from '@mui/icons-material/VolumeDown';
 import VolumeUp from '@mui/icons-material/VolumeUp';
 import Stack from "@mui/material/Stack";
 import Box from '@mui/material/Box';
+
 import VolumeContext from './AppContext'
 
 /* To access mock data for validation testing
@@ -24,7 +25,7 @@ import VolumeContext from './AppContext'
 
 function App() {
   const [answer, setAnswer] = useState();
-  const [volume, setVolume] = useState(1.5);
+  const [volume, setVolume] = useState(2);
   const [mobileOrSafari, setMobileOrSafari] = useState(false);
 
   useEffect(() => {
@@ -53,15 +54,15 @@ function App() {
     <VolumeContext.Provider value={volume}>
       <div className="App">
         <header className="App-header">
-          <h1>Musical Wordle</h1>
-          <p>Ear training practice! Can you guess the first six notes of this tune?</p>
+          <h1>Daily Ear Training</h1>
+          <p>Can you figure out the first six notes of this tune?</p>
           {mobileOrSafari ? <p className="error">Sorry, this game is not available on Safari or on mobile devices.</p> : <>
 
-            <button type="button" onClick={() => playSequence(answer, undefined, undefined, volume)}><FontAwesomeIcon icon={faPlay} /> Play the notes</button>
+            <button type="button" onClick={() => playSequence(answer, undefined, undefined, volume)}><FontAwesomeIcon icon={faPlay} /> Play the tune</button>
             <Box sx={{ width: 300 }}>
 
               <Stack spacing={3} direction="row" sx={{ mb: 3 }} alignItems="center" className="audioSettings">
-                <VolumeDown onClick={handleMute} className="muteVolume"/> <Slider aria-label="Volume" value={volume} onChange={handleVolume} min={0} max={5} /> <VolumeUp />
+                <VolumeDown onClick={handleMute} className="muteVolume"/> <Slider aria-label="Volume" value={volume} onChange={handleVolume} min={0} max={6} /> <VolumeUp />
               </Stack>
 
             </Box>

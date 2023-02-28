@@ -10,12 +10,6 @@
   --tile-border-color: #d3d6da;
 }
 
-.board {
-  margin-top: 2em;
-}
-.board div {
-  display: flex;
-}
 .board input {
   width: 2em;
   height: 2em;

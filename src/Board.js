@@ -2,6 +2,9 @@ import React, { useEffect, useState, useCallback, useContext } from "react";
 import styles from "./Board.module.css";
 import { playNote, playSequence } from "./helpers/playMusic";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import { styled } from "@mui/material/styles";
 import {
   faPlay,
   faCircleRight,
@@ -10,6 +13,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Piano from "./Piano";
 import VolumeContext from './AppContext'
+
 
 function Board({ answer }) {
   const volume = useContext(VolumeContext);
@@ -25,6 +29,7 @@ function Board({ answer }) {
     })
   );
   const [answerVisible, setAnswerVisible] = useState(false);
+
   const handleSubmit = useCallback(
     (e) => {
       e.preventDefault();
@@ -44,8 +49,7 @@ function Board({ answer }) {
           .querySelectorAll(`input[name^="note-${currentRow}"]`)
           .forEach((el) => el.classList.add(styles.correct));
         setMessage(
-          `Congratulations! You correctly guessed '${answer["song"]}' in ${
-            guess.join("").length / 6
+          `Congratulations! You correctly guessed '${answer["song"]}' in ${guess.join("").length / 6
           }/${guess.length} tries!`
         );
         window.addEventListener("click", removeModal);
@@ -183,11 +187,11 @@ function Board({ answer }) {
     navigator.clipboard
       .writeText(
         beginText +
-          shareOutput
-            .map((row) => {
-              return row.join("");
-            })
-            .join("\n")
+        shareOutput
+          .map((row) => {
+            return row.join("");
+          })
+          .join("\n")
       )
       .then(() => {
         alert("Copied results to clipboard");
@@ -197,75 +201,81 @@ function Board({ answer }) {
       });
   }
 
-  function toggleAnswer(){
+  function toggleAnswer() {
     setAnswerVisible(!answerVisible);
   }
 
   return (
-    <>
-      <form className={styles.board} onSubmit={handleSubmit}>
-        {guess.map((char, row) => {
-          return (
-            <div key={row}>
-              {[0, 1, 2, 3, 4, 5].map((column) => {
-                return (
-                  <input
-                    key={column}
-                    type="text"
-                    name={`note-${row}-${column}`}
-                    disabled={currentRow !== row}
-                    maxLength={1}
-                    value={guess[row][column] || ""}
-                    tabIndex={-1}
-                    readOnly
-                  />
-                );
-              })}
+    <Grid container spacing={1} justifyContent="center">
+      <Grid item lg={12}>
+        <Paper elevation={0}>
+          <form className={styles.board} onSubmit={handleSubmit}>
+            {guess.map((char, row) => {
+              return (
+                <div key={row}>
+                  {[0, 1, 2, 3, 4, 5].map((column) => {
+                    return (
+                      <input
+                        key={column}
+                        type="text"
+                        name={`note-${row}-${column}`}
+                        disabled={currentRow !== row}
+                        maxLength={1}
+                        value={guess[row][column] || ""}
+                        tabIndex={-1}
+                        readOnly
+                      />
+                    );
+                  })}
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      playSequence(answer, guess, row, volume);
+                    }}
+                  >
+                    <FontAwesomeIcon icon={faPlay} />
+                  </button>
+                </div>
+              );
+            })}
+            <button type="submit">
+              Submit <FontAwesomeIcon icon={faCircleRight} />
+            </button>
+          </form>
+
+          {error && <p className={styles.error}>{error}</p>}
+          {message && (
+            <div className={styles.modal}>
+              <button className={styles.modalXClose} onClick={removeModal}>
+                <FontAwesomeIcon icon={faX} />
+              </button>
+              <p>{message}</p>
+              <button className={styles.modalCloseBtn} onClick={removeModal}>
+                Close
+              </button>
               <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  playSequence(answer, guess, row, volume);
+                className="shareButton"
+                onClick={() => {
+                  shareResults();
                 }}
               >
-                <FontAwesomeIcon icon={faPlay} />
+                Share <FontAwesomeIcon icon={faShareAlt}></FontAwesomeIcon>
               </button>
             </div>
-          );
-        })}
-        <button type="submit">
-          Submit <FontAwesomeIcon icon={faCircleRight} />
-        </button>
-      </form>
-      {error && <p className={styles.error}>{error}</p>}
-      {message && (
-        <div className={styles.modal}>
-          <button className={styles.modalXClose} onClick={removeModal}>
-            <FontAwesomeIcon icon={faX} />
-          </button>
-          <p>{message}</p>
-          <button className={styles.modalCloseBtn} onClick={removeModal}>
-            Close
-          </button>
-          <button
-            className="shareButton"
-            onClick={() => {
-              shareResults();
-            }}
-          >
-            Share <FontAwesomeIcon icon={faShareAlt}></FontAwesomeIcon>
-          </button>
-        </div>
-      )}
-      {message && <div className={styles.modalOverlay}></div>}
-
-      <Piano handlePianoPress={handlePianoPress} />
-      <button className={styles.answerButton} onClick={toggleAnswer}>{answerVisible ? "Hide answer":"Show answer"}</button>
-      {answerVisible && <div className={styles.answerBox}>
-        <p>Guess: {JSON.stringify(guess)}</p>
-        <p>Answer: {JSON.stringify(answer)}</p>
-      </div>
-      }
-    </>
+          )}
+          {message && <div className={styles.modalOverlay}></div>}
+        </Paper>
+       <Paper elevation={0}>
+          <Piano handlePianoPress={handlePianoPress} />
+          <button className={styles.answerButton} onClick={toggleAnswer}>{answerVisible ? "Hide answer" : "Show answer"}</button>
+          {answerVisible && <div className={styles.answerBox}>
+            <p>Guess: {JSON.stringify(guess)}</p>
+            <p>Answer: {JSON.stringify(answer)}</p>
+          </div>
+          }
+        </Paper>
+      </Grid>
+    </Grid>
   );
 }
 
