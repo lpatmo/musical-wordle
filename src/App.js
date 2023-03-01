@@ -38,7 +38,7 @@ function App() {
     }
   }, [])
 
-  function handleVolume(e, newVolume) { 
+  function handleVolume(e, newVolume) {
     setVolume(newVolume);
   }
 
@@ -59,11 +59,11 @@ function App() {
             <Box sx={{ width: 300 }}>
 
               <Stack spacing={3} direction="row" sx={{ mb: 3 }} alignItems="center" className="audioSettings">
-                <VolumeDown onClick={handleMute} className="muteVolume"/> <Slider aria-label="Volume" value={volume} onChange={handleVolume} min={0} max={6} /> <VolumeUp />
+                <VolumeDown onClick={handleMute} className="muteVolume" /> <Slider aria-label="Volume" value={volume} onChange={handleVolume} min={0} max={6} /> <VolumeUp />
               </Stack>
 
             </Box>
-            <Board answer={answer}/>
+            <Board answer={answer} />
           </>}
 
         </header>

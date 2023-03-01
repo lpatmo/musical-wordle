@@ -271,6 +271,7 @@ function Board({ answer }) {
           {answerVisible && <div className={styles.answerBox}>
             <p>Guess: {JSON.stringify(guess)}</p>
             <p>Answer: {JSON.stringify(answer)}</p>
+            <button type="button" onClick={() => playCelebrationSequence(answer, volume)}><FontAwesomeIcon icon={faPlay} /> Play celebration</button>
           </div>
           }
         </Paper>
