@@ -58,6 +58,7 @@ function Board({ answer }) {
         return;
       } else if (guess.join("").length / 6 === 6) {
         setGameOver(true);
+        playCelebrationSequence(answer, volume);
         setMessage(`Better luck next time! The song was '${answer["song"]}'.\n
         Notes: ${answerStr}`);
         window.addEventListener("click", removeModal);
