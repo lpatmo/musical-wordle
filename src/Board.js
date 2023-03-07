@@ -36,7 +36,6 @@ function Board({ answer }) {
       let answerStr = answer.sequence.slice(0,6)
         .map((noteCluster) => noteCluster.split("")[0])
         .join("");
-      console.log('answerStr', answerStr)
       const guessStr = guess[currentRow];
       const answerFreqCount = getFreqCount(answerStr);
 
