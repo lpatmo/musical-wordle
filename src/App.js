@@ -3,7 +3,7 @@ import './App.css';
 import { useState, useEffect } from 'react';
 import Board from './Board';
 import { data } from './data/data.js';
-import { playSequence } from './helpers/playMusic';
+import { playSequence, playCelebrationSequence } from './helpers/playMusic';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay } from '@fortawesome/free-solid-svg-icons';
 import Slider from '@mui/material/Slider';
@@ -19,9 +19,6 @@ import VolumeContext from './AppContext'
  *  2) Comment out above import from data.js
 */
 //import {data} from './data/mock-data.js';
-
-
-
 
 function App() {
   const [answer, setAnswer] = useState();
@@ -41,7 +38,7 @@ function App() {
     }
   }, [])
 
-  function handleVolume(e, newVolume) { 
+  function handleVolume(e, newVolume) {
     setVolume(newVolume);
   }
 
@@ -62,11 +59,11 @@ function App() {
             <Box sx={{ width: 300 }}>
 
               <Stack spacing={3} direction="row" sx={{ mb: 3 }} alignItems="center" className="audioSettings">
-                <VolumeDown onClick={handleMute} className="muteVolume"/> <Slider aria-label="Volume" value={volume} onChange={handleVolume} min={0} max={6} /> <VolumeUp />
+                <VolumeDown onClick={handleMute} className="muteVolume" /> <Slider aria-label="Volume" value={volume} onChange={handleVolume} min={0} max={6} /> <VolumeUp />
               </Stack>
 
             </Box>
-            <Board answer={answer}/>
+            <Board answer={answer} />
           </>}
 
         </header>

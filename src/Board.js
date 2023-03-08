@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback, useContext } from "react";
 import styles from "./Board.module.css";
-import { playNote, playSequence } from "./helpers/playMusic";
+import { playNote, playSequence, playCelebrationSequence } from "./helpers/playMusic";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
@@ -33,17 +33,16 @@ function Board({ answer }) {
   const handleSubmit = useCallback(
     (e) => {
       e.preventDefault();
-      let answerStr = answer.sequence
+      let answerStr = answer.sequence.slice(0,6)
         .map((noteCluster) => noteCluster.split("")[0])
         .join("");
-
       const guessStr = guess[currentRow];
       const answerFreqCount = getFreqCount(answerStr);
 
       if (guessStr === answerStr) {
         setGameWon(true);
         setGameOver(true);
-        playSequence(answer, guess, currentRow, volume);
+        playCelebrationSequence(answer, volume);
         setShareOutput(shareOutput.slice(0, currentRow + 1));
         document
           .querySelectorAll(`input[name^="note-${currentRow}"]`)
@@ -58,6 +57,7 @@ function Board({ answer }) {
         return;
       } else if (guess.join("").length / 6 === 6) {
         setGameOver(true);
+        playCelebrationSequence(answer, volume);
         setMessage(`Better luck next time! The song was '${answer["song"]}'.\n
         Notes: ${answerStr}`);
         window.addEventListener("click", removeModal);
@@ -271,6 +271,7 @@ function Board({ answer }) {
           {answerVisible && <div className={styles.answerBox}>
             <p>Guess: {JSON.stringify(guess)}</p>
             <p>Answer: {JSON.stringify(answer)}</p>
+            <button type="button" onClick={() => playCelebrationSequence(answer, volume)}><FontAwesomeIcon icon={faPlay} /> Play celebration</button>
           </div>
           }
         </Paper>
