@@ -228,6 +228,7 @@ function Board({ answer }) {
                     );
                   })}
                   <button
+                    className={styles.playButton}
                     onClick={(e) => {
                       e.preventDefault();
                       playSequence(answer, guess, row, volume);
@@ -267,13 +268,6 @@ function Board({ answer }) {
         </Paper>
        <Paper elevation={0}>
           <Piano handlePianoPress={handlePianoPress} />
-          <button className={styles.answerButton} onClick={toggleAnswer}>{answerVisible ? "Hide answer" : "Show answer"}</button>
-          {answerVisible && <div className={styles.answerBox}>
-            <p>Guess: {JSON.stringify(guess)}</p>
-            <p>Answer: {JSON.stringify(answer)}</p>
-            <button type="button" onClick={() => playCelebrationSequence(answer, volume)}><FontAwesomeIcon icon={faPlay} /> Play celebration</button>
-          </div>
-          }
         </Paper>
       </Grid>
     </Grid>
