@@ -7,7 +7,7 @@
     display: flex;
     list-style: none;
     padding: 0px;
-    margin: 0 auto;
+    margin: 0 auto 2em;
   }
 
   .piano ul li {
