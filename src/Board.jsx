@@ -4,15 +4,13 @@ import { playNote, playSequence, playCelebrationSequence } from "./helpers/playM
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import { styled } from "@mui/material/styles";
 import {
   faPlay,
   faCircleRight,
-  faX,
-  faShareAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import Piano from "./Piano";
 import VolumeContext from './AppContext'
+import Modal from './Modal';
 
 
 function Board({ answer }) {
@@ -30,10 +28,25 @@ function Board({ answer }) {
   );
   const [answerVisible, setAnswerVisible] = useState(false);
 
+  function updateStats() {
+    //Update game state
+    setGameOver(true);
+    console.log('song title', answer)
+    console.log('====guess', guess)
+    //Update localStorage
+    const storage = { title: answer["song"], timestamp: new Date(), guesses: guess.join("").length / 6 }
+    if (!localStorage.getItem("stats")) {
+      localStorage.setItem("stats", JSON.stringify([storage]));
+    } else {
+      const updatedStorage = [...JSON.parse(localStorage.getItem("stats")), storage]
+      localStorage.setItem("stats", JSON.stringify(updatedStorage));
+    }
+  }
+
   const handleSubmit = useCallback(
     (e) => {
       e.preventDefault();
-      let answerStr = answer.sequence.slice(0,6)
+      let answerStr = answer.sequence.slice(0, 6)
         .map((noteCluster) => noteCluster.split("")[0])
         .join("");
       const guessStr = guess[currentRow];
@@ -41,7 +54,7 @@ function Board({ answer }) {
 
       if (guessStr === answerStr) {
         setGameWon(true);
-        setGameOver(true);
+        updateStats();
         playCelebrationSequence(answer, volume);
         setShareOutput(shareOutput.slice(0, currentRow + 1));
         document
@@ -52,11 +65,12 @@ function Board({ answer }) {
           }/${guess.length} tries!`
         );
         window.addEventListener("click", removeModal);
+
       } else if (guessStr.length < 6) {
         setError("Please fill out all the notes.");
         return;
       } else if (guess.join("").length / 6 === 6) {
-        setGameOver(true);
+        updateStats();
         playCelebrationSequence(answer, volume);
         setMessage(`Better luck next time! The song was '${answer["song"]}'.\n
         Notes: ${answerStr}`);
@@ -246,27 +260,10 @@ function Board({ answer }) {
 
           {error && <p className={styles.error}>{error}</p>}
           {message && (
-            <div className={styles.modal}>
-              <button className={styles.modalXClose} onClick={removeModal}>
-                <FontAwesomeIcon icon={faX} />
-              </button>
-              <p>{message}</p>
-              <button className={styles.modalCloseBtn} onClick={removeModal}>
-                Close
-              </button>
-              <button
-                className="shareButton"
-                onClick={() => {
-                  shareResults();
-                }}
-              >
-                Share <FontAwesomeIcon icon={faShareAlt}></FontAwesomeIcon>
-              </button>
-            </div>
+            <Modal message={message} removeModal={removeModal} shareResults={shareResults} />
           )}
-          {message && <div className={styles.modalOverlay}></div>}
         </Paper>
-       <Paper elevation={0}>
+        <Paper elevation={0}>
           <Piano handlePianoPress={handlePianoPress} />
         </Paper>
       </Grid>

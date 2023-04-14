@@ -1,7 +1,7 @@
 export const data = [
     { "sequence": ["D5", "E5", "C5", "A4", "B4", "G4", "D4", "E4", "C4", "A3", "B3", "G3", "D3", "E3", "C3", "A2", "B2", "A2", "Ab2", "G2", "G3"], "duration": [1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 1, 1, 4, 1], song: "The Entertainer" },
     { "sequence": ["C4", "C4", "G4", "G4", "A4", "A4", "G4", "F4", "F4", "E4", "E4", "D4", "D4", "C4"], "duration": [1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 2], song: "Twinkle Twinkle Little Star" },
-    { "sequence": ["E4", "A4", "C5", "B4", "A4", "E5", "D5", "B4", "A4", "C5", "B4", "G4", "Bb4", "E4"], "duration": [1, 2, 0.5, 0.5, 2, 1, 3, 3, 2, 0.5, 0.5, 2, 1, 5], song: "Hedwig's theme" },
+    { "sequence": ["E4", "A4", "C5", "B4", "A4", "E5", "D5", "B4", "A4", "C5", "B4", "G#4", "Bb4", "E4"], "duration": [1, 2, 0.5, 0.5, 2, 1, 3, 3, 2, 0.5, 0.5, 2, 1, 5], song: "Hedwig's theme" },
     { "sequence": ["A4", "D4", "F4", "G4", "A4", "D4", "F4", "G4", "E4"], "duration": [3, 3, 0.5, 0.5, 2, 2, 0.5, 0.5, 3], song: "Game of Thrones" },
     { "sequence": ["A4", "A4", "A3", "A3", "E4", "E4", "A3", "A3", "A4", "A4", "F4", "C4", "G4", "G4", "G3", "G3"], "duration": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], song: "Poker Face" },
     { "sequence": ["G4", "G4", "G4", "A4", "B4", "B4", "A4", "B4", "C5", "D5"], "duration": [3, 3, 2, 1, 3, 2, 1, 2, 1, 2], song: "Row Row Row Your Boat" },

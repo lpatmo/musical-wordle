@@ -11,6 +11,7 @@ import VolumeDown from '@mui/icons-material/VolumeDown';
 import VolumeUp from '@mui/icons-material/VolumeUp';
 import Stack from "@mui/material/Stack";
 import Box from '@mui/material/Box';
+import Navbar from './Navbar';
 
 import VolumeContext from './AppContext'
 
@@ -51,8 +52,9 @@ function App() {
     <VolumeContext.Provider value={volume}>
       <div className="App">
         <header className="App-header">
+          <Navbar />
           <h1>Daily Ear Training</h1>
-          <p>Can you figure out the first six notes of this tune?</p>
+          <p>Figure out the first six notes of this tune! You have six tries.</p>
           {mobileOrSafari ? <p className="error">Sorry, this game is not available on Safari or on mobile devices.</p> : <>
 
             <button type="button" onClick={() => playSequence(answer, undefined, undefined, volume)}><FontAwesomeIcon icon={faPlay} /> Play the tune</button>
