@@ -27,8 +27,12 @@ function Board({ answer }) {
     })
   );
   const [answerVisible, setAnswerVisible] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   function updateStats() {
+    console.log('updateStats', message)
+    //Open modal
+    setIsOpen(true);
     //Update game state
     setGameOver(true);
     console.log('song title', answer)
@@ -54,7 +58,6 @@ function Board({ answer }) {
 
       if (guessStr === answerStr) {
         setGameWon(true);
-        updateStats();
         playCelebrationSequence(answer, volume);
         setShareOutput(shareOutput.slice(0, currentRow + 1));
         document
@@ -64,17 +67,17 @@ function Board({ answer }) {
           `Congratulations! You correctly guessed '${answer["song"]}' in ${guess.join("").length / 6
           }/${guess.length} tries!`
         );
-        window.addEventListener("click", removeModal);
+        //Update stats and open modal
+        updateStats();
 
       } else if (guessStr.length < 6) {
         setError("Please fill out all the notes.");
         return;
       } else if (guess.join("").length / 6 === 6) {
-        updateStats();
         playCelebrationSequence(answer, volume);
         setMessage(`Better luck next time! The song was '${answer["song"]}'.\n
         Notes: ${answerStr}`);
-        window.addEventListener("click", removeModal);
+        updateStats();
       } else {
         /*If user has submitted 6 notes, play the notes when they submit*/
         playSequence(answer, guess, currentRow, volume);
@@ -166,10 +169,7 @@ function Board({ answer }) {
     },
     [answer, gameOver, currentRow, guess, handleSubmit, volume]
   );
-  const removeModal = useCallback((event) => {
-    setMessage("");
-    window.removeEventListener("click", removeModal);
-  }, []);
+
 
   useEffect(() => {
     window.addEventListener("keydown", handleKeyDown);
@@ -258,9 +258,10 @@ function Board({ answer }) {
             </button>
           </form>
 
-          {error && <p className={styles.error}>{error}</p>}
-          {message && (
-            <Modal message={message} removeModal={removeModal} shareResults={shareResults} />
+          {error && <Modal className={styles.error} warning={true} handleClose={() => setError(null)}>{error}</Modal>}
+          {message}
+          {isOpen && (
+            <Modal shareResults={shareResults} handleClose={handleClose}>{message}</Modal>
           )}
         </Paper>
         <Paper elevation={0}>

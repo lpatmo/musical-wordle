@@ -3,7 +3,7 @@ import './App.css';
 import { useState, useEffect } from 'react';
 import Board from './Board';
 import { data } from './data/data.js';
-import { playSequence, playCelebrationSequence } from './helpers/playMusic';
+import { playSequence } from './helpers/playMusic';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay } from '@fortawesome/free-solid-svg-icons';
 import Slider from '@mui/material/Slider';
@@ -25,6 +25,7 @@ function App() {
   const [answer, setAnswer] = useState();
   const [volume, setVolume] = useState(2);
   const [mobileOrSafari, setMobileOrSafari] = useState(false);
+
 
   useEffect(() => {
     let randomIndex = Math.floor(Math.random() * data.length)
@@ -52,9 +53,9 @@ function App() {
     <VolumeContext.Provider value={volume}>
       <div className="App">
         <header className="App-header">
-          <Navbar />
-          <h1>Daily Ear Training</h1>
-          <p>Figure out the first six notes of this tune! You have six tries.</p>
+          <Navbar/>
+          <h1>Ear Training Daily</h1>
+          <p>You have 6 tries to figure out the first 6 notes of this tune.</p>
           {mobileOrSafari ? <p className="error">Sorry, this game is not available on Safari or on mobile devices.</p> : <>
 
             <button type="button" onClick={() => playSequence(answer, undefined, undefined, volume)}><FontAwesomeIcon icon={faPlay} /> Play the tune</button>

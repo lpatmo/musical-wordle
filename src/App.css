@@ -1,8 +1,17 @@
+@font-face {
+  font-family: 'Open Sans';
+  src: url('fonts/OpenSans-Regular.ttf') format('truetype');
+}
+
 :root {
   --btn-color-1: black;
   --btn-color-2: white;
   --background-lightmode: white;
   --text-color-lightmode: black;
+}
+
+body {
+  font-family: 'Open Sans', Arial, sans-serif;
 }
 
 .App {
@@ -22,7 +31,9 @@
 }
 
 h1 {
-  margin: 0.5em 0 0 0;
+  margin: 0;
+  font-size: 1.3em;
+  font-weight: 600;
 }
 
 p { 
