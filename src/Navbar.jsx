@@ -9,13 +9,11 @@ function Navbar() {
     console.log('storage!!!', Array.isArray(storage))
 
     return (
-        <Grid container style={{float: 'right'}}>
-            <Grid item xs={12} justify="flex-end">
-                <EqualizerIcon onClick={() => setIsOpen(true)} style={{ fontSize: 40 }} />
-                {isOpen && <Modal handleClose={() => setIsOpen(false)}>{storage}</Modal>}
-            </Grid>
-        </Grid>
-
+        <div className={styles.navbar}>
+            <h1>Ear Training Daily</h1>
+            <EqualizerIcon onClick={() => setIsOpen(true)} style={{ fontSize: 40 }} />
+            {isOpen && <Modal handleClose={() => setIsOpen(false)}>{storage}</Modal>}
+        </div>
     )
 }
 
