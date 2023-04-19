@@ -54,7 +54,7 @@ function App() {
       <div className="App">
         <header className="App-header">
           <Navbar/>
-          <p>You have 6 tries to figure out the first few notes of this tune.</p>
+          <p>Figure out the first few notes of this tune. You have 6 tries.</p>
           {mobileOrSafari ? <p className="error">Sorry, this game is not available on Safari or on mobile devices.</p> : <>
 
             <button type="button" onClick={() => playSequence(answer, undefined, undefined, volume)}><FontAwesomeIcon icon={faPlay} /> Play the tune</button>
