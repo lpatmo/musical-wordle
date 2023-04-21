@@ -253,7 +253,7 @@ function Board({ answer }) {
                 </div>
               );
             })}
-            <button type="submit">
+            <button type="submit" style={{width: '460px'}}>
               Submit <FontAwesomeIcon icon={faCircleRight} />
             </button>
           </form>

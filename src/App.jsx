@@ -58,7 +58,7 @@ function App() {
           {mobileOrSafari ? <p className="error">Sorry, this game is not available on Safari or on mobile devices.</p> : <>
 
             <button type="button" onClick={() => playSequence(answer, undefined, undefined, volume)}><FontAwesomeIcon icon={faPlay} /> Play the tune</button>
-            <Box sx={{ width: 300 }}>
+            <Box sx={{ width: 300, marginTop: '20px' }}>
 
               <Stack spacing={3} direction="row" sx={{ mb: 3 }} alignItems="center" className="audioSettings">
                 <VolumeDown onClick={handleMute} className="muteVolume" /> <Slider aria-label="Volume" value={volume} onChange={handleVolume} min={0} max={6} /> <VolumeUp />

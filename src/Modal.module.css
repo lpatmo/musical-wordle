@@ -1,10 +1,11 @@
 .hide {
     display: none;
 }
+
 .modal {
     display: flex;
     flex-flow: column wrap;
-    justify-content: flex-start;
+    justify-content: space-between;
     padding: 16px 20px;
     background-color: var(--wordle-background-color-lightmode);
     color: var(--wordle-text-color-lightmode);
@@ -13,90 +14,89 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 450px;
+    width: 550px;
     height: 400px;
     max-width: 100%;
     max-height: 100%;
     z-index: 10;
-  }
-  
-  .modalXClose {
+    border-radius: 6px;
+}
+
+.modalXClose {
     align-self: flex-end;
     background-color: var(--wordle-background-color-lightmode);
     color: var(--wordle-text-color-lightmode);
     font-size: 1.2rem;
     transition: none;
-  }
-  .modalXClose svg {
+    float: right;
+}
+
+.modalXClose svg {
     position: relative;
     top: 2px;
-  }
-  
-  .modalXClose:hover {
+}
+
+.modalXClose:hover {
     background-color: var(--wordle-background-color-selected-lightmode);
     color: var(--wordle-text-color-lightmode-selected);
     font-weight: bold;
     transform: none;
-  }
-  
-  .modalCloseBtn {
+}
+
+.modalCloseBtn {
     align-self: center;
     border: 3px solid var(--wordle-text-color-lightmode);
     background-color: var(--wordle-background-color-lightmode);
     color: var(--wordle-text-color-lightmode);
     font-size: 1.4rem;
     font-weight: bold;
-    width: 25%;
+    width: 90%;
     text-align: center;
-  }
-  
-  .modalCloseBtn:hover {
+}
+
+.modalCloseBtn:hover {
     border: 3px solid var(--wordle-text-color-lightmode);
     background-color: var(--wordle-background-color-selected-lightmode);
     color: var(--wordle-text-color-lightmode-selected);
     font-weight: bold;
-  }
-  
-  .modalOverlay {
+}
+
+.modalOverlay {
     z-index: 5;
-    opacity: 0.35;
+    opacity: 0.25;
     background-color: black;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;}
-  
-  .shareButton{
+    height: 100%;
+}
+
+.shareButton {
     background: var(--wordle-correct-color);
     color: var(--wordle-answer-text-color);
-  font-family: inherit;
-  font-weight: bold;
-  border-radius: 4px;
-  cursor: pointer;
-  border: none;
-  user-select: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-transform: uppercase;
-  width: 25%;
-  font-size: 20px;
-  height: 52px;
+    font-family: inherit;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    user-select: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 25%;
+    font-size: 20px;
+    height: 52px;
     text-transform: uppercase;
     font-size: 20px;
+    width: 90%;
+    margin: 0 auto;
 }
 
 .stats {
-    height: 220px;
+    height: 300px;
     overflow-y: scroll;
     font-size: 1rem;
     text-align: left;
-}
-
-.shareIcon {
-    position: relative;
-    top: 5px;
 }
 
 .warning {

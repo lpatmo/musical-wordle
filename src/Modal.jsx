@@ -22,7 +22,7 @@ function Modal({ children, shareResults, handleClose, warning }) {
     }, [handleOutsideClick]);
 
     if (typeof children === "string") {
-        modalContent = <span>{children}</span>
+        modalContent = <p>{children}</p>
     } else if (Array.isArray(children)) {
         modalContent = (
             <ul className={styles.stats}>
@@ -39,16 +39,16 @@ function Modal({ children, shareResults, handleClose, warning }) {
     return (
         <>
             <div className={`${styles.modal} ${warning && styles.warning}`} ref={modalRef}>
+                <div>
                 <button className={styles.modalXClose} onClick={handleClose}>
                     <CloseIcon />
                 </button>
                 {modalContent}
-                {!warning && <button className={styles.modalCloseBtn} onClick={handleClose}>
-                    Close
-                </button>}
+                </div>
+                <div>
                 {shareResults &&
                     <button
-                        className="shareButton"
+                        className={styles.shareButton}
                         onClick={() => {
                             shareResults();
                         }}
@@ -56,6 +56,12 @@ function Modal({ children, shareResults, handleClose, warning }) {
                         Share <ShareIcon className={styles.shareIcon} />
                     </button>
                 }
+                {!warning && <button className={styles.modalCloseBtn} onClick={handleClose}>
+                    Close
+                </button>}
+                </div>
+              
+
             </div>
             <div className={styles.modalOverlay}></div>
         </>
