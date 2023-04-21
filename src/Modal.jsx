@@ -33,7 +33,6 @@ function Modal({ children, shareResults, handleClose, warning }) {
                 })}
             </ul>
         )
-        console.log('modalContent', modalContent)
     }
 
     return (

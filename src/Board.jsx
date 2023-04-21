@@ -30,13 +30,10 @@ function Board({ answer }) {
   const [isOpen, setIsOpen] = useState(false);
 
   function updateStats() {
-    console.log('updateStats', message)
     //Open modal
     setIsOpen(true);
     //Update game state
     setGameOver(true);
-    console.log('song title', answer)
-    console.log('====guess', guess)
     //Update localStorage
     const storage = { title: answer["song"], timestamp: new Date(), guesses: guess.join("").length / 6 }
     if (!localStorage.getItem("stats")) {
