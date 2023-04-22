@@ -6,12 +6,11 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import {
   faPlay,
-  faCircleRight,
 } from "@fortawesome/free-solid-svg-icons";
 import Piano from "./Piano";
 import VolumeContext from './AppContext'
 import Modal from './Modal';
-
+import AudiotrackIcon from '@mui/icons-material/Audiotrack';
 
 function Board({ answer }) {
   const volume = useContext(VolumeContext);
@@ -251,7 +250,7 @@ function Board({ answer }) {
               );
             })}
             <button type="submit" style={{width: '460px'}}>
-              Submit <FontAwesomeIcon icon={faCircleRight} />
+              Submit <AudiotrackIcon className={styles.iconMusic} />
             </button>
           </form>
 

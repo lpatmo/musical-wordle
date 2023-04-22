@@ -68,3 +68,8 @@ button.playButton {
 button.playButton svg {
   position: relative;
 }
+
+.iconMusic {
+  position: relative;
+  top: 4px;
+}
