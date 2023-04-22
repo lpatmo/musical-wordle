@@ -70,7 +70,3 @@ button:hover {
   color: var(--btn-color-1);
   transform: translate(1px, 1px);
 }
-
-.error {
-  color: red;
-}
