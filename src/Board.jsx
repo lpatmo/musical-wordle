@@ -255,7 +255,7 @@ function Board({ answer }) {
             </button>
           </form>
 
-          {error && <Modal className={styles.error} warning={true} handleClose={() => setError(null)}>{error}</Modal>}
+          {error && error}
           {message}
           {isOpen && (
             <Modal shareResults={shareResults} handleClose={() => setIsOpen(false)}>{message}</Modal>
