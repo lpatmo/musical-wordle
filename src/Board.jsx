@@ -4,16 +4,13 @@ import { playNote, playSequence, playCelebrationSequence } from "./helpers/playM
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import { styled } from "@mui/material/styles";
 import {
   faPlay,
-  faCircleRight,
-  faX,
-  faShareAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import Piano from "./Piano";
 import VolumeContext from './AppContext'
-
+import Modal from './Modal';
+import AudiotrackIcon from '@mui/icons-material/Audiotrack';
 
 function Board({ answer }) {
   const volume = useContext(VolumeContext);
@@ -29,11 +26,27 @@ function Board({ answer }) {
     })
   );
   const [answerVisible, setAnswerVisible] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
+  function updateStats() {
+    //Open modal
+    setIsOpen(true);
+    //Update game state
+    setGameOver(true);
+    //Update localStorage
+    const storage = { title: answer["song"], timestamp: new Date(), guesses: guess.join("").length / 6 }
+    if (!localStorage.getItem("stats")) {
+      localStorage.setItem("stats", JSON.stringify([storage]));
+    } else {
+      const updatedStorage = [...JSON.parse(localStorage.getItem("stats")), storage]
+      localStorage.setItem("stats", JSON.stringify(updatedStorage));
+    }
+  }
 
   const handleSubmit = useCallback(
     (e) => {
       e.preventDefault();
-      let answerStr = answer.sequence.slice(0,6)
+      let answerStr = answer.sequence.slice(0, 6)
         .map((noteCluster) => noteCluster.split("")[0])
         .join("");
       const guessStr = guess[currentRow];
@@ -41,7 +54,6 @@ function Board({ answer }) {
 
       if (guessStr === answerStr) {
         setGameWon(true);
-        setGameOver(true);
         playCelebrationSequence(answer, volume);
         setShareOutput(shareOutput.slice(0, currentRow + 1));
         document
@@ -51,16 +63,17 @@ function Board({ answer }) {
           `Congratulations! You correctly guessed '${answer["song"]}' in ${guess.join("").length / 6
           }/${guess.length} tries!`
         );
-        window.addEventListener("click", removeModal);
+        //Update stats and open modal
+        updateStats();
+
       } else if (guessStr.length < 6) {
         setError("Please fill out all the notes.");
         return;
       } else if (guess.join("").length / 6 === 6) {
-        setGameOver(true);
         playCelebrationSequence(answer, volume);
         setMessage(`Better luck next time! The song was '${answer["song"]}'.\n
         Notes: ${answerStr}`);
-        window.addEventListener("click", removeModal);
+        updateStats();
       } else {
         /*If user has submitted 6 notes, play the notes when they submit*/
         playSequence(answer, guess, currentRow, volume);
@@ -152,10 +165,7 @@ function Board({ answer }) {
     },
     [answer, gameOver, currentRow, guess, handleSubmit, volume]
   );
-  const removeModal = useCallback((event) => {
-    setMessage("");
-    window.removeEventListener("click", removeModal);
-  }, []);
+
 
   useEffect(() => {
     window.addEventListener("keydown", handleKeyDown);
@@ -239,34 +249,18 @@ function Board({ answer }) {
                 </div>
               );
             })}
-            <button type="submit">
-              Submit <FontAwesomeIcon icon={faCircleRight} />
+            <button type="submit" style={{width: '460px'}}>
+              Submit <AudiotrackIcon className={styles.iconMusic} />
             </button>
           </form>
 
-          {error && <p className={styles.error}>{error}</p>}
-          {message && (
-            <div className={styles.modal}>
-              <button className={styles.modalXClose} onClick={removeModal}>
-                <FontAwesomeIcon icon={faX} />
-              </button>
-              <p>{message}</p>
-              <button className={styles.modalCloseBtn} onClick={removeModal}>
-                Close
-              </button>
-              <button
-                className="shareButton"
-                onClick={() => {
-                  shareResults();
-                }}
-              >
-                Share <FontAwesomeIcon icon={faShareAlt}></FontAwesomeIcon>
-              </button>
-            </div>
+          {error && <div className={styles.error}>{error}</div>}
+          {message}
+          {isOpen && (
+            <Modal shareResults={shareResults} handleClose={() => setIsOpen(false)}>{message}</Modal>
           )}
-          {message && <div className={styles.modalOverlay}></div>}
         </Paper>
-       <Paper elevation={0}>
+        <Paper elevation={0}>
           <Piano handlePianoPress={handlePianoPress} />
         </Paper>
       </Grid>

@@ -1,8 +1,17 @@
+@font-face {
+  font-family: 'Open Sans';
+  src: url('fonts/OpenSans-Regular.ttf') format('truetype');
+}
+
 :root {
   --btn-color-1: black;
   --btn-color-2: white;
   --background-lightmode: white;
   --text-color-lightmode: black;
+}
+
+body {
+  font-family: 'Open Sans', Arial, sans-serif;
 }
 
 .App {
@@ -22,7 +31,9 @@
 }
 
 h1 {
-  margin: 0.5em 0 0 0;
+  margin: 0;
+  font-size: 1.3em;
+  font-weight: 200;
 }
 
 p { 
@@ -35,7 +46,6 @@ p {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   font-size: calc(10px + 2vmin);
 }
 
@@ -45,22 +55,18 @@ p {
 
 button {
   outline: none;
-  border: none;
+  border: 1px solid var(--btn-color-1);
   padding: 10px 20px;
   font-size: 0.8em;
   margin: 5px;
   background: var(--btn-color-1);
   color: var(--btn-color-2);
   cursor: pointer;
-  transition: 300ms ease-in-out;
+  transition: 200ms ease-in-out;
 }
 
 button:hover {
   background: var(--btn-color-2);
   color: var(--btn-color-1);
-  transform: translate(2px, 2px);
-}
-
-.error {
-  color: red;
+  transform: translate(1px, 1px);
 }
