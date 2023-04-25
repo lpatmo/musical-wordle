@@ -28,13 +28,14 @@ function Board({ answer }) {
   const [answerVisible, setAnswerVisible] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
-  function updateStats() {
+  function updateStats(hasWon=true) {
     //Open modal
     setIsOpen(true);
     //Update game state
     setGameOver(true);
     //Update localStorage
-    const storage = { title: answer["song"], timestamp: new Date(), guesses: guess.join("").length / 6 }
+    const numberGuesses = guess.join("").length;
+    const storage = { title: answer["song"], timestamp: new Date(), guesses: hasWon ? numberGuesses / 6 : 'X' }
     if (!localStorage.getItem("stats")) {
       localStorage.setItem("stats", JSON.stringify([storage]));
     } else {
@@ -73,7 +74,7 @@ function Board({ answer }) {
         playCelebrationSequence(answer, volume);
         setMessage(`Better luck next time! The song was '${answer["song"]}'.\n
         Notes: ${answerStr}`);
-        updateStats();
+        updateStats(false);
       } else {
         /*If user has submitted 6 notes, play the notes when they submit*/
         playSequence(answer, guess, currentRow, volume);
