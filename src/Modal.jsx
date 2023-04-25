@@ -21,20 +21,6 @@ function Modal({ children, shareResults, handleClose, warning }) {
         };
     }, [handleOutsideClick]);
 
-    if (typeof children === "string") {
-        modalContent = <p>{children}</p>
-    } else if (Array.isArray(children)) {
-        modalContent = (
-            <ul className={styles.stats}>
-                {children.map((item, index) => {
-                    return (
-                        <li key={index}>{item.title} - {item.guesses}/6 tries</li>
-                    )
-                })}
-            </ul>
-        )
-    }
-
     return (
         <>
             <div className={`${styles.modal} ${warning && styles.warning}`} ref={modalRef}>
@@ -42,7 +28,7 @@ function Modal({ children, shareResults, handleClose, warning }) {
                 <button className={styles.modalXClose} onClick={handleClose}>
                     <CloseIcon />
                 </button>
-                {modalContent}
+                {children}
                 </div>
                 <div>
                 {shareResults &&
