@@ -3,7 +3,7 @@ import styles from './Modal.module.css'
 import ShareIcon from '@mui/icons-material/Share';
 import CloseIcon from '@mui/icons-material/Close';
 
-function Modal({ children, shareResults, handleClose, warning }) {
+function Modal({ children, shareResults, handleClose }) {
     const modalRef = useRef(null);
     let modalContent;
 
@@ -23,30 +23,28 @@ function Modal({ children, shareResults, handleClose, warning }) {
 
     return (
         <>
-            <div className={`${styles.modal} ${warning && styles.warning}`} ref={modalRef}>
+            <div className={styles.modal} ref={modalRef}>
                 <div>
-                <button className={styles.modalXClose} onClick={handleClose}>
-                    <CloseIcon />
-                </button>
-                {children}
-                </div>
-                <div>
-                {shareResults &&
-                    <button
-                        className={styles.shareButton}
-                        onClick={() => {
-                            shareResults();
-                        }}
-                    >
-                        Share <ShareIcon className={styles.shareIcon} />
+                    <button className={styles.modalXClose} onClick={handleClose}>
+                        <CloseIcon />
                     </button>
-                }
-                {!warning && <button className={styles.modalCloseBtn} onClick={handleClose}>
-                    Close
-                </button>}
+                    {children}
                 </div>
-              
-
+                <div>
+                    {shareResults &&
+                        <button
+                            className={styles.shareButton}
+                            onClick={() => {
+                                shareResults();
+                            }}
+                        >
+                            Share <ShareIcon className={styles.shareIcon} />
+                        </button>
+                    }
+                    <button className={styles.modalCloseBtn} onClick={handleClose}>
+                        Close
+                    </button>
+                </div>
             </div>
             <div className={styles.modalOverlay}></div>
         </>

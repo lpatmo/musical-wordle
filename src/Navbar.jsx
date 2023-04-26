@@ -23,24 +23,54 @@ function Navbar() {
 
     function findPercentageWon() {
         const numWon = storage.length - counter[0];
-        return `${(numWon/storage.length * 100).toFixed(2)}%`;
+        return `${(numWon / storage.length * 100).toFixed(2)}%`;
     }
+
+    const maxGuesses = Math.max(...counter);
+    console.log('maxGuesses', maxGuesses)
 
     return (
         <div className={styles.navbar}>
-            <img src="/pitch_puzzle.svg" alt="Pitch Puzzle logo"/>
+            <img src="/pitch_puzzle.svg" alt="Pitch Puzzle logo" />
             <EqualizerIcon onClick={() => setIsOpen(true)} style={{ fontSize: 40 }} />
-            {isOpen && <Modal handleClose={() => setIsOpen(false)}>
-                {storage.length} played
-                <p>Percentage won: {findPercentageWon()}</p>
-                <p>{counter[1]}</p>
-                <p>{counter[2]}</p>
-                <p>{counter[3]}</p>
-                <p>{counter[4]}</p>
-                <p>{counter[5]}</p>
-                <p>{counter[6]}</p>
-                
-            </Modal>}
+            {isOpen &&
+                <Modal handleClose={() => setIsOpen(false)}>
+                    <section>
+                        <ul className={styles.statsSummary}>
+                            <li><span>{storage.length} </span><span className={styles.statsLabel}>Played</span></li>
+                            <li><span>{findPercentageWon()} </span><span className={styles.statsLabel}>Percentage won</span></li>
+                        </ul>
+
+                        <h5>Guess Distribution</h5>
+                        <div className={styles.barChart}>
+                            <div>
+                                <span>1</span>
+                                <span className={styles.bar} style={{width: `${(counter[1]/maxGuesses)*100}%`}}>{counter[1]}</span>
+                            </div>
+                            <div>
+                                <span>2</span>
+                                <span className={styles.bar} style={{width: `${(counter[2]/maxGuesses)*100}%`}}>{counter[2]}</span>
+                            </div>
+                            <div>
+                                <span>3</span>
+                                <span className={styles.bar} style={{width: `${(counter[3]/maxGuesses)*100}%`}}>{counter[3]}</span>
+                            </div>
+                            <div>
+                                <span>4</span>
+                                <span className={styles.bar} style={{width: `${(counter[4]/maxGuesses)*100}%`}}>{counter[4]}</span>
+                            </div>
+                            <div>
+                                <span>5</span>
+                                <span className={styles.bar} style={{width: `${(counter[5]/maxGuesses)*100}%`}}>{counter[5]}</span>
+                            </div>
+                            <div>
+                                <span>6</span>
+                                <span className={styles.bar} style={{width: `${(counter[6]/maxGuesses)*100}%`}}>{counter[6]}</span>
+                            </div>
+                        </div>
+                    </section>
+
+                </Modal>}
         </div>
     )
 }
