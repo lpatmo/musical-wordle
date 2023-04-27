@@ -3,7 +3,7 @@ import styles from './Modal.module.css'
 import ShareIcon from '@mui/icons-material/Share';
 import CloseIcon from '@mui/icons-material/Close';
 
-function Modal({ children, shareResults, handleClose }) {
+function Modal({ children, shareResults, handleClose, hideClose }) {
     const modalRef = useRef(null);
     let modalContent;
 
@@ -41,9 +41,9 @@ function Modal({ children, shareResults, handleClose }) {
                             Share <ShareIcon className={styles.shareIcon} />
                         </button>
                     }
-                    <button className={styles.modalCloseBtn} onClick={handleClose}>
+                    {!hideClose &&<button className={styles.modalCloseBtn} onClick={handleClose}>
                         Close
-                    </button>
+                    </button>}
                 </div>
             </div>
             <div className={styles.modalOverlay}></div>
