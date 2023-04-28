@@ -57,6 +57,7 @@
 
 .barChart div span {
     font-size: 20px;
+    font-weight: 600;
 }
 
 .barChart div span:first-child {
