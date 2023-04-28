@@ -10,7 +10,7 @@ function Navbar() {
 
     function countFreqOfGuesses() {
         const counter = new Array(7).fill(0);
-        if (storage.length > 0) {
+        if (storage) {
             storage.forEach((curr) => {
                 if (curr.guesses === "X") {
                     counter[0]++; //The 0th element is the number of losses
@@ -24,13 +24,15 @@ function Navbar() {
     let counter = countFreqOfGuesses();
 
     function findPercentageWon() {
-        const numWon = storage.length - counter[0];
-        return `${(numWon / storage.length * 100).toFixed(2)}%`;
+        if (!storage) {
+            return 0;
+        } else {
+            const numWon = storage.length - counter[0];
+            return `${(numWon / storage.length * 100).toFixed(2)}%`;
+        }
     }
 
     const maxGuesses = Math.max(...counter);
-    console.log('maxGuesses', maxGuesses)
-    console.log('counter4', typeof counter[4])
 
     return (
         <div className={styles.navbar}>
@@ -40,7 +42,7 @@ function Navbar() {
                 <Modal handleClose={() => setIsOpen(false)} hideClose={true}>
                     <section>
                         <ul className={styles.statsSummary}>
-                            <li><span>{storage.length} </span><span className={styles.statsLabel}>Played</span></li>
+                            <li><span>{storage ? storage.length : 0} </span><span className={styles.statsLabel}>Played</span></li>
                             <li><span>{findPercentageWon()} </span><span className={styles.statsLabel}>Percentage won</span></li>
                         </ul>
 
