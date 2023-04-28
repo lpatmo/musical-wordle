@@ -258,7 +258,7 @@ function Board({ answer }) {
           {error && <div className={styles.error}>{error}</div>}
           {message}
           {isOpen && (
-            <Modal shareResults={shareResults} handleClose={() => setIsOpen(false)}>{message}</Modal>
+            <Modal shareResults={shareResults} handleClose={() => setIsOpen(false)}><h4>{message}</h4></Modal>
           )}
         </Paper>
         <Paper elevation={0}>
