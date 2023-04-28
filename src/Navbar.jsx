@@ -46,27 +46,33 @@ function Navbar() {
                         <div className={styles.barChart}>
                             <div>
                                 <span>1</span>
-                                <span className={styles.bar} style={{width: `${counter[1] == 0 ? "40px" : (counter[1]/maxGuesses)*100}%`}}>{counter[1]}</span>
+                                <span className={styles.bar} style={{width: "30px"}}>{counter[1] == 0 && 0}</span>
+                                <span className={counter[1] == 0 ? styles.hide : styles.bar} style={{width: `${counter[1]/maxGuesses*100}%`}}>{counter[1] > 0 && counter[1]}</span>
                             </div>
                             <div>
                                 <span>2</span>
-                                <span className={styles.bar} style={{width: `${counter[2] == 0 ? "40px" : (counter[2]/maxGuesses)*100}%`}}>{counter[2]}</span>
+                                <span className={styles.bar} style={{width: "30px"}}>{counter[2] == 0 && 0}</span>
+                                <span className={counter[2] == 0 ? styles.hide : styles.bar} style={{width: `${counter[2]/maxGuesses*100}%`}}>{counter[2]}</span>
                             </div>
                             <div>
                                 <span>3</span>
-                                <span className={styles.bar} style={{width: `${counter[3] == 0 ? "40px" : (counter[3]/maxGuesses)*100}%`}}>{counter[3]}</span>
+                                <span className={styles.bar} style={{width: "30px"}}>{counter[3] == 0 && 0}</span>
+                                <span className={counter[3] == 0 ? styles.hide : styles.bar} style={{width: `${counter[3]/maxGuesses*100}%`}}>{counter[3]}</span>
                             </div>
                             <div>
                                 <span>4</span>
-                                <span className={styles.bar} style={{width: `${counter[4] == 0 ? "40px" : (counter[4]/maxGuesses)*100}%`}}>{counter[4]}</span>
+                                <span className={styles.bar} style={{width: "30px"}}>{counter[4] == 0 && 0}</span>
+                                <span className={counter[4] == 0 ? styles.hide : styles.bar} style={{width: `${counter[4]/maxGuesses*100}%`}}>{counter[4] > 0 && counter[4]}</span>
                             </div>
                             <div>
                                 <span>5</span>
-                                <span className={styles.bar} style={{width: `${counter[5] == 0 ? "40px" : (counter[5]/maxGuesses)*100}%`}}>{counter[5]}</span>
+                                <span className={styles.bar} style={{width: "30px"}}>{counter[5] == 0 && 0}</span>
+                                <span className={counter[5] == 0 ? styles.hide : styles.bar} style={{width: `${counter[5]/maxGuesses*100}%`}}>{counter[5]}</span>
                             </div>
                             <div>
                                 <span>6</span>
-                                <span className={styles.bar} style={{width: `${counter[6] == 0 ? "40px" : (counter[6]/maxGuesses)*100}%`}}>{counter[6]}</span>
+                                <span className={styles.bar} style={{width: "30px"}}>{counter[6] == 0 && 0}</span>
+                                <span className={counter[6] == 0 ? styles.hide : styles.bar} style={{width: `${counter[6]/maxGuesses*100}%`}}>{counter[6]}</span>
                             </div>
                         </div>
                     </section>
