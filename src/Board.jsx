@@ -199,7 +199,7 @@ function Board({ answer }) {
   }
   function shareResults() { //TODO: Refactor shareOutput to be calculated here without using state
     let stat = gameWon ? guess.join("").length / 6 : "X";
-    let beginText = `Musical Wordle - '${answer["song"]}' ${stat}/${guess.length}\n`;
+    let beginText = `Perfect Pitch Puzzle - '${answer["song"]}' ${stat}/${guess.length}\n`;
     navigator.clipboard
       .writeText(
         beginText +

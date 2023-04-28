@@ -36,7 +36,7 @@ function Navbar() {
 
     return (
         <div className={styles.navbar}>
-            <img src="/pitch_puzzle.svg" alt="Pitch Puzzle logo" />
+            <img src="/pitchpuzzle_newlogo.svg" alt="Perfect Pitch Puzzle logo" />
             <EqualizerIcon onClick={() => setIsOpen(true)} style={{ fontSize: 40 }} />
             {isOpen &&
                 <Modal handleClose={() => setIsOpen(false)} hideClose={true}>
