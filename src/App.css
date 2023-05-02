@@ -12,6 +12,7 @@
 
 body {
   font-family: 'Open Sans', Arial, sans-serif;
+  box-sizing: border-box;
 }
 
 .App {
@@ -61,16 +62,29 @@ button {
   outline: none;
   border: 1px solid var(--btn-color-1);
   padding: 10px 20px;
-  font-size: 0.8em;
-  margin: 5px;
+  font-size: 1em;
   background: var(--btn-color-1);
   color: var(--btn-color-2);
   cursor: pointer;
   transition: 200ms ease-in-out;
+  width: 250px;
 }
 
 button:hover {
   background: var(--btn-color-2);
   color: var(--btn-color-1);
   transform: translate(1px, 1px);
+}
+
+.announcement {
+  margin: 20px auto;
+  width: 400px;
+  border: 1px solid #ccc;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  padding: 15px 20px;
+}
+
+.announcement button {
+  width: 100%;
+  margin-top: 5px;
 }

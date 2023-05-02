@@ -1,0 +1,14 @@
+.shareButton {
+    background: var(--wordle-correct-color);
+    color: var(--wordle-answer-text-color);
+    cursor: pointer;
+    border: none;
+    user-select: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 25%;
+    height: 52px;
+    width: 90%;
+    margin: 0 auto;
+}

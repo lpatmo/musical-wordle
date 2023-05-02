@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import styles from './Modal.module.css'
-import ShareIcon from '@mui/icons-material/Share';
 import CloseIcon from '@mui/icons-material/Close';
+import ShareResults from './ShareResults';
 
 function Modal({ children, shareResults, handleClose, hideClose }) {
     const modalRef = useRef(null);
@@ -32,14 +32,7 @@ function Modal({ children, shareResults, handleClose, hideClose }) {
                 </div>
                 <div>
                     {shareResults &&
-                        <button
-                            className={styles.shareButton}
-                            onClick={() => {
-                                shareResults();
-                            }}
-                        >
-                            Share <ShareIcon className={styles.shareIcon} />
-                        </button>
+                        <ShareResults shareResults={shareResults} />
                     }
                     {!hideClose &&<button className={styles.modalCloseBtn} onClick={handleClose}>
                         Close

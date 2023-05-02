@@ -11,13 +11,14 @@ import Piano from "./Piano";
 import VolumeContext from './AppContext'
 import Modal from './Modal';
 import AudiotrackIcon from '@mui/icons-material/Audiotrack';
+import ShareResults from './ShareResults'
 
 function Board({ answer }) {
   const volume = useContext(VolumeContext);
   const [guess, setGuess] = useState(new Array(6).fill(""));
   const [currentRow, setCurrentRow] = useState(0);
   const [error, setError] = useState("");
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState(null);
   const [gameOver, setGameOver] = useState(false);
   const [gameWon, setGameWon] = useState(false);
   const [shareOutput, setShareOutput] = useState(
@@ -25,10 +26,9 @@ function Board({ answer }) {
       return Array(6).fill("⬛");
     })
   );
-  const [answerVisible, setAnswerVisible] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
-  function updateStats(hasWon=true) {
+  function updateStats(hasWon = true) {
     //Open modal
     setIsOpen(true);
     //Update game state
@@ -37,12 +37,12 @@ function Board({ answer }) {
     //Update localStorage
     const numberGuesses = guess.join("").length;
     const storage = { title: answer["song"], timestamp: new Date(), guesses: hasWon ? numberGuesses / 6 : 'X' }
-    
-    if (!localStorage.getItem("stats")) { 
+
+    if (!localStorage.getItem("stats")) {
       //if localStorage does not exist
       localStorage.setItem("stats", JSON.stringify([storage]));
     }
-    if (JSON.parse(localStorage.getItem("stats")).filter((item) => item.title === answer["song"]).length === 0){ 
+    if (JSON.parse(localStorage.getItem("stats")).filter((item) => item.title === answer["song"]).length === 0) {
       //if answer is not already in localStorage, update localStorage stats
       const updatedStorage = [...JSON.parse(localStorage.getItem("stats")), storage]
       localStorage.setItem("stats", JSON.stringify(updatedStorage));
@@ -66,7 +66,7 @@ function Board({ answer }) {
           .querySelectorAll(`input[name^="note-${currentRow}"]`)
           .forEach((el) => el.classList.add(styles.correct));
         setMessage(
-          `Congratulations! You correctly guessed '${answer["song"]}' in ${guess.join("").length / 6
+          `🎉 Congratulations! You correctly guessed '${answer["song"]}' in ${guess.join("").length / 6
           }/${guess.length} tries!`
         );
         //Update stats and open modal
@@ -198,6 +198,7 @@ function Board({ answer }) {
     handleKeyDown({ key: note });
   }
   function shareResults() { //TODO: Refactor shareOutput to be calculated here without using state
+    setIsOpen(false);
     let stat = gameWon ? guess.join("").length / 6 : "X";
     let beginText = `Perfect Pitch Puzzle - '${answer["song"]}' ${stat}/${guess.length}\n`;
     navigator.clipboard
@@ -215,10 +216,6 @@ function Board({ answer }) {
       .catch(() => {
         alert("Failed to copy results to clipboard");
       });
-  }
-
-  function toggleAnswer() {
-    setAnswerVisible(!answerVisible);
   }
 
   return (
@@ -247,7 +244,7 @@ function Board({ answer }) {
                     className={styles.playButton}
                     onClick={(e) => {
                       e.preventDefault();
-                      playSequence(answer, guess, row, volume);
+                      playSequecnce(answer, guess, row, volume);
                     }}
                   >
                     <FontAwesomeIcon icon={faPlay} />
@@ -255,13 +252,22 @@ function Board({ answer }) {
                 </div>
               );
             })}
-            <button type="submit" style={{width: '460px'}}>
+
+            <button type="submit">
               Submit <AudiotrackIcon className={styles.iconMusic} />
             </button>
+
           </form>
+          {message && (
+            <div className="announcement">
+              <p>{message}</p>
+              <ShareResults shareResults={shareResults} />
+              <button>Show Stats</button>
+            </div>
+          )}
 
           {error && <div className={styles.error}>{error}</div>}
-          {message}
+
           {isOpen && (
             <Modal shareResults={shareResults} handleClose={() => setIsOpen(false)}><h4>{message}</h4></Modal>
           )}
