@@ -3,14 +3,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: var(--wordle-correct-color);
+    background: var(--navbar-bg);
     color: white;
     padding: 5px 30px;
 }
 .navbar svg {
     cursor: pointer;
 }
-.navbar img {
+.navbar img.logo {
     width: 200px;
 }
 

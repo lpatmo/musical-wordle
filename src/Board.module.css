@@ -9,6 +9,7 @@
   --wordle-text-color-lightmode-selected: white;
   --wordle-error: rgb(157, 14, 14);
   --tile-border-color: #d3d6da;
+  --navbar-bg: #573dee;
 }
 
 .board input {
