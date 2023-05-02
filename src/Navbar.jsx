@@ -37,6 +37,7 @@ function Navbar() {
     return (
         <div className={styles.navbar}>
             <img src="/pitchpuzzle_newlogo.svg" alt="Perfect Pitch Puzzle logo" />
+            <span className={styles.instructions}>Figure out the first few notes of the tune. You have 6 tries.</span>
             <EqualizerIcon onClick={() => setIsOpen(true)} style={{ fontSize: 40 }} />
             {isOpen &&
                 <Modal handleClose={() => setIsOpen(false)} hideClose={true}>
@@ -80,7 +81,6 @@ function Navbar() {
                             </div>
                         </div>
                     </section>
-
                 </Modal>}
         </div>
     )

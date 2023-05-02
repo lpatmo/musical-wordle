@@ -58,8 +58,6 @@ div.answerBox {
 button.playButton {
   width: 57px;
   height: 57px;
-  position: relative;
-  top: -1.8px;
 }
 
 button.playButton svg {

@@ -54,10 +54,9 @@ function App() {
       <div className="App">
         <header className="App-header">
           <Navbar/>
-          <p className="announcement">Figure out the first few notes of this tune. You have 6 tries.</p>
           {mobileOrSafari ? <p className="error">Sorry, this game is not available on Safari or on mobile devices.</p> : <>
 
-            <button type="button" onClick={() => playSequence(answer, undefined, undefined, volume)}><FontAwesomeIcon icon={faPlay} /> Play the tune</button>
+            <button type="button" className="action" onClick={() => playSequence(answer, undefined, undefined, volume)}><FontAwesomeIcon icon={faPlay} /> Play the tune</button>
             <Box sx={{ width: 300, marginTop: '20px' }}>
 
               <Stack spacing={3} direction="row" sx={{ mb: 3 }} alignItems="center" className="audioSettings">

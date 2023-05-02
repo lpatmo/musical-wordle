@@ -253,7 +253,7 @@ function Board({ answer }) {
               );
             })}
 
-            <button type="submit">
+            <button type="submit" className="action">
               Submit <AudiotrackIcon className={styles.iconMusic} />
             </button>
 
