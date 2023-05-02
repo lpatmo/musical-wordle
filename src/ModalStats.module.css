@@ -1,0 +1,64 @@
+.statsSummary {
+    display: flex;
+    list-style: none;
+    justify-content: flex-start;
+    margin: 0;
+    padding: 0;
+}
+.statsSummary li {
+    margin-right: 20px;
+}
+
+.barChart {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.barChart div {
+    display: flex;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.barChart div span {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.barChart div span:first-child {
+    margin-right: 10px;
+}
+
+.barChart div span:last-child {
+    padding-right: 10px;
+    text-align: right;
+}
+
+.statsLabel {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    color: var(--wordle-answer-incorrect);
+}
+
+.bar {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    color: var(--wordle-background-color-lightmode);
+    background: var(--wordle-text-color-lightmode);
+    font-size: 14px;
+}
+
+.title {
+    text-align: left;
+    font-size: 20px;
+    margin: 10px auto;
+}
+
+.hide {
+    display: none;
+}
