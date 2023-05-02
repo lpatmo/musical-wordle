@@ -12,6 +12,7 @@ import VolumeContext from './AppContext'
 import Modal from './Modal';
 import AudiotrackIcon from '@mui/icons-material/Audiotrack';
 import ShareResults from './ShareResults'
+import ModalStats from './ModalStats';
 
 function Board({ answer }) {
   const volume = useContext(VolumeContext);
@@ -27,6 +28,8 @@ function Board({ answer }) {
     })
   );
   const [isOpen, setIsOpen] = useState(false);
+  const [showStatsModal, setShowStatsModal] = useState(false);
+
 
   function updateStats(hasWon = true) {
     //Open modal
@@ -262,7 +265,7 @@ function Board({ answer }) {
             <div className="announcement">
               <p>{message}</p>
               <ShareResults shareResults={shareResults} />
-              <button>Show Stats</button>
+              <button onClick={() => setShowStatsModal(true)}>Show Stats</button>
             </div>
           )}
 
@@ -271,6 +274,7 @@ function Board({ answer }) {
           {isOpen && (
             <Modal shareResults={shareResults} handleClose={() => setIsOpen(false)}><h4>{message}</h4></Modal>
           )}
+          {showStatsModal && <ModalStats setIsOpen={setShowStatsModal}/>}
         </Paper>
         <Paper elevation={0}>
           <Piano handlePianoPress={handlePianoPress} />
