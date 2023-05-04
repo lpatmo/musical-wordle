@@ -9,7 +9,7 @@ function Navbar() {
         <div className={styles.navbar}>
             <img src="/logo_transparent.svg" alt="Perfect Pitch Puzzle logo" className={styles.logo} />
             {/* <span className={styles.instructions}>Figure out the first few notes of the tune. You have 6 tries.</span> */}
-            <img src="/instructions_transparent.svg" alt="Figure out the first 6 notes of the tune. You have 6 attempts." width="450"/>
+            <img src="/instructions_transparent.svg" alt="Identity the first 6 notes of the tune. You have 6 tries." width="450"/>
             <EqualizerIcon onClick={() => setIsOpen(true)} style={{ fontSize: 40 }} />
             {isOpen && <ModalStats setIsOpen={setIsOpen} />}
         </div>
