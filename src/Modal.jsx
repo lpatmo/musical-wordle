@@ -32,9 +32,9 @@ function Modal({ children, shareResults, handleClose, hideClose }) {
                 </div>
                 <div>
                     {shareResults &&
-                        <ShareResults shareResults={shareResults} />
+                        <ShareResults shareResults={shareResults} hideClose={true} />
                     }
-                    {!hideClose &&<button className={styles.modalCloseBtn} onClick={handleClose}>
+                    {!hideClose && <button className={styles.modalCloseBtn} onClick={handleClose}>
                         Close
                     </button>}
                 </div>

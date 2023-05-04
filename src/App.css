@@ -8,6 +8,7 @@
   --btn-color-2: white;
   --background-lightmode: white;
   --text-color-lightmode: black;
+  font-size: 62.5%;
 }
 
 body {
@@ -33,7 +34,7 @@ body {
 
 h1 {
   margin: 0;
-  font-size: 1.3em;
+  font-size: 2rem;
   font-weight: 200;
 }
 
@@ -51,7 +52,7 @@ p {
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-size: calc(10px + 2vmin);
+  font-size: 2.5rem;
 }
 
 .muteVolume { 
@@ -62,7 +63,7 @@ button {
   outline: none;
   border: 1px solid var(--btn-color-1);
   padding: 10px 20px;
-  font-size: 1em;
+  font-size: 2.5rem;
   background: var(--btn-color-1);
   color: var(--btn-color-2);
   cursor: pointer;
