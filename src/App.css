@@ -8,10 +8,12 @@
   --btn-color-2: white;
   --background-lightmode: white;
   --text-color-lightmode: black;
+  font-size: 62.5%;
 }
 
 body {
   font-family: 'Open Sans', Arial, sans-serif;
+  box-sizing: border-box;
 }
 
 .App {
@@ -32,8 +34,12 @@ body {
 
 h1 {
   margin: 0;
-  font-size: 1.3em;
+  font-size: 2rem;
   font-weight: 200;
+}
+
+h5 {
+  margin: 0;
 }
 
 p { 
@@ -46,7 +52,7 @@ p {
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-size: calc(10px + 2vmin);
+  font-size: 2.5rem;
 }
 
 .muteVolume { 
@@ -57,16 +63,33 @@ button {
   outline: none;
   border: 1px solid var(--btn-color-1);
   padding: 10px 20px;
-  font-size: 0.8em;
-  margin: 5px;
+  font-size: 2.5rem;
   background: var(--btn-color-1);
   color: var(--btn-color-2);
   cursor: pointer;
   transition: 200ms ease-in-out;
+  width: 250px;
+}
+
+button.action {
+  margin: 10px auto;
 }
 
 button:hover {
   background: var(--btn-color-2);
   color: var(--btn-color-1);
   transform: translate(1px, 1px);
+}
+
+.announcement {
+  margin: 20px auto;
+  width: 400px;
+  border: 1px solid #ccc;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  padding: 15px 20px;
+}
+
+.announcement button {
+  width: 100%;
+  margin-top: 5px;
 }

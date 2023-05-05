@@ -11,13 +11,15 @@ import Piano from "./Piano";
 import VolumeContext from './AppContext'
 import Modal from './Modal';
 import AudiotrackIcon from '@mui/icons-material/Audiotrack';
+import ShareResults from './ShareResults'
+import ModalStats from './ModalStats';
 
 function Board({ answer }) {
   const volume = useContext(VolumeContext);
   const [guess, setGuess] = useState(new Array(6).fill(""));
   const [currentRow, setCurrentRow] = useState(0);
   const [error, setError] = useState("");
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState(null);
   const [gameOver, setGameOver] = useState(false);
   const [gameWon, setGameWon] = useState(false);
   const [shareOutput, setShareOutput] = useState(
@@ -25,19 +27,26 @@ function Board({ answer }) {
       return Array(6).fill("⬛");
     })
   );
-  const [answerVisible, setAnswerVisible] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [showStatsModal, setShowStatsModal] = useState(false);
 
-  function updateStats() {
+
+  function updateStats(hasWon = true) {
     //Open modal
     setIsOpen(true);
     //Update game state
     setGameOver(true);
+
     //Update localStorage
-    const storage = { title: answer["song"], timestamp: new Date(), guesses: guess.join("").length / 6 }
+    const numberGuesses = guess.join("").length;
+    const storage = { title: answer["song"], timestamp: new Date(), guesses: hasWon ? numberGuesses / 6 : 'X' }
+
     if (!localStorage.getItem("stats")) {
+      //if localStorage does not exist
       localStorage.setItem("stats", JSON.stringify([storage]));
-    } else {
+    }
+    if (JSON.parse(localStorage.getItem("stats")).filter((item) => item.title === answer["song"]).length === 0) {
+      //if answer is not already in localStorage, update localStorage stats
       const updatedStorage = [...JSON.parse(localStorage.getItem("stats")), storage]
       localStorage.setItem("stats", JSON.stringify(updatedStorage));
     }
@@ -60,7 +69,7 @@ function Board({ answer }) {
           .querySelectorAll(`input[name^="note-${currentRow}"]`)
           .forEach((el) => el.classList.add(styles.correct));
         setMessage(
-          `Congratulations! You correctly guessed '${answer["song"]}' in ${guess.join("").length / 6
+          `🎉 Congratulations! You correctly guessed '${answer["song"]}' in ${guess.join("").length / 6
           }/${guess.length} tries!`
         );
         //Update stats and open modal
@@ -73,7 +82,7 @@ function Board({ answer }) {
         playCelebrationSequence(answer, volume);
         setMessage(`Better luck next time! The song was '${answer["song"]}'.\n
         Notes: ${answerStr}`);
-        updateStats();
+        updateStats(false);
       } else {
         /*If user has submitted 6 notes, play the notes when they submit*/
         playSequence(answer, guess, currentRow, volume);
@@ -192,8 +201,9 @@ function Board({ answer }) {
     handleKeyDown({ key: note });
   }
   function shareResults() { //TODO: Refactor shareOutput to be calculated here without using state
+    setIsOpen(false);
     let stat = gameWon ? guess.join("").length / 6 : "X";
-    let beginText = `Musical Wordle - '${answer["song"]}' ${stat}/${guess.length}\n`;
+    let beginText = `Perfect Pitch Puzzle - '${answer["song"]}' ${stat}/${guess.length}\n`;
     navigator.clipboard
       .writeText(
         beginText +
@@ -209,10 +219,6 @@ function Board({ answer }) {
       .catch(() => {
         alert("Failed to copy results to clipboard");
       });
-  }
-
-  function toggleAnswer() {
-    setAnswerVisible(!answerVisible);
   }
 
   return (
@@ -249,16 +255,26 @@ function Board({ answer }) {
                 </div>
               );
             })}
-            <button type="submit" style={{width: '460px'}}>
+
+            <button type="submit" className="action">
               Submit <AudiotrackIcon className={styles.iconMusic} />
             </button>
+
           </form>
+          {message && (
+            <div className="announcement">
+              <p>{message}</p>
+              <ShareResults shareResults={shareResults} />
+              <button onClick={() => setShowStatsModal(true)}>Show Stats</button>
+            </div>
+          )}
 
           {error && <div className={styles.error}>{error}</div>}
-          {message}
+
           {isOpen && (
-            <Modal shareResults={shareResults} handleClose={() => setIsOpen(false)}>{message}</Modal>
+            <Modal shareResults={shareResults} handleClose={() => setIsOpen(false)}><h4>{message}</h4></Modal>
           )}
+          {showStatsModal && <ModalStats setIsOpen={setShowStatsModal}/>}
         </Paper>
         <Paper elevation={0}>
           <Piano handlePianoPress={handlePianoPress} />

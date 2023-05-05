@@ -1,17 +1,17 @@
 import { useState } from 'react';
 import EqualizerIcon from '@mui/icons-material/Equalizer'; import Grid from '@mui/material/Grid';
 import styles from './Navbar.module.css';
-import Modal from './Modal'
+import ModalStats from './ModalStats';
 
 function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
-    const storage = JSON.parse(localStorage.getItem("stats"));
-
     return (
         <div className={styles.navbar}>
-            <img src="/pitch_puzzle.svg" alt="Pitch Puzzle logo"/>
+            <img src="/logo_transparent.svg" alt="Perfect Pitch Puzzle logo" className={styles.logo} />
+            {/* <span className={styles.instructions}>Figure out the first few notes of the tune. You have 6 tries.</span> */}
+            <img src="/instructions_transparent.svg" alt="Identity the first 6 notes of the tune. You have 6 tries." width="450"/>
             <EqualizerIcon onClick={() => setIsOpen(true)} style={{ fontSize: 40 }} />
-            {isOpen && <Modal handleClose={() => setIsOpen(false)}>{storage}</Modal>}
+            {isOpen && <ModalStats setIsOpen={setIsOpen} />}
         </div>
     )
 }

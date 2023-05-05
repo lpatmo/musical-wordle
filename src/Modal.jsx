@@ -1,9 +1,9 @@
 import React, { useRef, useEffect } from 'react';
 import styles from './Modal.module.css'
-import ShareIcon from '@mui/icons-material/Share';
 import CloseIcon from '@mui/icons-material/Close';
+import ShareResults from './ShareResults';
 
-function Modal({ children, shareResults, handleClose, warning }) {
+function Modal({ children, shareResults, handleClose, hideClose }) {
     const modalRef = useRef(null);
     let modalContent;
 
@@ -21,46 +21,23 @@ function Modal({ children, shareResults, handleClose, warning }) {
         };
     }, [handleOutsideClick]);
 
-    if (typeof children === "string") {
-        modalContent = <p>{children}</p>
-    } else if (Array.isArray(children)) {
-        modalContent = (
-            <ul className={styles.stats}>
-                {children.map((item, index) => {
-                    return (
-                        <li key={index}>{item.title} - {item.guesses}/6 tries</li>
-                    )
-                })}
-            </ul>
-        )
-    }
-
     return (
         <>
-            <div className={`${styles.modal} ${warning && styles.warning}`} ref={modalRef}>
+            <div className={styles.modal} ref={modalRef}>
                 <div>
-                <button className={styles.modalXClose} onClick={handleClose}>
-                    <CloseIcon />
-                </button>
-                {modalContent}
-                </div>
-                <div>
-                {shareResults &&
-                    <button
-                        className={styles.shareButton}
-                        onClick={() => {
-                            shareResults();
-                        }}
-                    >
-                        Share <ShareIcon className={styles.shareIcon} />
+                    <button className={styles.modalXClose} onClick={handleClose}>
+                        <CloseIcon />
                     </button>
-                }
-                {!warning && <button className={styles.modalCloseBtn} onClick={handleClose}>
-                    Close
-                </button>}
+                    {children}
                 </div>
-              
-
+                <div>
+                    {shareResults &&
+                        <ShareResults shareResults={shareResults} hideClose={true} />
+                    }
+                    {!hideClose && <button className={styles.modalCloseBtn} onClick={handleClose}>
+                        Close
+                    </button>}
+                </div>
             </div>
             <div className={styles.modalOverlay}></div>
         </>

@@ -11,7 +11,7 @@ import Soundfont from 'soundfont-player';
  */
 
 export function playSequence(answer, guess, currentRow, volume) {
-    console.log('answer and guess and currentRow', answer, guess, currentRow, volume)
+    //console.log('answer and guess and currentRow', answer, guess, currentRow, volume)
     const ac = new AudioContext();
 
     const transformedSequence = answer.sequence.slice(0,6).map((note, i) => {
