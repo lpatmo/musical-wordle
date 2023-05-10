@@ -3,7 +3,6 @@ import { differenceInSeconds, addDays, startOfDay } from 'date-fns';
 
 function CountdownTimer() {
   const [countdown, setCountdown] = useState('');
-  console.log('countdown')
 
   useEffect(() => {
     let now = new Date();
