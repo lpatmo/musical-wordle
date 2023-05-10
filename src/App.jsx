@@ -12,8 +12,8 @@ import VolumeUp from '@mui/icons-material/VolumeUp';
 import Stack from "@mui/material/Stack";
 import Box from '@mui/material/Box';
 import Navbar from './Navbar';
-
 import VolumeContext from './AppContext'
+import { differenceInDays } from 'date-fns';
 
 /* To access mock data for validation testing
  *  1) Uncomment the following for mock data for validation testing
@@ -26,10 +26,16 @@ function App() {
   const [volume, setVolume] = useState(2);
   const [mobileOrSafari, setMobileOrSafari] = useState(false);
 
+  function setGameIndex() {
+    let startDate = new Date('2023-05-09');
+    // Find number of days between now and startDate
+    console.log('test', differenceInDays(new Date(), startDate))
+    return differenceInDays(new Date(), startDate)-1;
+  }
 
   useEffect(() => {
     let randomIndex = Math.floor(Math.random() * data.length)
-    setAnswer(data[randomIndex]);
+    setAnswer(data[setGameIndex()]);
     /* Uncomment when adding new songs
     setAnswer(data[data.length - 1])
     */
