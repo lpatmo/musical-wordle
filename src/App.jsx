@@ -27,10 +27,9 @@ function App() {
   const [mobileOrSafari, setMobileOrSafari] = useState(false);
 
   function setGameIndex() {
-    let startDate = new Date('2023-05-09');
+    let startDate = new Date('2023-05-11');
     // Find number of days between now and startDate
-    console.log('test', differenceInDays(new Date(), startDate))
-    return differenceInDays(new Date(), startDate)-1;
+    return differenceInDays(new Date(), startDate)-1 > 0 ? differenceInDays(new Date(), startDate)-1 : 0;
   }
 
   useEffect(() => {

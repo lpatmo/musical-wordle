@@ -32,7 +32,7 @@ function CountdownTimer() {
     };
   }, []);
 
-  return <div className="countdown"><strong>{countdown}</strong> <br />until the next game</div>;
+  return <div className="countdown"><strong>{countdown}</strong> <br />until the next puzzle</div>;
 }
 
 export default CountdownTimer;
