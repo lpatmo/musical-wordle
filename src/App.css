@@ -96,5 +96,10 @@ button:hover {
 
 .countdown {
   font-size: 1.8rem;
-  transform: rotate(-20deg);
+  transform: rotate(-12deg);
+}
+
+.countdownClock {
+  font-size: 3rem;
+  font-weight: bold;
 }
