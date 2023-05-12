@@ -93,3 +93,13 @@ button:hover {
   width: 100%;
   margin-top: 5px;
 }
+
+.countdown {
+  font-size: 1.8rem;
+  transform: rotate(-12deg);
+}
+
+.countdownClock {
+  font-size: 3rem;
+  font-weight: bold;
+}
