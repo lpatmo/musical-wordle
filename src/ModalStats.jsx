@@ -2,7 +2,7 @@ import styles from './ModalStats.module.css'
 import Modal from './Modal'
 
 function ModalStats({setIsOpen}) {
-    const storage = JSON.parse(localStorage.getItem("stats"));
+    const storage = JSON.parse(localStorage.getItem("perfectPitchPuzzleStats"));
     function countFreqOfGuesses() {
         const counter = new Array(7).fill(0);
         if (storage) {

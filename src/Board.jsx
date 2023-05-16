@@ -41,14 +41,14 @@ function Board({ answer }) {
     const numberGuesses = guess.join("").length;
     const storage = { title: answer["song"], timestamp: new Date(), guesses: hasWon ? numberGuesses / 6 : 'X' }
 
-    if (!localStorage.getItem("stats")) {
+    if (!localStorage.getItem("perfectPitchPuzzleStats")) {
       //if localStorage does not exist
-      localStorage.setItem("stats", JSON.stringify([storage]));
+      localStorage.setItem("perfectPitchPuzzleStats", JSON.stringify([storage]));
     }
-    if (JSON.parse(localStorage.getItem("stats")).filter((item) => item.title === answer["song"]).length === 0) {
+    if (JSON.parse(localStorage.getItem("perfectPitchPuzzleStats")).filter((item) => item.title === answer["song"]).length === 0) {
       //if answer is not already in localStorage, update localStorage stats
-      const updatedStorage = [...JSON.parse(localStorage.getItem("stats")), storage]
-      localStorage.setItem("stats", JSON.stringify(updatedStorage));
+      const updatedStorage = [...JSON.parse(localStorage.getItem("perfectPitchPuzzleStats")), storage]
+      localStorage.setItem("perfectPitchPuzzleStats", JSON.stringify(updatedStorage));
     }
   }
 

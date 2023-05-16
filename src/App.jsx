@@ -14,6 +14,7 @@ import Box from '@mui/material/Box';
 import Navbar from './Navbar';
 import VolumeContext from './AppContext'
 import { differenceInDays } from 'date-fns';
+import ModalStats from './ModalStats';
 
 /* To access mock data for validation testing
  *  1) Uncomment the following for mock data for validation testing
@@ -25,16 +26,36 @@ function App() {
   const [answer, setAnswer] = useState();
   const [volume, setVolume] = useState(2);
   const [mobileOrSafari, setMobileOrSafari] = useState(false);
+  const [testMode, setTestMode] = useState(false);
+  const [showStats, setShowStats] = useState(false);
 
   function setGameIndex() {
-    let startDate = new Date('2023-05-11');
+    let startDate = new Date('2023-05-15');
     // Find number of days between now and startDate
     return differenceInDays(new Date(), startDate)-1 > 0 ? differenceInDays(new Date(), startDate)-1 : 0;
   }
 
+  function clearStorage() {
+    window.localStorage.removeItem('perfectPitchPuzzleStats');
+  }
+
   useEffect(() => {
     let randomIndex = Math.floor(Math.random() * data.length)
-    setAnswer(data[setGameIndex()]);
+
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    const searchParamsObject = {};
+    // Iterate over each search parameter and store the values in the object
+    for (const [key, value] of urlSearchParams) {
+      searchParamsObject[key] = value;
+    }
+    console.log('urlSearchParams', searchParamsObject);
+    if (searchParamsObject.testMode === 'true') {
+      setAnswer(data[randomIndex])
+      setTestMode(true);
+    } else {
+      setAnswer(data[setGameIndex()]);
+      setTestMode(false);
+    }
     /* Uncomment when adding new songs
     setAnswer(data[data.length - 1])
     */
@@ -59,6 +80,8 @@ function App() {
       <div className="App">
         <header className="App-header">
           <Navbar/>
+          {testMode && <div className="testMode"><h2>You are in test mode! <button onClick={() => clearStorage()}>Clear stats</button> <button onClick={() => setShowStats(true)}>Show stats</button></h2></div>}
+          {showStats && <ModalStats setIsOpen={setShowStats} />}
           {mobileOrSafari ? <p className="error">Sorry, this game is not available on Safari or on mobile devices.</p> : <>
 
             <button type="button" className="action" onClick={() => playSequence(answer, undefined, undefined, volume)}><FontAwesomeIcon icon={faPlay} /> Play the tune</button>
