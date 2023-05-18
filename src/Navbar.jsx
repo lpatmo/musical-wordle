@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import EqualizerIcon from '@mui/icons-material/Equalizer'; import Grid from '@mui/material/Grid';
 import styles from './Navbar.module.css';
 import ModalStats from './ModalStats';
@@ -6,6 +6,7 @@ import CountdownTimer from './CountdownTimer';
 
 function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
+
     return (
         <div className={styles.navbar}>
             <img src="/logo_transparent.svg" alt="Perfect Pitch Puzzle logo" className={styles.logo} />

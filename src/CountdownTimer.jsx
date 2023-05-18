@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { differenceInSeconds, addDays, startOfDay } from 'date-fns';
+import MidnightContext from './contexts/MidnightContext'
 
 function CountdownTimer() {
   const [countdown, setCountdown] = useState('');
-
+  const {setIsMidnight} = useContext(MidnightContext);
   useEffect(() => {
     let now = new Date();
     let startOfToday = startOfDay(now);
@@ -23,7 +24,11 @@ function CountdownTimer() {
       let remainingHours = Math.floor(diffInSeconds / 3600);
 
       let countdownTimer = `${remainingHours.toString().padStart(2, '0')}:${remainingMinutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
-
+      if (countdown === "00:00:00") {
+        setIsMidnight(true);
+      } else {
+        setIsMidnight(false);
+      }
       setCountdown(countdownTimer);
     }, 1000);
 

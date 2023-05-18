@@ -12,7 +12,8 @@ import VolumeUp from '@mui/icons-material/VolumeUp';
 import Stack from "@mui/material/Stack";
 import Box from '@mui/material/Box';
 import Navbar from './Navbar';
-import VolumeContext from './AppContext'
+import VolumeContext from './contexts/VolumeContext'
+import MidnightContext from './contexts/MidnightContext'
 import { differenceInDays } from 'date-fns';
 import ModalStats from './ModalStats';
 
@@ -25,6 +26,7 @@ import ModalStats from './ModalStats';
 function App() {
   const [answer, setAnswer] = useState();
   const [volume, setVolume] = useState(2);
+  const [isMidnight, setIsMidnight] = useState(false);
   const [mobileOrSafari, setMobileOrSafari] = useState(false);
   const [testMode, setTestMode] = useState(false);
   const [showStats, setShowStats] = useState(false);
@@ -39,8 +41,14 @@ function App() {
     window.localStorage.removeItem('perfectPitchPuzzleStats');
   }
 
+  //if it's midnight, reset the board
+  function handleReset() {
+
+  }
+
+  let randomIndex = Math.floor(Math.random() * data.length)
+
   useEffect(() => {
-    let randomIndex = Math.floor(Math.random() * data.length)
 
     const urlSearchParams = new URLSearchParams(window.location.search);
     const searchParamsObject = {};
@@ -48,7 +56,6 @@ function App() {
     for (const [key, value] of urlSearchParams) {
       searchParamsObject[key] = value;
     }
-    console.log('urlSearchParams', searchParamsObject);
     if (searchParamsObject.testMode === 'true') {
       setAnswer(data[randomIndex])
       setTestMode(true);
@@ -76,11 +83,18 @@ function App() {
 
 
   return (
+    <MidnightContext.Provider value={{isMidnight, setIsMidnight}}>
     <VolumeContext.Provider value={volume}>
       <div className="App">
         <header className="App-header">
           <Navbar/>
-          {testMode && <div className="testMode"><h2>You are in test mode! <button onClick={() => clearStorage()}>Clear stats</button> <button onClick={() => setShowStats(true)}>Show stats</button></h2></div>}
+          {testMode && <div className="testMode"><h2>You are in test mode! 
+            <button onClick={() => clearStorage()}>Clear stats</button>
+            <button onClick={() => setShowStats(true)}>Show stats</button>
+            <button onClick={() => { alert('New random song selected!'); setIsMidnight(true); setAnswer(data[randomIndex]) }}>Try random song</button>
+            </h2>
+            
+          </div>}
           {showStats && <ModalStats setIsOpen={setShowStats} />}
           {mobileOrSafari ? <p className="error">Sorry, this game is not available on Safari or on mobile devices.</p> : <>
 
@@ -92,13 +106,14 @@ function App() {
               </Stack>
 
             </Box>
-            <Board answer={answer} />
+            <Board answer={answer} handleReset={handleReset} />
           </>}
 
         </header>
 
       </div>
     </VolumeContext.Provider>
+    </MidnightContext.Provider>
   );
 }
 
