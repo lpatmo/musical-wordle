@@ -87,7 +87,7 @@ function App() {
           {testMode && <div className="testMode"><h2>You are in test mode! 
             <button onClick={() => clearStorage()}>Clear stats</button>
             <button onClick={() => setShowStats(true)}>Show stats</button>
-            <button onClick={() => { alert('New random song selected!'); setIsMidnight(true); setAnswer(data[randomIndex]) }}>Try random song</button>
+            <button onClick={() => { alert('New random song selected! Your board will reset.'); setIsMidnight(true); setAnswer(data[Math.floor(Math.random() * data.length)]) }}>Try random song</button>
             </h2>
             
           </div>}
