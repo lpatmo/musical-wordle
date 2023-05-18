@@ -41,15 +41,10 @@ function App() {
     window.localStorage.removeItem('perfectPitchPuzzleStats');
   }
 
-  //if it's midnight, reset the board
-  function handleReset() {
-
-  }
-
-  let randomIndex = Math.floor(Math.random() * data.length)
+  
 
   useEffect(() => {
-
+    
     const urlSearchParams = new URLSearchParams(window.location.search);
     const searchParamsObject = {};
     // Iterate over each search parameter and store the values in the object
@@ -57,6 +52,7 @@ function App() {
       searchParamsObject[key] = value;
     }
     if (searchParamsObject.testMode === 'true') {
+      let randomIndex = Math.floor(Math.random() * data.length)
       setAnswer(data[randomIndex])
       setTestMode(true);
     } else {
@@ -106,7 +102,7 @@ function App() {
               </Stack>
 
             </Box>
-            <Board answer={answer} handleReset={handleReset} />
+            <Board answer={answer} />
           </>}
 
         </header>

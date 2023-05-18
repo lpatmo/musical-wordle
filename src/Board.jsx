@@ -15,7 +15,7 @@ import ShareResults from './ShareResults'
 import ModalStats from './ModalStats';
 import MidnightContext from './contexts/MidnightContext';
 
-function Board({ answer, handleReset }) {
+function Board({ answer }) {
   const volume = useContext(VolumeContext);
   const [guess, setGuess] = useState(new Array(6).fill(""));
   const [currentRow, setCurrentRow] = useState(0);
