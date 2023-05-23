@@ -59,6 +59,7 @@ div.answerBox {
 button.playButton {
   width: 57px;
   height: 57px;
+  margin-left: 5px;
 }
 
 button.playButton svg {
