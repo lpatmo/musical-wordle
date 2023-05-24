@@ -103,3 +103,20 @@ button:hover {
   font-size: 3rem;
   font-weight: bold;
 }
+
+
+/*Test mode*/
+.testMode {
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  transform: translate(-50%, -50%) rotate(-90deg);
+  background: yellow;
+  padding: 0 2rem;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.testMode button {
+  transform: rotate(90deg);
+}

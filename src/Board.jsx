@@ -8,11 +8,12 @@ import {
   faPlay,
 } from "@fortawesome/free-solid-svg-icons";
 import Piano from "./Piano";
-import VolumeContext from './AppContext'
+import VolumeContext from './contexts/VolumeContext'
 import Modal from './Modal';
 import AudiotrackIcon from '@mui/icons-material/Audiotrack';
 import ShareResults from './ShareResults'
 import ModalStats from './ModalStats';
+import MidnightContext from './contexts/MidnightContext';
 
 function Board({ answer }) {
   const volume = useContext(VolumeContext);
@@ -29,8 +30,28 @@ function Board({ answer }) {
   );
   const [isOpen, setIsOpen] = useState(false);
   const [showStatsModal, setShowStatsModal] = useState(false);
+  const {isMidnight} = useContext(MidnightContext);
 
+  function resetBoard() {
+    setGuess(new Array(6).fill(""));
+    setCurrentRow(0);
+    setError("");
+    setMessage(null);
+    setGameOver(false);
+    setGameWon(false);
+    setShareOutput(
+      new Array(6).fill(null).map((row) => {
+      return Array(6).fill("⬛");
+    }))
 
+    //Remove the colors for the bg tiles as well
+    const inputTiles = document.querySelectorAll('input[name^="note-"]');
+    inputTiles.forEach((element) => {
+      // Remove all classes from the element
+      element.classList = '';
+    });
+  }
+  
   function updateStats(hasWon = true) {
     //Open modal
     setIsOpen(true);
@@ -41,14 +62,14 @@ function Board({ answer }) {
     const numberGuesses = guess.join("").length;
     const storage = { title: answer["song"], timestamp: new Date(), guesses: hasWon ? numberGuesses / 6 : 'X' }
 
-    if (!localStorage.getItem("stats")) {
+    if (!localStorage.getItem("perfectPitchPuzzleStats")) {
       //if localStorage does not exist
-      localStorage.setItem("stats", JSON.stringify([storage]));
+      localStorage.setItem("perfectPitchPuzzleStats", JSON.stringify([storage]));
     }
-    if (JSON.parse(localStorage.getItem("stats")).filter((item) => item.title === answer["song"]).length === 0) {
+    if (JSON.parse(localStorage.getItem("perfectPitchPuzzleStats")).filter((item) => item.title === answer["song"]).length === 0) {
       //if answer is not already in localStorage, update localStorage stats
-      const updatedStorage = [...JSON.parse(localStorage.getItem("stats")), storage]
-      localStorage.setItem("stats", JSON.stringify(updatedStorage));
+      const updatedStorage = [...JSON.parse(localStorage.getItem("perfectPitchPuzzleStats")), storage]
+      localStorage.setItem("perfectPitchPuzzleStats", JSON.stringify(updatedStorage));
     }
   }
 
@@ -177,9 +198,14 @@ function Board({ answer }) {
 
 
   useEffect(() => {
+    //reset board if it is midnight
+    if (isMidnight) {
+      resetBoard();
+    }
+    //listen to keyboard events
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [guess, currentRow, handleSubmit, handleKeyDown]);
+  }, [guess, currentRow, handleSubmit, handleKeyDown, isMidnight]);
 
   function isNote(str) {
     return str.length === 1 && "abcdefg".includes(str.toLowerCase());
