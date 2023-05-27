@@ -1,7 +1,6 @@
 .modalInstructions {
     text-align: left;
     margin: 0;
-    height: 600px;
 }
 
 .modalInstructions h2 {
@@ -11,11 +10,13 @@
 
 .modalInstructions h3 {
     font-size: 2rem;
-    margin: 0;
+    margin: 1em 0;
 }
 
 .modalInstructions ul {
     margin: 0;
+    list-style: none;
+    padding: 0;
 }
 .modalInstructions li {
     margin: .5em 0;
@@ -26,28 +27,38 @@
     font-size: 1.6rem;
 }
 
-.modalInstructions button.playButton {
+.modalInstructions .playButton {
     width: 35px;
     height: 35px;
     padding: 0;
     font-size: 1.5rem;
 }
-
-.exampleTile {
+.exampleTiles {
+    display: flex;
+}
+.exampleTiles span {
     width: 35px;
     height: 35px;
-    display: inline-block;
+    display: flex;
     vertical-align: middle;
+    justify-content: center;
+    align-items: center;
+    color: var(--wordle-background-color-selected-lightmode);
+    font-weight: bold;
+    margin: 0 1px;  
+    border: 2px solid var(--wordle-answer-incorrect);
 }
-.exampleTile span {
-    text-align: center;
-}
-.exampleTile.correct {
+.exampleTiles .correct {
     background: var(--wordle-correct-color);
+    color: var(--wordle-answer-text-color);
+    border-color: var(--wordle-correct-color);
 }
-.exampleTile.misplaced {
+.exampleTiles .misplaced {
     background: var(--wordle-misplaced-color);
+    color: var(--wordle-answer-text-color);
+    border-color: var(--wordle-misplaced-color);
 }
-.exampleTile.incorrect {
+.exampleTiles .incorrect {
     background: var(--wordle-answer-incorrect);
+    color: var(--wordle-answer-text-color);
 }
