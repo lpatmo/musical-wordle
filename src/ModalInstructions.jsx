@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faPlay,
 } from "@fortawesome/free-solid-svg-icons";
+import AudiotrackIcon from '@mui/icons-material/Audiotrack';
 
 function ModalInstructions({ setIsOpen }) {
     return (
@@ -13,7 +14,7 @@ function ModalInstructions({ setIsOpen }) {
                 <ul>
                     <li>Play the tune and identity the first 6 notes in 6 tries.</li>
                 </ul>
-                <h3>Tips</h3>
+                <h3><AudiotrackIcon /> Tips</h3>
                 <ul>
                     <li>Click on the <button
                             className={styles.playButton}
@@ -46,7 +47,7 @@ function ModalInstructions({ setIsOpen }) {
                     <li>      <div className={styles.exampleTiles}>
                         <span>B</span>
                         <span>B</span>
-                        <span>D</span>
+                        <span>E</span>
                         <span>F</span>
                         <span className={styles.incorrect}>D</span>
                         <span>D</span>

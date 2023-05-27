@@ -19,7 +19,7 @@
     padding: 0;
 }
 .modalInstructions li {
-    margin: .5em 0;
+    margin: 1em 0;
     font-size: 1.6rem;
 }
 .modalInstructions p {
@@ -35,6 +35,7 @@
 }
 .exampleTiles {
     display: flex;
+    margin-bottom: .3em;
 }
 .exampleTiles span {
     width: 35px;
