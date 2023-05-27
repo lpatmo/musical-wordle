@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import EqualizerIcon from '@mui/icons-material/Equalizer';
 import InfoIcon from '@mui/icons-material/Info';
 import Grid from '@mui/material/Grid';
@@ -11,6 +11,15 @@ import CountdownTimer from './CountdownTimer';
 function Navbar() {
     const [showStats, setShowStats] = useState(false);
     const [showInstructions, setShowInstructions] = useState(false);
+    useEffect(() => {
+        const storage = JSON.parse(localStorage.getItem("perfectPitchPuzzleStats"));
+        let hasVisited = sessionStorage.getItem("perfectPitchPuzzleHasVisited");
+
+        if (!storage && !hasVisited) {
+            setShowInstructions(true);
+            sessionStorage.setItem("perfectPitchPuzzleHasVisited", "true");
+        }
+    }, [])
 
     return (
         <div className={styles.navbar}>
