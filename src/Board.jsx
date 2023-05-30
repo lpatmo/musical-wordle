@@ -30,6 +30,7 @@ function Board({ answer }) {
   );
   const [isOpen, setIsOpen] = useState(false);
   const [showStatsModal, setShowStatsModal] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
   const {isMidnight} = useContext(MidnightContext);
 
   function resetBoard() {
@@ -271,6 +272,7 @@ function Board({ answer }) {
                   })}
                   <button
                     className={styles.playButton}
+                    disabled={isPlaying}
                     onClick={(e) => {
                       e.preventDefault();
                       playSequence(answer, guess, row, volume);

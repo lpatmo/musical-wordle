@@ -1419,6 +1419,11 @@ semver@^6.3.0:
   resolved "https://registry.npmjs.org/semver/-/semver-6.3.0.tgz"
   integrity sha512-b39TBaTSfV6yBrapU89p5fKekE2m/NwnDocOVruQFS1/veMgdzuPcnOM34M6CwxW8jH/lxEa5rBoDeUwu5HHTw==
 
+smplr@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.npmjs.org/smplr/-/smplr-0.6.0.tgz"
+  integrity sha512-wdjddiL4VJaqaGlwbZBhzSWAZsfPt6Wx+jzXKXrvqTgtH8ifx+WxLlX9nmjRQAvwsxcoCJGxoZrULI2bzWfvnw==
+
 soundfont-player@^0.12.0:
   version "0.12.0"
   resolved "https://registry.npmjs.org/soundfont-player/-/soundfont-player-0.12.0.tgz"

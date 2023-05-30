@@ -25,7 +25,7 @@ import ModalStats from './ModalStats';
 
 function App() {
   const [answer, setAnswer] = useState();
-  const [volume, setVolume] = useState(2);
+  const [volume, setVolume] = useState(3);
   const [isMidnight, setIsMidnight] = useState(false);
   const [mobileOrSafari, setMobileOrSafari] = useState(false);
   const [testMode, setTestMode] = useState(false);

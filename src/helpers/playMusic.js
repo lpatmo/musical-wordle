@@ -1,6 +1,7 @@
+import { SplendidGrandPiano, Soundfont } from "smplr";
 
 
-import Soundfont from 'soundfont-player';
+
 
 /**
  * Plays a sequence of note
@@ -11,19 +12,21 @@ import Soundfont from 'soundfont-player';
  */
 
 export function playSequence(answer, guess, currentRow, volume) {
-    //console.log('answer and guess and currentRow', answer, guess, currentRow, volume)
-    const ac = new AudioContext();
+    console.log('====answer and guess and currentRow, volume', answer, guess, currentRow, volume)
+    console.log('SplendidGrandPiano=====', SplendidGrandPiano)
+    console.log('Soundfont=====', Soundfont)
 
-    const transformedSequence = answer.sequence.slice(0,6).map((note, i) => {
-        const transformedNote = guess !== undefined && guess[currentRow][i] !== '' ? guess[currentRow][i] + note.substring(1, 2) : note;
-        return { time: answer.duration.slice(0, i).reduce((a, b) => a + b, 0) / 4, note: transformedNote, duration: answer.duration[i] / 4 }
-    }).filter((noteObj) => {
-        return noteObj.note.length === 2;
-    })
-
-    Soundfont.instrument(ac, 'acoustic_grand_piano', {gain: volume}).then(function (piano) {
-        piano.stop();
-        piano.schedule(ac.currentTime, transformedSequence)
+    const context = new AudioContext();
+    console.log('=====context', context)
+    const piano = new SplendidGrandPiano(context);
+    const marimba = new Soundfont(context, { instrument: "marimba" });
+    marimba.output.setVolume(volume*18);
+    marimba.loaded().then(() => {
+        const now = context.currentTime;
+        answer.sequence.slice(0, 6).forEach((note, i) => {
+            const transformedNote = guess !== undefined && guess[currentRow][i] !== '' ? guess[currentRow][i] + note.substring(1, 2) : note;
+            marimba.start({ note: transformedNote, time: now + answer.duration.slice(0, i).reduce((a, b) => a + b, 0) / 4, duration: answer.duration[i] / 4 });
+        });
     })
     return;
 }
@@ -36,16 +39,16 @@ export function playSequence(answer, guess, currentRow, volume) {
  * @return 
  */
 
- export function playCelebrationSequence(answer, volume) {
-    const ac = new AudioContext();
+export function playCelebrationSequence(answer, volume) {
+    const context = new AudioContext();
+    const marimba = new Soundfont(context, { instrument: "marimba" });
+    marimba.output.setVolume(volume*18);
 
-    const transformedSequence = answer.sequence.map((note, i) => {
-        return { time: answer.duration.slice(0, i).reduce((a, b) => a + b, 0) / 4, note, duration: answer.duration[i] / 4 }
-    })
-
-    Soundfont.instrument(ac, 'acoustic_grand_piano', {gain: volume}).then(function (piano) {
-        piano.stop();
-        piano.schedule(ac.currentTime, transformedSequence)
+    marimba.loaded().then(() => {
+        const now = context.currentTime;
+        answer.sequence.forEach((note, i) => {
+            marimba.start({ note, time: now + answer.duration.slice(0, i).reduce((a, b) => a + b, 0) / 4, duration: answer.duration[i] / 4 });
+        });
     })
     return;
 }
@@ -62,13 +65,14 @@ export function playNote(note, answer, currentNote, volume) {
     if (currentNote === 6) {
         return;
     }
-    const ac = new AudioContext();
-    const octave = answer.sequence[currentNote].slice(1, 2)
+    const context = new AudioContext();
+    const marimba = new Soundfont(context, { instrument: "marimba" });
+    marimba.output.setVolume(volume*18);
 
-    /*TODO: Consider adding an :active class to the piano key that was pressed*/
-    Soundfont.instrument(ac, 'acoustic_grand_piano', {gain: volume}).then(function (piano) {
-        piano.stop();
-        piano.play(`${note.toUpperCase()}${octave}`, ac.currentTime, { duration: 0.5 })
+    marimba.loaded().then(() => {
+        const octave = answer.sequence[currentNote].slice(1, 2);
+        const now = context.currentTime;
+        marimba.start({ note:`${note.toUpperCase()}${octave}`, time: now, duration: 0.5 });
     })
     return;
 }
