@@ -12,9 +12,9 @@ const marimba = new Soundfont(context, { instrument: "marimba" });
  * @return 
  */
 export function playSequence(answer, guess, currentRow, volume) {
-    console.log('====answer and guess and currentRow, volume', answer, guess, currentRow, volume)
-    console.log('SplendidGrandPiano=====', SplendidGrandPiano)
-    console.log('Soundfont=====', Soundfont)
+    // console.log('====answer and guess and currentRow, volume', answer, guess, currentRow, volume)
+    // console.log('SplendidGrandPiano=====', SplendidGrandPiano)
+    // console.log('Soundfont=====', Soundfont)
     marimba.stop();
     marimba.output.setVolume(volume * 18);
     marimba.loaded().then(() => {
@@ -67,8 +67,6 @@ export function playNote(note, answer, currentNote, volume) {
     if (currentNote === 6) {
         return;
     }
-    const context = new AudioContext();
-    const marimba = new Soundfont(context, { instrument: "marimba" });
     marimba.output.setVolume(volume * 18);
 
     marimba.loaded().then(() => {
