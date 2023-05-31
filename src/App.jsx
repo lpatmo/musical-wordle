@@ -32,19 +32,19 @@ function App() {
   const [showStats, setShowStats] = useState(false);
 
   function setGameIndex() {
-    let startDate = new Date('2023-05-15');
+    let startDate = new Date('2023-05-30');
     // Find number of days between now and startDate
-    return differenceInDays(new Date(), startDate)-1 > 0 ? differenceInDays(new Date(), startDate)-1 : 0;
+    return differenceInDays(new Date(), startDate) - 1 > 0 ? differenceInDays(new Date(), startDate) - 1 : 0;
   }
 
   function clearStorage() {
     window.localStorage.removeItem('perfectPitchPuzzleStats');
   }
 
-  
+
 
   useEffect(() => {
-    
+
     const urlSearchParams = new URLSearchParams(window.location.search);
     const searchParamsObject = {};
     // Iterate over each search parameter and store the values in the object
@@ -79,36 +79,40 @@ function App() {
 
 
   return (
-    <MidnightContext.Provider value={{isMidnight, setIsMidnight}}>
-    <VolumeContext.Provider value={volume}>
-      <div className="App">
-        <header className="App-header">
-          <Navbar/>
-          {testMode && <div className="testMode"><h2>You are in test mode! 
-            <button onClick={() => { alert("Stats cleared!"); clearStorage()}}>Clear stats</button>
-            <button onClick={() => setShowStats(true)}>Show stats</button>
-            <button onClick={() => { alert('New random song selected! Your board will reset.'); setIsMidnight(true); setAnswer(data[Math.floor(Math.random() * data.length)]) }}>Try random song</button>
+    <MidnightContext.Provider value={{ isMidnight, setIsMidnight }}>
+      <VolumeContext.Provider value={volume}>
+        <div className="App">
+          <header className="App-header">
+            <Navbar />
+            {testMode && <div className="testMode"><h2>You are in test mode!
+              <button onClick={() => { alert("Stats cleared!"); clearStorage() }}>Clear stats</button>
+              <button onClick={() => setShowStats(true)}>Show stats</button>
+              <button onClick={() => { alert('New random song selected! Your board will reset.'); setIsMidnight(true); setAnswer(data[Math.floor(Math.random() * data.length)]) }}>Try random song</button>
             </h2>
-            
-          </div>}
-          {showStats && <ModalStats setIsOpen={setShowStats} />}
-          {mobileOrSafari ? <p className="error">Sorry, this game is not available on Safari or on mobile devices.</p> : <>
 
-            <button type="button" className="action" onClick={() => playSequence(answer, undefined, undefined, volume)}><FontAwesomeIcon icon={faPlay} /> Play the tune</button>
-            <Box sx={{ width: 300, marginTop: '20px' }}>
+            </div>}
+            {showStats && <ModalStats setIsOpen={setShowStats} />}
+            {mobileOrSafari ? <p className="error">Sorry, this game is not available on Safari or on mobile devices.</p> : <>
 
-              <Stack spacing={3} direction="row" sx={{ mb: 3 }} alignItems="center" className="audioSettings">
-                <VolumeDown onClick={handleMute} className="muteVolume" /> <Slider aria-label="Volume" value={volume} onChange={handleVolume} min={0} max={6} /> <VolumeUp />
-              </Stack>
+              <button type="button" className="action"
+                onClick={() => {
+                  playSequence(answer, undefined, undefined, volume)
+                }
+                }><FontAwesomeIcon icon={faPlay} /> Play the tune</button>
+              <Box sx={{ width: 300, marginTop: '20px' }}>
 
-            </Box>
-            <Board answer={answer} />
-          </>}
+                <Stack spacing={3} direction="row" sx={{ mb: 3 }} alignItems="center" className="audioSettings">
+                  <VolumeDown onClick={handleMute} className="muteVolume" /> <Slider aria-label="Volume" value={volume} onChange={handleVolume} min={0} max={6} /> <VolumeUp />
+                </Stack>
 
-        </header>
+              </Box>
+              <Board answer={answer} />
+            </>}
 
-      </div>
-    </VolumeContext.Provider>
+          </header>
+
+        </div>
+      </VolumeContext.Provider>
     </MidnightContext.Provider>
   );
 }
