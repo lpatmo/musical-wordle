@@ -1,8 +1,7 @@
-import { SplendidGrandPiano, Soundfont } from "smplr";
+import { Soundfont } from "smplr";
 
 const context = new AudioContext();
-//const piano = new SplendidGrandPiano(context, { decayTime: 0.5 }); TODO: get the piano working
-const marimba = new Soundfont(context, { instrument: "marimba" });
+const marimba = new Soundfont(context, { instrument: "acoustic_grand_piano" });
 
 /**
  * Plays a sequence of notes
@@ -13,8 +12,6 @@ const marimba = new Soundfont(context, { instrument: "marimba" });
  */
 export function playSequence(answer, guess, currentRow, volume) {
     // console.log('====answer and guess and currentRow, volume', answer, guess, currentRow, volume)
-    // console.log('SplendidGrandPiano=====', SplendidGrandPiano)
-    // console.log('Soundfont=====', Soundfont)
     marimba.stop();
     marimba.output.setVolume(volume * 18);
     marimba.loaded().then(() => {
@@ -32,6 +29,7 @@ export function playSequence(answer, guess, currentRow, volume) {
             );
         });
     })
+
     return;
 }
 
