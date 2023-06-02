@@ -64,9 +64,9 @@ function App() {
     */
 
     /*Detect if user is on a mobile device or Safari*/
-    if (navigator.userAgent.indexOf("Mobi") > -1 || (navigator.userAgent.indexOf("Safari") > -1 && navigator.userAgent.indexOf("Chrome") === -1)) {
-      setMobileOrSafari(true)
-    }
+    // if (navigator.userAgent.indexOf("Mobi") > -1 || (navigator.userAgent.indexOf("Safari") > -1 && navigator.userAgent.indexOf("Chrome") === -1)) {
+    //   setMobileOrSafari(true)
+    // }
   }, [])
 
   function handleVolume(e, newVolume) {
