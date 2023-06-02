@@ -1,7 +1,7 @@
 import { Soundfont } from "smplr";
 
 const context = new AudioContext();
-const marimba = new Soundfont(context, { instrument: "acoustic_grand_piano" });
+const piano = new Soundfont(context, { instrument: "acoustic_grand_piano" });
 
 /**
  * Plays a sequence of notes
@@ -12,15 +12,16 @@ const marimba = new Soundfont(context, { instrument: "acoustic_grand_piano" });
  */
 export function playSequence(answer, guess, currentRow, volume) {
     // console.log('====answer and guess and currentRow, volume', answer, guess, currentRow, volume)
-    marimba.stop();
-    marimba.output.setVolume(volume * 18);
-    marimba.loaded().then(() => {
+    //Stop any previous melodies from playing
+    piano.stop();
+    piano.output.setVolume(volume * 18);
+    piano.loaded().then(() => {
         const now = context.currentTime;
 
         answer.sequence.slice(0, 6).forEach((note, i) => {
             const transformedNote = guess !== undefined && guess[currentRow][i] !== '' ? guess[currentRow][i] + note.substring(1, 2) : note;
 
-            marimba.start(
+            piano.start(
                 {
                     note: transformedNote,
                     time: now + answer.duration.slice(0, i).reduce((a, b) => a + b, 0) / 4,
