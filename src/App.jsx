@@ -32,7 +32,7 @@ function App() {
   const [showStats, setShowStats] = useState(false);
 
   function setGameIndex() {
-    let startDate = new Date('2023-06-01');
+    let startDate = new Date('2023-06-03');
     // Find number of days between now and startDate
     return differenceInDays(new Date(), startDate) - 1 > 0 ? differenceInDays(new Date(), startDate) - 1 : 0;
   }
