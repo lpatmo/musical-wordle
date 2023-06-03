@@ -43,12 +43,12 @@ export function playSequence(answer, guess, currentRow, volume) {
  */
 
 export function playCelebrationSequence(answer, volume) {
-    marimba.output.setVolume(volume * 18);
+    piano.output.setVolume(volume * 18);
 
-    marimba.loaded().then(() => {
+    piano.loaded().then(() => {
         const now = context.currentTime;
         answer.sequence.forEach((note, i) => {
-            marimba.start({ note, time: now + answer.duration.slice(0, i).reduce((a, b) => a + b, 0) / 4, duration: answer.duration[i] / 4 });
+            piano.start({ note, time: now + answer.duration.slice(0, i).reduce((a, b) => a + b, 0) / 4, duration: answer.duration[i] / 4 });
         });
     })
     return;
@@ -66,12 +66,12 @@ export function playNote(note, answer, currentNote, volume) {
     if (currentNote === 6) {
         return;
     }
-    marimba.output.setVolume(volume * 18);
+    piano.output.setVolume(volume * 18);
 
-    marimba.loaded().then(() => {
+    piano.loaded().then(() => {
         const octave = answer.sequence[currentNote].slice(1, 2);
         const now = context.currentTime;
-        marimba.start({ note: `${note.toUpperCase()}${octave}`, time: now, duration: 0.5 });
+        piano.start({ note: `${note.toUpperCase()}${octave}`, time: now, duration: 0.5 });
     })
     return;
 }
