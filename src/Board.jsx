@@ -273,7 +273,7 @@ function Board({ answer }) {
                     className={styles.playButton}
                     onClick={(e) => {
                       e.preventDefault();
-                      playSequence(answer, guess, row, volume);
+                        playSequence(answer, guess, row, volume);
                     }}
                   >
                     <FontAwesomeIcon icon={faPlay} />
