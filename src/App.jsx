@@ -91,6 +91,8 @@ function App() {
             </h2>
 
             </div>}
+            </header>
+            <div className="App-body">
             {showStats && <ModalStats setIsOpen={setShowStats} />}
             {mobileOrSafari ? <p className="error">Sorry, this game is not available on Safari or on mobile devices.</p> : <>
 
@@ -99,7 +101,7 @@ function App() {
                   playSequence(answer, undefined, undefined, volume)
                 }
                 }><FontAwesomeIcon icon={faPlay} /> Play the tune</button>
-              <Box sx={{ width: 300, marginTop: '20px' }}>
+              <Box sx={{ width: 300, margin: '20px auto' }}>
 
                 <Stack spacing={3} direction="row" sx={{ mb: 3 }} alignItems="center" className="audioSettings">
                   <VolumeDown onClick={handleMute} className="muteVolume" /> <Slider aria-label="Volume" value={volume} onChange={handleVolume} min={0} max={6} /> <VolumeUp />
@@ -108,8 +110,7 @@ function App() {
               </Box>
               <Board answer={answer} />
             </>}
-
-          </header>
+            </div>
 
         </div>
       </VolumeContext.Provider>

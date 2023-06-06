@@ -11,6 +11,10 @@
   --tile-border-color: #d3d6da;
   --navbar-bg: #573dee;
 }
+form .row {
+  display: flex;
+  justify-content: center;
+}
 
 .board input {
   width: 45px;
@@ -60,6 +64,8 @@ button.playButton {
   width: 57px;
   height: 57px;
   margin-left: 5px;
+  position: relative;
+  top: 5px;
 }
 
 button.playButton svg {
