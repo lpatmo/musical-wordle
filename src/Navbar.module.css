@@ -4,7 +4,8 @@
     align-items: center;
     background: var(--navbar-bg);
     color: white;
-    padding: 5px 30px;
+    padding: 5px 0px;
+    width: 100%;
 }
 .navbar svg {
     cursor: pointer;
@@ -26,9 +27,6 @@
 }
 
 @media (min-width: 600px) {
-    .navbar {
-        width: 100%;
-    }
     .navbar img.note {
         display: block;
     }

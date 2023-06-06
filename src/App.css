@@ -47,15 +47,6 @@ p {
   margin: 0.5em;
 }
 
-.App-header {
-  /* background-color: var(--background-lightmode);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: 2.5rem; */
-  display: flex;
-}
 .muteVolume { 
   cursor: pointer;
 }
@@ -94,17 +85,6 @@ button:hover {
   width: 100%;
   margin-top: 5px;
 }
-
-.countdown {
-  font-size: 1.8rem;
-  transform: rotate(-12deg);
-}
-
-.countdownClock {
-  font-size: 3rem;
-  font-weight: bold;
-}
-
 
 /*Test mode*/
 .testMode {
