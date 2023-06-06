@@ -56,10 +56,6 @@ p {
   font-size: 2.5rem; */
   display: flex;
 }
-.App-body {
-  display: flex;
-}
-
 .muteVolume { 
   cursor: pointer;
 }
