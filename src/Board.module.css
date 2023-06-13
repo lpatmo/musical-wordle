@@ -61,15 +61,16 @@ div.answerBox {
 }
 
 button.playButton {
-  width: 57px;
-  height: 57px;
-  margin-left: 5px;
+  width: 4.27rem;
+  height: 4.27rem;
   position: relative;
   top: 5px;
+  padding: 0;
 }
 
 button.playButton svg {
   position: relative;
+  width: 1.3rem;
 }
 
 .iconMusic {
@@ -104,6 +105,14 @@ button.playButton svg {
   .board input {
     width: 4rem;
     height: 4rem;
+  }
+  button.playButton {
+    margin-left: 5px;
+    width: 5.1rem;
+    height: 5.1rem;
+  }
+  button.playButton svg {
+    width: 2rem;
   }
 }
 
