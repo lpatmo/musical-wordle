@@ -11,7 +11,7 @@
   }
 
   .piano ul li {
-    width: 1.1em;
+    width: 2rem;
     border: 1px solid black;
     background: linear-gradient(to bottom, #eee 0%, #fff 100%);
     color: black;

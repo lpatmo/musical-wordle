@@ -1,17 +1,20 @@
 .navbar {
-    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     background: var(--navbar-bg);
     color: white;
-    padding: 5px 30px;
+    padding: 5px 0px;
+    width: 100%;
 }
 .navbar svg {
     cursor: pointer;
 }
 .navbar img.logo {
     width: 200px;
+}
+.navbar img.note {
+    display: none;
 }
 
 .instructions {
@@ -21,4 +24,10 @@
     border-radius: 5px;
     margin-right: 15px;
     color: var(--wordle-text-color-lightmode);
+}
+
+@media (min-width: 600px) {
+    .navbar img.note {
+        display: block;
+    }
 }

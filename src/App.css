@@ -14,6 +14,7 @@
 body {
   font-family: 'Open Sans', Arial, sans-serif;
   box-sizing: border-box;
+  font-size: 2.5rem;
 }
 
 .App {
@@ -44,15 +45,6 @@ h5 {
 
 p { 
   margin: 0.5em;
-}
-
-.App-header {
-  background-color: var(--background-lightmode);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: 2.5rem;
 }
 
 .muteVolume { 
@@ -94,17 +86,6 @@ button:hover {
   margin-top: 5px;
 }
 
-.countdown {
-  font-size: 1.8rem;
-  transform: rotate(-12deg);
-}
-
-.countdownClock {
-  font-size: 3rem;
-  font-weight: bold;
-}
-
-
 /*Test mode*/
 .testMode {
   position: absolute;
@@ -119,4 +100,9 @@ button:hover {
 
 .testMode button {
   transform: rotate(90deg);
+}
+
+button[type="submit"] svg {
+  position: relative;
+  top: 0px;
 }

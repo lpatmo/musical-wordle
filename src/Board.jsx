@@ -254,7 +254,7 @@ function Board({ answer }) {
           <form className={styles.board} onSubmit={handleSubmit}>
             {guess.map((char, row) => {
               return (
-                <div key={row}>
+                <div key={row} className={styles.row}>
                   {[0, 1, 2, 3, 4, 5].map((column) => {
                     return (
                       <input

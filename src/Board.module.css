@@ -11,10 +11,14 @@
   --tile-border-color: #d3d6da;
   --navbar-bg: #573dee;
 }
+form .row {
+  display: flex;
+  justify-content: center;
+}
 
 .board input {
-  width: 45px;
-  height: 45px;
+  width: 3.1rem;
+  height: 3.1rem;
   text-transform: uppercase;
   font-size: 2.5rem;
   text-align: center;
@@ -57,13 +61,16 @@ div.answerBox {
 }
 
 button.playButton {
-  width: 57px;
-  height: 57px;
-  margin-left: 5px;
+  width: 4.27rem;
+  height: 4.27rem;
+  position: relative;
+  top: 5px;
+  padding: 0;
 }
 
 button.playButton svg {
   position: relative;
+  width: 1.3rem;
 }
 
 .iconMusic {
@@ -94,5 +101,19 @@ button.playButton svg {
   color: var(--wordle-error);
 }
 
+@media (min-width: 600px) {
+  .board input {
+    width: 4rem;
+    height: 4rem;
+  }
+  button.playButton {
+    margin-left: 5px;
+    width: 5.1rem;
+    height: 5.1rem;
+  }
+  button.playButton svg {
+    width: 2rem;
+  }
+}
 
 

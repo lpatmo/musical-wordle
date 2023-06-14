@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { differenceInSeconds, addDays, startOfDay } from 'date-fns';
 import MidnightContext from './contexts/MidnightContext'
+import styles from "./CountdownTimer.module.css";
 
 function CountdownTimer() {
   const [countdown, setCountdown] = useState('');
@@ -37,7 +38,7 @@ function CountdownTimer() {
     };
   }, []);
 
-  return <div className="countdown"><span className="countdownClock">{countdown}</span> <br />until the next puzzle</div>;
+  return <div className={styles.countdown}><span className={styles.countdownClock}>{countdown}</span> <br />until the next puzzle</div>;
 }
 
 export default CountdownTimer;

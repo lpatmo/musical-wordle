@@ -1,0 +1,16 @@
+.countdown {
+    display: none;
+}
+
+@media (min-width: 600px) {
+    .countdown {
+        display: block;
+        font-size: 1.8rem;
+        transform: rotate(-12deg);
+    }
+
+    .countdownClock {
+        font-size: 3rem;
+        font-weight: bold;
+    }
+}
