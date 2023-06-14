@@ -101,3 +101,8 @@ button:hover {
 .testMode button {
   transform: rotate(90deg);
 }
+
+button[type="submit"] svg {
+  position: relative;
+  top: 0px;
+}
