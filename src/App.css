@@ -9,6 +9,19 @@
   --background-lightmode: white;
   --text-color-lightmode: black;
   font-size: 62.5%;
+  --keyboard: hsl(300, 100%, 16%);
+  --keyboard-shadow: hsla(19, 50%, 66%, 0.2);
+  --keyboard-border: hsl(20, 91%, 5%);
+  --black-10: hsla(0, 0%, 0%, 0.1);
+  --black-20: hsla(0, 0%, 0%, 0.2);
+  --black-30: hsla(0, 0%, 0%, 0.3);
+  --black-50: hsla(0, 0%, 0%, 0.5);
+  --black-60: hsla(0, 0%, 0%, 0.6);
+  --black-100: hsla(0, 0%, 0%, 1);
+  --white-20: hsla(0, 0%, 100%, 0.2);
+  --white-50: hsla(0, 0%, 100%, 0.5);
+  --white-80: hsla(0, 0%, 100%, 0.8);
+  --white-100: hsla(0, 0%, 100%, 1);
 }
 
 body {
@@ -106,3 +119,4 @@ button[type="submit"] svg {
   position: relative;
   top: 0px;
 }
+

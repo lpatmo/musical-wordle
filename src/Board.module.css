@@ -95,10 +95,10 @@ button.playButton svg {
 .error {
   animation: shake 0.3s;
   animation-iteration-count: 1;
-  padding: 10px 20px;
-  margin: 0 auto;
+  margin: 0 auto 2rem auto;
   width: 420px;
   color: var(--wordle-error);
+  height: 54px;
 }
 
 @media (min-width: 600px) {
@@ -115,5 +115,4 @@ button.playButton svg {
     width: 2rem;
   }
 }
-
 

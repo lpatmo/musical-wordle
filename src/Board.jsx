@@ -8,6 +8,7 @@ import {
   faPlay,
 } from "@fortawesome/free-solid-svg-icons";
 import Piano from "./Piano";
+import PianoNew from "./PianoNew";
 import VolumeContext from './contexts/VolumeContext'
 import Modal from './Modal';
 import AudiotrackIcon from '@mui/icons-material/Audiotrack';
@@ -31,6 +32,7 @@ function Board({ answer }) {
   const [isOpen, setIsOpen] = useState(false);
   const [showStatsModal, setShowStatsModal] = useState(false);
   const {isMidnight} = useContext(MidnightContext);
+  const octave = +answer?.sequence[guess[currentRow].length].slice(-1);
 
   function resetBoard() {
     setGuess(new Array(6).fill(""));
@@ -295,16 +297,16 @@ function Board({ answer }) {
             </div>
           )}
 
-          {error && <div className={styles.error}>{error}</div>}
+
 
           {isOpen && (
             <Modal shareResults={shareResults} handleClose={() => setIsOpen(false)}><h4>{message}</h4></Modal>
           )}
           {showStatsModal && <ModalStats setIsOpen={setShowStatsModal}/>}
         </Paper>
-        <Paper elevation={0}>
-          <Piano handlePianoPress={handlePianoPress} />
-        </Paper>
+          {/* <Piano handlePianoPress={handlePianoPress} octave={octave} /> */}
+          <PianoNew handlePianoPress={handlePianoPress} octave={octave} />
+          <div className={styles.error}>{error}</div>
       </Grid>
     </Grid>
   );

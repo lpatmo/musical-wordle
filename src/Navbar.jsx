@@ -25,7 +25,7 @@ function Navbar() {
         <div className={styles.navbar}>
             <img src="/logo_transparent.svg" alt="Perfect Pitch Puzzle logo" className={styles.logo} />
             {/* <span className={styles.instructions}>Figure out the first few notes of the tune. You have 6 tries.</span> */}
-            <img src="/instructions_transparent.svg" className={styles.note} alt="Identity the first 6 notes of the tune. You have 6 tries." width="450" />
+            {/* <img src="/instructions_transparent.svg" className={styles.note} alt="Identity the first 6 notes of the tune. You have 6 tries." width="330" /> */}
 
             <InfoIcon onClick={() => setShowInstructions(true)} style={{ fontSize: 40 }} />
             <EqualizerIcon onClick={() => setShowStats(true)} style={{ fontSize: 40 }} />

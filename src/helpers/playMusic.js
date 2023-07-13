@@ -14,7 +14,7 @@ export function playSequence(answer, guess, currentRow, volume) {
     // console.log('====answer and guess and currentRow, volume', answer, guess, currentRow, volume)
     //Stop any previous melodies from playing
     piano.stop();
-    piano.output.setVolume(volume * 18);
+    piano.output.setVolume(volume * 35);
     piano.loaded().then(() => {
         const now = context.currentTime;
 
@@ -43,7 +43,7 @@ export function playSequence(answer, guess, currentRow, volume) {
  */
 
 export function playCelebrationSequence(answer, volume) {
-    piano.output.setVolume(volume * 18);
+    piano.output.setVolume(volume * 35);
 
     piano.loaded().then(() => {
         const now = context.currentTime;
@@ -66,7 +66,7 @@ export function playNote(note, answer, currentNote, volume) {
     if (currentNote === 6) {
         return;
     }
-    piano.output.setVolume(volume * 18);
+    piano.output.setVolume(volume * 35);
 
     piano.loaded().then(() => {
         const octave = answer.sequence[currentNote].slice(1, 2);
