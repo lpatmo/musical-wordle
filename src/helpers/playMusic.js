@@ -20,7 +20,7 @@ export function playSequence(answer, guess, currentRow, volume) {
 
         answer.sequence.slice(0, 6).forEach((note, i) => {
             console.log('note in answer', note, i)
-            const transformedNote = guess !== undefined && guess[currentRow][i*2] !== '' ? guess[currentRow].slice(i*2, 2*(i+1)) + note.slice(-1) : note;
+            const transformedNote = guess !== undefined && guess[currentRow][i*2] !== '' ? guess[currentRow].slice(i*2, 2*(i+1)).split('.')[0] + note.slice(-1) : note;
             console.log('====transformedNote', transformedNote) 
             piano.start(
                 {
@@ -67,10 +67,13 @@ export function playNote(note, answer, currentNote, volume) {
     if (currentNote === 6) {
         return;
     }
+    console.log('PLAYING NOTE note', note)
+    console.log('PLAYNOTE answer', answer)
+    console.log('PLAYNOTE currentNote', currentNote)
     piano.output.setVolume(volume * 35);
 
     piano.loaded().then(() => {
-        const octave = answer.sequence[currentNote].slice(1, 2);
+        const octave = answer.sequence[currentNote].slice(-1);
         const now = context.currentTime;
         piano.start({ note: `${note.toUpperCase()}${octave}`, time: now, duration: 0.5 });
     })

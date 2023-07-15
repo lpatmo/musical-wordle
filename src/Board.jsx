@@ -82,7 +82,7 @@ function Board({ answer }) {
         .map((noteCluster) => noteCluster.split("")[0])
         .join("");
       console.log('answerStr', answerStr)
-      const guessStr = guess[currentRow];
+      const guessStr = guess[currentRow].split('.').join("");
       console.log('guessStr', guessStr)
       const answerFreqCount = getFreqCount(answerStr);
 
@@ -100,10 +100,10 @@ function Board({ answer }) {
         //Update stats and open modal
         updateStats();
 
-      } else if (guessStr.length < 12) {
+      } else if (guess[currentRow] < 12) {
         setError("Please fill out all the notes.");
         return;
-      } else if (guess.join("").length / 6 === 6) {
+      } else if (guess.join("").length / 12 === 6) {
         playCelebrationSequence(answer, volume);
         setMessage(`Better luck next time! The song was '${answer["song"]}'.\n
         Notes: ${answerStr}`);
@@ -231,6 +231,7 @@ function Board({ answer }) {
     return freq;
   }
   function handlePianoPress(note) {
+    console.log('===NOTE', note)
     handleKeyDown({ key: note });
   }
   function shareResults() { //TODO: Refactor shareOutput to be calculated here without using state
