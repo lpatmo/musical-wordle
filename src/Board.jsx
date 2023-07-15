@@ -32,7 +32,7 @@ function Board({ answer }) {
   const [isOpen, setIsOpen] = useState(false);
   const [showStatsModal, setShowStatsModal] = useState(false);
   const {isMidnight} = useContext(MidnightContext);
-  const octave = +answer?.sequence[guess[currentRow].length].slice(-1);
+  const octave = +answer?.sequence[(guess[currentRow].length/2)].slice(-1);
 
   function resetBoard() {
     setGuess(new Array(6).fill(""));
@@ -81,7 +81,9 @@ function Board({ answer }) {
       let answerStr = answer.sequence.slice(0, 6)
         .map((noteCluster) => noteCluster.split("")[0])
         .join("");
+      console.log('answerStr', answerStr)
       const guessStr = guess[currentRow];
+      console.log('guessStr', guessStr)
       const answerFreqCount = getFreqCount(answerStr);
 
       if (guessStr === answerStr) {
@@ -98,7 +100,7 @@ function Board({ answer }) {
         //Update stats and open modal
         updateStats();
 
-      } else if (guessStr.length < 6) {
+      } else if (guessStr.length < 12) {
         setError("Please fill out all the notes.");
         return;
       } else if (guess.join("").length / 6 === 6) {
@@ -159,7 +161,7 @@ function Board({ answer }) {
           /*Updated guess state after backspace*/
           const updatedGuess = guess.map((guessStr, i) => {
             if (i === currentRow) {
-              return guessStr.slice(0, guessStr.length - 1);
+              return guessStr.slice(0, guessStr.length - 2);
             } else {
               return guessStr;
             }
@@ -169,11 +171,13 @@ function Board({ answer }) {
           break;
         case isNote(event.key):
           /*Update guess state after valid note*/
-          if (guess[currentRow].length < 6) {
+          console.log('event.key', event.key)
+          const note = event.key.length === 1 ? event.key + '.' : event.key;
+          if (guess[currentRow].length < 12) {
             setGuess(
               guess.map((guessStr, i) => {
                 if (i === currentRow) {
-                  return guessStr + event.key.toUpperCase();
+                  return guessStr + note.toUpperCase();
                 } else {
                   return guessStr;
                 }
@@ -182,7 +186,7 @@ function Board({ answer }) {
           }
 
           /*Play the note in the same octave as the corresponding answer*/
-          playNote(event.key, answer, guess[currentRow].length, volume);
+          playNote(event.key, answer, guess[currentRow].length/2, volume);
           setError("");
           break;
         case event.key === "Enter":
@@ -210,7 +214,8 @@ function Board({ answer }) {
   }, [guess, currentRow, handleSubmit, handleKeyDown, isMidnight]);
 
   function isNote(str) {
-    return str.length === 1 && "abcdefg".includes(str.toLowerCase());
+    console.log('str', str)
+    return str.length <= 2 && "abcdefg".includes(str[0].toLowerCase());
   }
 
   function getFreqCount(noteSeq) {
@@ -231,7 +236,7 @@ function Board({ answer }) {
   function shareResults() { //TODO: Refactor shareOutput to be calculated here without using state
     setIsOpen(false);
     let stat = gameWon ? guess.join("").length / 6 : "X";
-    let beginText = `Perfect Pitch Puzzle - '${answer["song"]}' ${stat}/${guess.length}\n`;
+    let beginText = `Perfect Pitch Puzzle - '${answer["song"]}' ${stat}/${guess.length/2}\n`;
     navigator.clipboard
       .writeText(
         beginText +
@@ -255,6 +260,7 @@ function Board({ answer }) {
         <Paper elevation={0}>
           <form className={styles.board} onSubmit={handleSubmit}>
             {guess.map((char, row) => {
+              //char is the same thing as guess[row]
               return (
                 <div key={row} className={styles.row}>
                   {[0, 1, 2, 3, 4, 5].map((column) => {
@@ -265,7 +271,7 @@ function Board({ answer }) {
                         name={`note-${row}-${column}`}
                         disabled={currentRow !== row}
                         maxLength={1}
-                        value={guess[row][column] || ""}
+                        value={char.slice(column*2, 2*(column+1)).split(".")[0] || ""}
                         tabIndex={-1}
                         readOnly
                       />
@@ -305,6 +311,9 @@ function Board({ answer }) {
           {showStatsModal && <ModalStats setIsOpen={setShowStatsModal}/>}
         </Paper>
           {/* <Piano handlePianoPress={handlePianoPress} octave={octave} /> */}
+          <p>Guess: {JSON.stringify(guess, 0, 2)}</p>
+          <p>answer.sequence: {JSON.stringify(answer?.sequence, 0, 2)}</p>
+          <p>octave: {octave}</p>
           <PianoNew handlePianoPress={handlePianoPress} octave={octave} />
           <div className={styles.error}>{error}</div>
       </Grid>

@@ -16,7 +16,7 @@ function PianoNew({ handlePianoPress, octave }) {
             <li onClick={() => handlePianoPress("G")} note="G" className={`${styles.white} ${styles.offset}`}>G{octave}</li>
             <li onClick={() => handlePianoPress("G#")} note="G#" className={styles.black}>G#</li>
             <li onClick={() => handlePianoPress("A")} note="A" className={`${styles.white} ${styles.offset}`}>A{octave}</li>
-            <li note="A#" className={styles.black}>A#</li>
+            <li onClick={() => handlePianoPress("A#")} note="A#" className={styles.black}>A#</li>
             <li onClick={() => handlePianoPress("B")} note="B" className={`${styles.white} ${styles.offset}`}>B{octave}</li>
             <li aria-label="backspace" className={`${styles.white} ${styles.backspace}`} onClick={() => handlePianoPress("Backspace")}> <span>Backspace</span> <FontAwesomeIcon icon={faBackspace} /></li>
         </ul>

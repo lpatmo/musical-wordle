@@ -11,7 +11,7 @@ const piano = new Soundfont(context, { instrument: "acoustic_grand_piano" });
  * @return 
  */
 export function playSequence(answer, guess, currentRow, volume) {
-    // console.log('====answer and guess and currentRow, volume', answer, guess, currentRow, volume)
+     console.log('====answer and guess and currentRow, volume', answer, guess, currentRow, volume)
     //Stop any previous melodies from playing
     piano.stop();
     piano.output.setVolume(volume * 35);
@@ -19,8 +19,9 @@ export function playSequence(answer, guess, currentRow, volume) {
         const now = context.currentTime;
 
         answer.sequence.slice(0, 6).forEach((note, i) => {
-            const transformedNote = guess !== undefined && guess[currentRow][i] !== '' ? guess[currentRow][i] + note.substring(1, 2) : note;
-
+            console.log('note in answer', note, i)
+            const transformedNote = guess !== undefined && guess[currentRow][i*2] !== '' ? guess[currentRow].slice(i*2, 2*(i+1)) + note.slice(-1) : note;
+            console.log('====transformedNote', transformedNote) 
             piano.start(
                 {
                     note: transformedNote,
