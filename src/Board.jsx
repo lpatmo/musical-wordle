@@ -32,7 +32,7 @@ function Board({ answer }) {
   const [isOpen, setIsOpen] = useState(false);
   const [showStatsModal, setShowStatsModal] = useState(false);
   const {isMidnight} = useContext(MidnightContext);
-  const octave = +answer?.sequence[guess[currentRow].length].slice(-1);
+  const octave = +answer?.sequence[guess[currentRow].split("+").length-1].slice(-1);
 
   function resetBoard() {
     setGuess(new Array(6).fill(""));
@@ -61,7 +61,7 @@ function Board({ answer }) {
     setGameOver(true);
 
     //Update localStorage
-    const numberGuesses = guess.join("").length;
+    const numberGuesses = guess.split("+").join("").length;
     const storage = { title: answer["song"], timestamp: new Date(), guesses: hasWon ? numberGuesses / 6 : 'X' }
 
     if (!localStorage.getItem("perfectPitchPuzzleStats")) {
@@ -83,7 +83,9 @@ function Board({ answer }) {
         .join("");
       const guessStr = guess[currentRow];
       const answerFreqCount = getFreqCount(answerStr);
-
+      console.log('guessStr', guessStr);
+      console.log('answerStr', answerStr);
+      //"C#C#D+"
       if (guessStr === answerStr) {
         setGameWon(true);
         playCelebrationSequence(answer, volume);
@@ -149,8 +151,19 @@ function Board({ answer }) {
     [answer, currentRow, guess]
   );
 
+  function noteAfterBackspace(guessStr) {
+    console.log('guessStr in noteAfterBackspace', guessStr)
+    if (guessStr.split("+").length === 3) {
+      //there are two notes, and we are deleting one. The remaining note needs a +.
+      return guessStr.split("+").filter(element => element !== "").slice(0, -1).join("+") + "+"
+    } else {
+      return guessStr.split("+").filter(element => element !== "").slice(0, -1).join("+")
+    }
+  }
+
   const handleKeyDown = useCallback(
     (event) => {
+      console.log('event', event)
       switch (true) {
         case gameOver:
           /*Do not accept user input if game is over */
@@ -159,7 +172,8 @@ function Board({ answer }) {
           /*Updated guess state after backspace*/
           const updatedGuess = guess.map((guessStr, i) => {
             if (i === currentRow) {
-              return guessStr.slice(0, guessStr.length - 1);
+              //return guessStr.slice(0, guessStr.length - 1);
+              return noteAfterBackspace(guessStr)
             } else {
               return guessStr;
             }
@@ -169,11 +183,13 @@ function Board({ answer }) {
           break;
         case isNote(event.key):
           /*Update guess state after valid note*/
-          if (guess[currentRow].length < 6) {
+          console.log('isNote guess current row', guess[currentRow], event.key)
+          console.log('guess[currentRow].replace("#", "")', guess[currentRow].replace("#", ""))
+          if (guess[currentRow].split("+").length < 6) {
             setGuess(
               guess.map((guessStr, i) => {
                 if (i === currentRow) {
-                  return guessStr + event.key.toUpperCase();
+                  return guessStr + event.key.toUpperCase() + "+";
                 } else {
                   return guessStr;
                 }
@@ -210,7 +226,8 @@ function Board({ answer }) {
   }, [guess, currentRow, handleSubmit, handleKeyDown, isMidnight]);
 
   function isNote(str) {
-    return str.length === 1 && "abcdefg".includes(str.toLowerCase());
+    console.log('str isNote', str)
+    return str[0].length === 1 && "abcdefg".includes(str[0].toLowerCase());
   }
 
   function getFreqCount(noteSeq) {
@@ -226,6 +243,7 @@ function Board({ answer }) {
     return freq;
   }
   function handlePianoPress(note) {
+    console.log('note', note)
     handleKeyDown({ key: note });
   }
   function shareResults() { //TODO: Refactor shareOutput to be calculated here without using state
@@ -264,8 +282,8 @@ function Board({ answer }) {
                         type="text"
                         name={`note-${row}-${column}`}
                         disabled={currentRow !== row}
-                        maxLength={1}
-                        value={guess[row][column] || ""}
+                        maxLength={2}
+                        value={guess[row].split("+")[column] || ""}
                         tabIndex={-1}
                         readOnly
                       />
@@ -304,6 +322,7 @@ function Board({ answer }) {
           )}
           {showStatsModal && <ModalStats setIsOpen={setShowStatsModal}/>}
         </Paper>
+        Guess: {JSON.stringify(guess, 0, 2)}
           {/* <Piano handlePianoPress={handlePianoPress} octave={octave} /> */}
           <PianoNew handlePianoPress={handlePianoPress} octave={octave} />
           <div className={styles.error}>{error}</div>

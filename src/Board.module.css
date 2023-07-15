@@ -19,7 +19,7 @@ form .row {
 .board input {
   width: 3.1rem;
   height: 3.1rem;
-  text-transform: uppercase;
+  text-transform: normal;
   font-size: 2.5rem;
   text-align: center;
   border: 2px solid var(--tile-border-color);
