@@ -97,7 +97,6 @@ button.playButton svg {
   margin: 0.2rem auto;
   width: 420px;
   color: var(--wordle-error);
-  height: 40px;
 }
 
 @media (min-width: 600px) {

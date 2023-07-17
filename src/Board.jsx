@@ -194,11 +194,14 @@ function Board({ answer, testMode }) {
                 }
               })
             );
+            setError("")
+          } else {
+            setError("Please submit your guess or hit backspace")
           }
 
           /*Play the note in the same octave as the corresponding answer*/
           playNote(event.key, answer, guess[currentRow].length / 2, volume);
-          setError("");
+          //setError("");
           break;
         case event.key === "Enter":
           handleSubmit(event);

@@ -24,7 +24,7 @@ justify-content: center;
 }
 
 .white {
-  height: 12.5rem;
+  height: 13.5rem;
   width: 6rem;
   z-index: 1;
   border-left: 1px solid hsl(0, 0%, 73%);
