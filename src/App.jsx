@@ -108,7 +108,7 @@ function App() {
                 </Stack>
 
               </Box>
-              <Board answer={answer} />
+              <Board answer={answer} testMode={testMode} />
             </>}
             </div>
 

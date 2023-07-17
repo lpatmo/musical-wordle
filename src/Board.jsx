@@ -15,7 +15,7 @@ import ShareResults from './ShareResults'
 import ModalStats from './ModalStats';
 import MidnightContext from './contexts/MidnightContext';
 
-function Board({ answer }) {
+function Board({ answer, testMode }) {
   const volume = useContext(VolumeContext);
   const [guess, setGuess] = useState(new Array(6).fill(""));
   const [currentRow, setCurrentRow] = useState(0);
@@ -30,8 +30,8 @@ function Board({ answer }) {
   );
   const [isOpen, setIsOpen] = useState(false);
   const [showStatsModal, setShowStatsModal] = useState(false);
-  const {isMidnight} = useContext(MidnightContext);
-  const octave = +answer?.sequence[(guess[currentRow].length/2)].slice(-1);
+  const { isMidnight } = useContext(MidnightContext);
+  const octave = +answer?.sequence[(guess[currentRow].length / 2)].slice(-1);
 
   function resetBoard() {
     setGuess(new Array(6).fill(""));
@@ -42,8 +42,8 @@ function Board({ answer }) {
     setGameWon(false);
     setShareOutput(
       new Array(6).fill(null).map((row) => {
-      return Array(6).fill("⬛");
-    }))
+        return Array(6).fill("⬛");
+      }))
 
     //Remove the colors for the bg tiles as well
     const inputTiles = document.querySelectorAll('input[name^="note-"]');
@@ -52,7 +52,7 @@ function Board({ answer }) {
       element.classList = '';
     });
   }
-  
+
   function updateStats(hasWon = true) {
     //Open modal
     setIsOpen(true);
@@ -86,7 +86,6 @@ function Board({ answer }) {
           return noteCluster;
         });
       //console.log('answerArr', answerArr)
-      //const guessArr = guess[currentRow].split('.').join("");
       const guessArr = guess[currentRow].match(/.{1,2}/g);
       //console.log('guessArr', guessArr)
       const answerFreqCount = getFreqCount(answerArr);
@@ -175,22 +174,30 @@ function Board({ answer }) {
           break;
         case isNote(event.key):
           /*Update guess state after valid note*/
-          //('event.key', event.key)
-          const note = event.key.length === 1 ? event.key + '.' : event.key;
+          ('======event.key', event.key)
+          let note = event.key.length === 1 ? event.key + '.' : event.key;
+          if (note[1] === "b") {
+            note = note[0].toUpperCase() + note[1];
+          } else {
+            note = note.toUpperCase();
+          }
+          console.log('note', note)
           if (guess[currentRow].length < 12) {
             setGuess(
-              guess.map((guessArr, i) => {
+              guess.map((guessNote, i) => {
+                console.log('INSIDE MAPPING guessNote', guessNote)
+                console.log('INSIDE MAPPING note', note)
                 if (i === currentRow) {
-                  return guessArr + note.toUpperCase();
+                  return guessNote + note;
                 } else {
-                  return guessArr;
+                  return guessNote;
                 }
               })
             );
           }
 
           /*Play the note in the same octave as the corresponding answer*/
-          playNote(event.key, answer, guess[currentRow].length/2, volume);
+          playNote(event.key, answer, guess[currentRow].length / 2, volume);
           setError("");
           break;
         case event.key === "Enter":
@@ -218,6 +225,7 @@ function Board({ answer }) {
   }, [guess, currentRow, handleSubmit, handleKeyDown, isMidnight]);
 
   function isNote(str) {
+    console.log('isNote str', str)
     return str.length <= 2 && "abcdefg".includes(str[0].toLowerCase());
   }
 
@@ -225,7 +233,7 @@ function Board({ answer }) {
     let freq = {};
     for (let i = 0; i < noteSeq.length; i++) {
       //let character = noteSeq.charAt(i);
-      let character= noteSeq[i]
+      let character = noteSeq[i]
       if (freq[character]) {
         freq[character]++;
       } else {
@@ -235,12 +243,13 @@ function Board({ answer }) {
     return freq;
   }
   function handlePianoPress(note) {
+    console.log('note', note)
     handleKeyDown({ key: note });
   }
   function shareResults() { //TODO: Refactor shareOutput to be calculated here without using state
     setIsOpen(false);
     let stat = gameWon ? guess.join("").length / 6 : "X";
-    let beginText = `Perfect Pitch Puzzle - '${answer["song"]}' ${stat}/${guess.length/2}\n`;
+    let beginText = `Perfect Pitch Puzzle - '${answer["song"]}' ${stat}/${guess.length / 2}\n`;
     navigator.clipboard
       .writeText(
         beginText +
@@ -275,7 +284,7 @@ function Board({ answer }) {
                         name={`note-${row}-${column}`}
                         disabled={currentRow !== row}
                         maxLength={1}
-                        value={char.slice(column*2, 2*(column+1)).split(".")[0] || ""}
+                        value={char.slice(column * 2, 2 * (column + 1)).split(".")[0] || ""}
                         tabIndex={-1}
                         readOnly
                       />
@@ -285,7 +294,7 @@ function Board({ answer }) {
                     className={styles.playButton}
                     onClick={(e) => {
                       e.preventDefault();
-                        playSequence(answer, guess, row, volume);
+                      playSequence(answer, guess, row, volume);
                     }}
                   >
                     <FontAwesomeIcon icon={faPlay} />
@@ -309,14 +318,17 @@ function Board({ answer }) {
           {isOpen && (
             <Modal shareResults={shareResults} handleClose={() => setIsOpen(false)}><h4>{message}</h4></Modal>
           )}
-          {showStatsModal && <ModalStats setIsOpen={setShowStatsModal}/>}
+          {showStatsModal && <ModalStats setIsOpen={setShowStatsModal} />}
         </Paper>
-          {/* <Piano handlePianoPress={handlePianoPress} octave={octave} /> */}
-          {/* <p>Guess: {JSON.stringify(guess, 0, 2)}</p>
-          <p>answer.sequence: {JSON.stringify(answer?.sequence, 0, 2)}</p>
-          <p>octave: {octave}</p> */}
-          <PianoNew handlePianoPress={handlePianoPress} octave={octave} />
-          <div className={styles.error}>{error}</div>
+        <div className={styles.error}>{error}</div>
+        <PianoNew handlePianoPress={handlePianoPress} octave={octave} hasFlats={answer?.hasFlats} />
+        {testMode &&
+          <>
+            <p>Guess: {JSON.stringify(guess, 0, 2)}</p>
+            <p>answer.sequence: {JSON.stringify(answer?.sequence, 0, 2)}</p>
+            <p>octave: {octave}</p>
+          </>
+        }
       </Grid>
     </Grid>
   );

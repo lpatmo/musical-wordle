@@ -74,7 +74,7 @@ export function playNote(note, answer, currentNote, volume) {
     piano.loaded().then(() => {
         const octave = answer.sequence[currentNote].slice(-1);
         const now = context.currentTime;
-        piano.start({ note: `${note.toUpperCase()}${octave}`, time: now, duration: 0.5 });
+        piano.start({ note: `${note}${octave}`, time: now, duration: 0.5 });
     })
     return;
 }
