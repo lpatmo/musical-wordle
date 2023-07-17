@@ -7,7 +7,6 @@ import Paper from '@mui/material/Paper';
 import {
   faPlay,
 } from "@fortawesome/free-solid-svg-icons";
-import Piano from "./Piano";
 import PianoNew from "./PianoNew";
 import VolumeContext from './contexts/VolumeContext'
 import Modal from './Modal';
@@ -78,15 +77,21 @@ function Board({ answer }) {
   const handleSubmit = useCallback(
     (e) => {
       e.preventDefault();
-      let answerStr = answer.sequence.slice(0, 6)
-        .map((noteCluster) => noteCluster.split("")[0])
-        .join("");
-      console.log('answerStr', answerStr)
-      const guessStr = guess[currentRow].split('.').join("");
-      console.log('guessStr', guessStr)
-      const answerFreqCount = getFreqCount(answerStr);
+      let answerArr = answer.sequence.slice(0, 6)
+        .map((noteCluster) => {
+          noteCluster = noteCluster.slice(0, -1)
+          if (noteCluster.length === 1) {
+            noteCluster += '.'
+          }
+          return noteCluster;
+        });
+      //console.log('answerArr', answerArr)
+      //const guessArr = guess[currentRow].split('.').join("");
+      const guessArr = guess[currentRow].match(/.{1,2}/g);
+      //console.log('guessArr', guessArr)
+      const answerFreqCount = getFreqCount(answerArr);
 
-      if (guessStr === answerStr) {
+      if (guessArr.join("") === answerArr.join("")) {
         setGameWon(true);
         playCelebrationSequence(answer, volume);
         setShareOutput(shareOutput.slice(0, currentRow + 1));
@@ -94,7 +99,7 @@ function Board({ answer }) {
           .querySelectorAll(`input[name^="note-${currentRow}"]`)
           .forEach((el) => el.classList.add(styles.correct));
         setMessage(
-          `🎉 Congratulations! You correctly guessed '${answer["song"]}' in ${guess.join("").length / 6
+          `🎉 Congratulations! You correctly guessed '${answer["song"]}' in ${guess.join("").length / 12
           }/${guess.length} tries!`
         );
         //Update stats and open modal
@@ -106,7 +111,7 @@ function Board({ answer }) {
       } else if (guess.join("").length / 12 === 6) {
         playCelebrationSequence(answer, volume);
         setMessage(`Better luck next time! The song was '${answer["song"]}'.\n
-        Notes: ${answerStr}`);
+        Notes: ${answerArr.join("").replace(/\./g, "")}`);
         updateStats(false);
       } else {
         /*If user has submitted 6 notes, play the notes when they submit*/
@@ -115,33 +120,32 @@ function Board({ answer }) {
         setCurrentRow(currentRow + 1);
         setError("Please try again");
       }
+      //console.log('currentRow is', currentRow)
       /* Check for correct notes */
-      for (let i = 0; i < guessStr.length; i++) {
-        if (guessStr[i] === answerStr[i]) {
+      for (let i = 0; i < guessArr.length; i++) {
+        if (guessArr[i] === answerArr[i]) {
           shareOutput[currentRow][i] = "🟩";
           document
             .querySelector(`input[name="note-${currentRow}-${i}"]`)
             .classList.add(styles.correct);
-          answerFreqCount[answerStr[i]] -= 1;
-          answerStr = answerStr.split("");
-          answerStr[i] = "X";
-          answerStr = answerStr.join("");
+          answerFreqCount[answerArr[i]] -= 1;
+          answerArr[i] = "X.";
         }
       }
 
       /*Check for misplaced notes and wrong notes */
-      for (let i = 0; i < guessStr.length; i++) {
+      for (let i = 0; i < guessArr.length; i++) {
         if (
-          answerStr.includes(guessStr[i]) &&
-          answerStr[i] !== "X" &&
-          answerFreqCount[guessStr[i]] > 0
+          answerArr.join("").includes(guessArr[i]) &&
+          answerArr[i] !== "X." &&
+          answerFreqCount[guessArr[i]] > 0
         ) {
           shareOutput[currentRow][i] = "🟨";
           document
             .querySelector(`input[name="note-${currentRow}-${i}"]`)
             .classList.add(styles.misplaced);
-          answerFreqCount[guessStr[i]] -= 1;
-        } else if (answerStr[i] !== "X") {
+          answerFreqCount[guessArr[i]] -= 1;
+        } else if (answerArr[i] !== "X.") {
           document
             .querySelector(`input[name="note-${currentRow}-${i}"]`)
             .classList.add(styles.incorrect);
@@ -159,11 +163,11 @@ function Board({ answer }) {
           break;
         case event.key === "Backspace":
           /*Updated guess state after backspace*/
-          const updatedGuess = guess.map((guessStr, i) => {
+          const updatedGuess = guess.map((guessArr, i) => {
             if (i === currentRow) {
-              return guessStr.slice(0, guessStr.length - 2);
+              return guessArr.slice(0, guessArr.length - 2);
             } else {
-              return guessStr;
+              return guessArr;
             }
           });
           setGuess(updatedGuess);
@@ -171,15 +175,15 @@ function Board({ answer }) {
           break;
         case isNote(event.key):
           /*Update guess state after valid note*/
-          console.log('event.key', event.key)
+          //('event.key', event.key)
           const note = event.key.length === 1 ? event.key + '.' : event.key;
           if (guess[currentRow].length < 12) {
             setGuess(
-              guess.map((guessStr, i) => {
+              guess.map((guessArr, i) => {
                 if (i === currentRow) {
-                  return guessStr + note.toUpperCase();
+                  return guessArr + note.toUpperCase();
                 } else {
-                  return guessStr;
+                  return guessArr;
                 }
               })
             );
@@ -214,14 +218,14 @@ function Board({ answer }) {
   }, [guess, currentRow, handleSubmit, handleKeyDown, isMidnight]);
 
   function isNote(str) {
-    console.log('str', str)
     return str.length <= 2 && "abcdefg".includes(str[0].toLowerCase());
   }
 
   function getFreqCount(noteSeq) {
     let freq = {};
     for (let i = 0; i < noteSeq.length; i++) {
-      let character = noteSeq.charAt(i);
+      //let character = noteSeq.charAt(i);
+      let character= noteSeq[i]
       if (freq[character]) {
         freq[character]++;
       } else {
@@ -231,7 +235,6 @@ function Board({ answer }) {
     return freq;
   }
   function handlePianoPress(note) {
-    console.log('===NOTE', note)
     handleKeyDown({ key: note });
   }
   function shareResults() { //TODO: Refactor shareOutput to be calculated here without using state
@@ -303,9 +306,6 @@ function Board({ answer }) {
               <button onClick={() => setShowStatsModal(true)}>Show Stats</button>
             </div>
           )}
-
-
-
           {isOpen && (
             <Modal shareResults={shareResults} handleClose={() => setIsOpen(false)}><h4>{message}</h4></Modal>
           )}
