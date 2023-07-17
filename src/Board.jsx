@@ -105,7 +105,7 @@ function Board({ answer }) {
         //Update stats and open modal
         updateStats();
 
-      } else if (guess[currentRow] < 12) {
+      } else if (guessArr.length < 6) {
         setError("Please fill out all the notes.");
         return;
       } else if (guess.join("").length / 12 === 6) {
@@ -312,9 +312,9 @@ function Board({ answer }) {
           {showStatsModal && <ModalStats setIsOpen={setShowStatsModal}/>}
         </Paper>
           {/* <Piano handlePianoPress={handlePianoPress} octave={octave} /> */}
-          <p>Guess: {JSON.stringify(guess, 0, 2)}</p>
+          {/* <p>Guess: {JSON.stringify(guess, 0, 2)}</p>
           <p>answer.sequence: {JSON.stringify(answer?.sequence, 0, 2)}</p>
-          <p>octave: {octave}</p>
+          <p>octave: {octave}</p> */}
           <PianoNew handlePianoPress={handlePianoPress} octave={octave} />
           <div className={styles.error}>{error}</div>
       </Grid>
