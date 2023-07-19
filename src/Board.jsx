@@ -31,7 +31,12 @@ function Board({ answer, testMode }) {
   const [isOpen, setIsOpen] = useState(false);
   const [showStatsModal, setShowStatsModal] = useState(false);
   const { isMidnight } = useContext(MidnightContext);
-  const octave = +answer?.sequence[(guess[currentRow].length / 2)].slice(-1);
+  let octave = +answer?.sequence[(guess[currentRow].length / 2)].slice(-1);
+  //after the sixth note, show the octave from the sixth note and not the seventh 
+  if (guess[currentRow].length === 12) {
+    console.log('reached last note')
+    octave = +answer?.sequence[5].slice(-1);
+  }
 
   function resetBoard() {
     setGuess(new Array(6).fill(""));

@@ -92,3 +92,39 @@ justify-content: center;
   top: 40%;
 }
 
+.tinyPianos {
+  display: flex;
+  justify-content: center;
+}
+
+.highlight {
+  width: 8.1rem;
+  background: var(--navbar-bg);
+  opacity: 0.5;
+  z-index: 100;
+  position: relative;
+  left: 16.2rem;
+  transition: transform 0.5s;
+}
+@keyframes slideAnimation {
+  0% {
+    left: 24.3rem;
+  }
+  100% {
+    left: 16.2rem;
+  }
+}
+.octave3 {
+  /* left: 8.1rem; */
+  transform: translateX(-81px);
+}
+.octave4 {
+  /* left: 16.2rem;
+  animation: slideAnimation 1s ease-in-out; */
+  transform: translateX(0px);
+}
+.octave5 {
+  /* left: 24.3rem; */
+  transform: translateX(81px);
+}
+
