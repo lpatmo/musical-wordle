@@ -328,7 +328,9 @@ function Board({ answer, testMode }) {
           )}
           {showStatsModal && <ModalStats setIsOpen={setShowStatsModal} />}
         </Paper>
-        <div className={styles.error}>{error}</div>
+        <div className={styles.errorWrapper}>
+          <div className={styles.error}>{error}</div>
+        </div>
         <PianoNew handlePianoPress={handlePianoPress} octave={octave} hasFlats={answer?.hasFlats} />
         {testMode &&
           <>
