@@ -106,25 +106,29 @@ justify-content: center;
   left: 16.2rem;
   transition: transform 0.5s;
 }
-@keyframes slideAnimation {
-  0% {
-    left: 24.3rem;
-  }
-  100% {
-    left: 16.2rem;
-  }
-}
+
 .octave3 {
-  /* left: 8.1rem; */
   transform: translateX(-81px);
 }
 .octave4 {
-  /* left: 16.2rem;
-  animation: slideAnimation 1s ease-in-out; */
   transform: translateX(0px);
 }
 .octave5 {
-  /* left: 24.3rem; */
   transform: translateX(81px);
 }
 
+@media (max-width: 600px) {
+  .pianoNew {
+    margin-bottom: 2rem;
+  }
+  .keyboard {
+    padding: 0 1px;
+  }
+  .white {
+    width: 4.3rem;
+    height: 16rem;
+  }
+  .black {
+    height: 9rem;
+  }
+}
