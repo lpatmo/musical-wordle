@@ -8,7 +8,7 @@ function PianoNew({ handlePianoPress, octave, hasFlats }) {
     return (
         <>
             <section className={styles.tinyPianos}>
-                <div className={`${styles.highlight} ${octave === 3 && styles.octave3} ${octave === 4 && styles.octave4} ${octave === 5 && styles.octave5}`}></div>
+                <div className={`${styles.highlight} ${octave === 3 && styles.octave3} ${octave === 4 && styles.octave4} ${octave === 5 && styles.octave5}`}><span className={styles.octaveText}>Octave: {octave}</span></div>
             <PianoTiny octave={octave} />
             <PianoTiny octave={octave} />
             <PianoTiny octave={octave} />

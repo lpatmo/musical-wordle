@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./PianoTiny.module.css";
 
-function PianoTiny({ handlePianoPress, octave, hasFlats }) {
+function PianoTiny({ octave, hasFlats }) {
     return (<div className={styles.pianoNew}>
         <ul className={styles.keyboard}>
             <li className={styles.white}></li>

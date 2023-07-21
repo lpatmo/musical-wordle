@@ -97,7 +97,6 @@ button.playButton svg {
   color: var(--wordle-error);
   max-width: 49rem;
   margin: 1em auto;
-  background: linear-gradient(to bottom, hsl(0, 0%, 93%) 0%, white 100%);
   padding: 0.5em 0; 
 }
 

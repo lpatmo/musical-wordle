@@ -100,23 +100,30 @@ justify-content: center;
 }
 
 .highlight {
-  width: 8.1rem;
+  width: 8.35rem;
   background: var(--navbar-bg);
   opacity: 0.5;
   z-index: 100;
   position: relative;
-  left: 16.2rem;
+  left: 16.7rem;
   transition: transform 0.5s;
+  border-radius: 0 0 3px 3px;
 }
 
 .octave3 {
-  transform: translateX(-81px);
+  transform: translateX(-83px);
 }
 .octave4 {
   transform: translateX(0px);
 }
 .octave5 {
-  transform: translateX(81px);
+  transform: translateX(84px);
+}
+.octaveText {
+  position: relative;
+  top: -40px;
+  font-size: 1.8rem;
+  font-weight: bold;
 }
 
 @media (max-width: 600px) {

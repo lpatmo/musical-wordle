@@ -15,11 +15,11 @@
       font-size: 1.7rem;
     }
     #keyboard li:first-child {
-      border-radius: 5px 0 5px 5px;
+      border-radius: 3px 0 3px 3px;
     }
     
     #keyboard li:last-child {
-      border-radius: 0 5px 5px 5px;
+      border-radius: 0 5px 3px 3px;
     }
     
     .white {
@@ -28,7 +28,7 @@
       z-index: 1;
       border-left: 1px solid hsl(0, 0%, 73%);
       border-bottom: 1px solid hsl(0, 0%, 73%);
-      border-radius: 0 0 5px 5px;
+      border-radius: 0 0 3px 3px;
       box-shadow: -1px 0 0 var(--white-80) inset, 0 0 5px hsl(0, 0%, 80%) inset,
         0 0 3px var(--black-20);
       background: linear-gradient(to bottom, hsl(0, 0%, 93%) 0%, white 100%);
@@ -48,7 +48,7 @@
       color: var(--white-100);
     }
     .offset {
-      margin: 0 0 0 -0.5rem;
+      margin: 0 0 0 -0.45rem;
     }
     
     .keyboard {
