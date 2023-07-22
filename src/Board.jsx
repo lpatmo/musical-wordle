@@ -258,7 +258,7 @@ function Board({ answer, testMode }) {
   }
   function shareResults() { //TODO: Refactor shareOutput to be calculated here without using state
     setIsOpen(false);
-    let stat = gameWon ? guessAttempts : "X";
+    let stat = gameWon ? guess.join("").length / 12 : "X";
     let beginText = `Perfect Pitch Puzzle - '${answer["song"]}' ${stat}/${guess.length}\n`;
     navigator.clipboard
       .writeText(
