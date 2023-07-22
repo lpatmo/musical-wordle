@@ -63,6 +63,8 @@ function Board({ answer, testMode }) {
     setIsOpen(true);
     //Update game state
     setGameOver(true);
+    //Update error
+    setError("")
 
     //Update localStorage
     const numberGuesses = guess.join("").length;
@@ -94,6 +96,7 @@ function Board({ answer, testMode }) {
       const guessArr = guess[currentRow].match(/.{1,2}/g);
       //console.log('guessArr', guessArr)
       const answerFreqCount = getFreqCount(answerArr);
+      const guessAttempts = guess.join("").length / 12
 
       if (guessArr.join("") === answerArr.join("")) {
         setGameWon(true);
@@ -103,8 +106,7 @@ function Board({ answer, testMode }) {
           .querySelectorAll(`input[name^="note-${currentRow}"]`)
           .forEach((el) => el.classList.add(styles.correct));
         setMessage(
-          `🎉 Congratulations! You correctly guessed '${answer["song"]}' in ${guess.join("").length / 12
-          }/${guess.length} tries!`
+          `🎉 Congratulations! You correctly guessed '${answer["song"]}' in ${guessAttempts}/${guess.length} tries!`
         );
         //Update stats and open modal
         updateStats();
@@ -112,7 +114,7 @@ function Board({ answer, testMode }) {
       } else if (guessArr.length < 6) {
         setError("Please fill out all the notes.");
         return;
-      } else if (guess.join("").length / 12 === 6) {
+      } else if (guessAttempts === 6) {
         playCelebrationSequence(answer, volume);
         setMessage(`Better luck next time! The song was '${answer["song"]}'.\n
         Notes: ${answerArr.join("").replace(/\./g, "")}`);
@@ -256,8 +258,8 @@ function Board({ answer, testMode }) {
   }
   function shareResults() { //TODO: Refactor shareOutput to be calculated here without using state
     setIsOpen(false);
-    let stat = gameWon ? guess.join("").length / 6 : "X";
-    let beginText = `Perfect Pitch Puzzle - '${answer["song"]}' ${stat}/${guess.length / 2}\n`;
+    let stat = gameWon ? guessAttempts : "X";
+    let beginText = `Perfect Pitch Puzzle - '${answer["song"]}' ${stat}/${guess.length}\n`;
     navigator.clipboard
       .writeText(
         beginText +

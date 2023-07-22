@@ -51,6 +51,7 @@
     color: var(--wordle-text-color-lightmode);
     width: 90%;
     text-align: center;
+    margin-top: 5px;
 }
 
 .modalCloseBtn:hover {
