@@ -14,6 +14,7 @@ import AudiotrackIcon from '@mui/icons-material/Audiotrack';
 import ShareResults from './ShareResults'
 import ModalStats from './ModalStats';
 import MidnightContext from './contexts/MidnightContext';
+import getNote from './helpers/getNote'
 
 function Board({ answer, testMode }) {
   const volume = useContext(VolumeContext);
@@ -34,7 +35,7 @@ function Board({ answer, testMode }) {
   let octave = +answer?.sequence[(guess[currentRow].length / 2)].slice(-1);
   //after the sixth note, show the octave from the sixth note and not the seventh 
   if (guess[currentRow].length === 12) {
-    console.log('reached last note')
+    //console.log('reached last note')
     octave = +answer?.sequence[5].slice(-1);
   }
 
@@ -181,19 +182,16 @@ function Board({ answer, testMode }) {
           break;
         case isNote(event.key):
           /*Update guess state after valid note*/
-          ('======event.key', event.key)
-          let note = event.key.length === 1 ? event.key + '.' : event.key;
+          let note = getNote(event, answer?.hasFlats);
+          //console.log("note", note)
           if (note[1] === "b") {
             note = note[0].toUpperCase() + note[1];
           } else {
             note = note.toUpperCase();
           }
-          console.log('note', note)
           if (guess[currentRow].length < 12) {
             setGuess(
               guess.map((guessNote, i) => {
-                console.log('INSIDE MAPPING guessNote', guessNote)
-                console.log('INSIDE MAPPING note', note)
                 if (i === currentRow) {
                   return guessNote + note;
                 } else {
@@ -207,7 +205,7 @@ function Board({ answer, testMode }) {
           }
 
           /*Play the note in the same octave as the corresponding answer*/
-          playNote(event.key, answer, guess[currentRow].length / 2, volume);
+          playNote(note, answer, guess[currentRow].length / 2, volume);
           //setError("");
           break;
         case event.key === "Enter":
@@ -235,7 +233,7 @@ function Board({ answer, testMode }) {
   }, [guess, currentRow, handleSubmit, handleKeyDown, isMidnight]);
 
   function isNote(str) {
-    console.log('isNote str', str)
+    //console.log('isNote str', str)
     return str.length <= 2 && "abcdefg".includes(str[0].toLowerCase());
   }
 
@@ -253,7 +251,7 @@ function Board({ answer, testMode }) {
     return freq;
   }
   function handlePianoPress(note) {
-    console.log('note', note)
+    //console.log('note', note)
     handleKeyDown({ key: note });
   }
   function shareResults() { //TODO: Refactor shareOutput to be calculated here without using state

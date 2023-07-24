@@ -66,9 +66,10 @@ export function playNote(note, answer, currentNote, volume) {
     if (currentNote === 6) {
         return;
     }
-    console.log('PLAYING NOTE note', note)
-    console.log('PLAYNOTE answer', answer)
-    console.log('PLAYNOTE currentNote', currentNote)
+    //If we are passing down "X." as the note, remove the '.'
+    if (note.slice(-1) === ".") {
+        note = note[0];
+    }
     piano.output.setVolume(volume * 35);
 
     piano.loaded().then(() => {
