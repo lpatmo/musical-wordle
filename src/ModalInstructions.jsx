@@ -10,20 +10,12 @@ function ModalInstructions({ setIsOpen }) {
     return (
         <Modal handleClose={() => setIsOpen(false)} hideClose={true}>
             <section className={styles.modalInstructions}>
-                <h2>How to play</h2>
+                <h2>How to Play</h2>
                 <ul>
                     <li>Play the tune and identity the first 6 notes in 6 tries.</li>
                 </ul>
                 <h3><AudiotrackIcon /> Tips</h3>
                 <ul>
-                    <li>Click on the <button
-                            className={styles.playButton}
-                            onClick={(e) => {
-                                e.preventDefault();
-                            }}
-                        >
-                            <FontAwesomeIcon icon={faPlay} />
-                        </button> button to listen to your guess</li>
                     <li>
                         <div className={styles.exampleTiles}>
                             <span>B</span>
@@ -53,8 +45,16 @@ function ModalInstructions({ setIsOpen }) {
                         <span>D</span>
                     </div>
                         The note you've identified is not in the tune.</li>
+                        <li>Click on the <button
+                            className={styles.playButton}
+                            onClick={(e) => {
+                                e.preventDefault();
+                            }}
+                        >
+                            <FontAwesomeIcon icon={faPlay} />
+                        </button> button to listen to your guess before submitting a try.</li>
                 </ul>
-                <p>A new musical puzzle is released daily at midnight.</p>
+                <p>A new musical ear training puzzle is released daily at midnight.</p>
             </section>
         </Modal>
     )
