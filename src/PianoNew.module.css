@@ -141,3 +141,14 @@ justify-content: center;
     height: 9rem;
   }
 }
+
+/* Safari 7.1+ */
+_::-webkit-full-page-media, _:future, :root .highlight {
+  /* Safari-specific styles go here */
+    height: 4.1rem;
+    background: yellow;
+}
+_::-webkit-full-page-media, _:future, :root .octaveText {
+  /* Safari-specific styles go here */
+    font-size: 1.6rem;
+}
