@@ -88,7 +88,6 @@ button:hover {
 
 .announcement {
   margin: 20px auto;
-  width: 400px;
   border: 1px solid #ccc;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
   padding: 15px 20px;
@@ -118,5 +117,11 @@ button:hover {
 button[type="submit"] svg {
   position: relative;
   top: 0px;
+}
+
+@media (min-width: 600px) {
+  .announcement {
+    width: 400px;
+  }
 }
 
