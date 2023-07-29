@@ -12,7 +12,7 @@ function ModalInstructions({ setIsOpen }) {
             <section className={styles.modalInstructions}>
                 <h2>How to Play</h2>
                 <ul>
-                    <li>Play the tune and identity the first 6 notes in 6 tries.</li>
+                    <li>Play the tune! Then identify the first 6 notes. You have 6 tries.</li>
                 </ul>
                 <h3><AudiotrackIcon /> Tips</h3>
                 <ul>
