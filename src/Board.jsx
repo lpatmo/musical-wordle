@@ -88,6 +88,10 @@ function Board({ answer, testMode }) {
   const handleSubmit = useCallback(
     (e) => {
       e.preventDefault();
+      if (guess[currentRow].length === 0) {
+        setError("Please guess a note.")
+        return;
+      } 
       let answerArr = answer.sequence.slice(0, 6)
         .map((noteCluster) => {
           noteCluster = noteCluster.slice(0, -1)
@@ -313,7 +317,11 @@ function Board({ answer, testMode }) {
                     className={styles.playButton}
                     onClick={(e) => {
                       e.preventDefault();
+                      if (guess[row].length === 0) {
+                        setError("Please guess a note.")
+                    } else {
                       playSequence(answer, guess, row, volume);
+                    }
                     }}
                   >
                     {/* <FontAwesomeIcon icon={faPlay} /> */}
