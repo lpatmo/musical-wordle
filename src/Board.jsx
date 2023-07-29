@@ -7,6 +7,9 @@ import Paper from '@mui/material/Paper';
 import {
   faPlay,
 } from "@fortawesome/free-solid-svg-icons";
+import Typography from '@mui/material/Typography';
+import Tooltip from '@mui/material/Tooltip';
+import HeadphonesIcon from '@mui/icons-material/Headphones';
 import PianoNew from "./PianoNew";
 import VolumeContext from './contexts/VolumeContext'
 import Modal from './Modal';
@@ -275,10 +278,17 @@ function Board({ answer, testMode }) {
       });
   }
 
+
   return (
     <Grid container spacing={1} justifyContent="center">
-      <Grid item lg={12}>
+      <Grid item xl={4} lg={5} md={7}>
         <Paper elevation={0}>
+        <button type="button" className={styles.action}
+                onClick={() => {
+                  playSequence(answer, undefined, undefined, volume)
+                }
+                }>
+                  <FontAwesomeIcon icon={faPlay} /> Play the tune</button>
           <form className={styles.board} onSubmit={handleSubmit}>
             {guess.map((char, row) => {
               //char is the same thing as guess[row]
@@ -298,6 +308,7 @@ function Board({ answer, testMode }) {
                       />
                     );
                   })}
+                  <Tooltip title={<Typography fontSize={16}>Play my guess</Typography>} arrow placement="right" style={{fontSize:"24px"}}>
                   <button
                     className={styles.playButton}
                     onClick={(e) => {
@@ -305,13 +316,15 @@ function Board({ answer, testMode }) {
                       playSequence(answer, guess, row, volume);
                     }}
                   >
-                    <FontAwesomeIcon icon={faPlay} />
+                    {/* <FontAwesomeIcon icon={faPlay} /> */}
+                    <HeadphonesIcon />
                   </button>
+                  </Tooltip>
                 </div>
               );
             })}
 
-            <button type="submit" className="action">
+            <button type="submit" className={styles.submit}>
               Submit <AudiotrackIcon className={styles.iconMusic} />
             </button>
 
@@ -331,7 +344,10 @@ function Board({ answer, testMode }) {
         <div className={styles.errorWrapper}>
           <div className={styles.error}>{error}</div>
         </div>
-        <PianoNew handlePianoPress={handlePianoPress} octave={octave} hasFlats={answer?.hasFlats} />
+        </Grid>
+        <Grid item xl={4} lg={5} md={7}>
+          <PianoNew handlePianoPress={handlePianoPress} octave={octave} hasFlats={answer?.hasFlats} />
+        </Grid>
         {testMode &&
           <>
             <p>Guess: {JSON.stringify(guess, 0, 2)}</p>
@@ -339,7 +355,6 @@ function Board({ answer, testMode }) {
             <p>octave: {octave}</p>
           </>
         }
-      </Grid>
     </Grid>
   );
 }

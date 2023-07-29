@@ -97,11 +97,7 @@ function App() {
             {showStats && <ModalStats setIsOpen={setShowStats} />}
             {mobileOrSafari ? <p className="error">Sorry, this game is not available on Safari or on mobile devices.</p> : <>
 
-              <button type="button" className="action"
-                onClick={() => {
-                  playSequence(answer, undefined, undefined, volume)
-                }
-                }><FontAwesomeIcon icon={faPlay} /> Play the tune</button>
+
               <Box sx={{ width: 300, margin: '20px auto' }}>
 
                 <Stack spacing={3} direction="row" sx={{ mb: 3 }} alignItems="center" className="audioSettings">

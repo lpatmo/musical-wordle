@@ -2,6 +2,7 @@
 .pianoNew {
 display: flex;
 justify-content: center;
+margin-top: 0.58em;
 }
 .white,
 .black {
