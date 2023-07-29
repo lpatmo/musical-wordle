@@ -1,10 +1,7 @@
 import styles from './ModalInstructions.module.css'
 import Modal from './Modal'
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-    faPlay,
-} from "@fortawesome/free-solid-svg-icons";
 import AudiotrackIcon from '@mui/icons-material/Audiotrack';
+import HeadphonesIcon from '@mui/icons-material/Headphones';
 
 function ModalInstructions({ setIsOpen }) {
     return (
@@ -51,7 +48,7 @@ function ModalInstructions({ setIsOpen }) {
                                 e.preventDefault();
                             }}
                         >
-                            <FontAwesomeIcon icon={faPlay} />
+                            <HeadphonesIcon />
                         </button> button to listen to your guess before submitting a try.</li>
                 </ul>
                 <p>A new musical ear training puzzle is released daily at midnight.</p>

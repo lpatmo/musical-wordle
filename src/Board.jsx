@@ -120,7 +120,7 @@ function Board({ answer, testMode }) {
         updateStats();
 
       } else if (guessArr.length < 6) {
-        setError("Please fill out all the notes.");
+        setError("Please fill out all the notes in the row before submitting.");
         return;
       } else if (guessAttempts === 6) {
         playCelebrationSequence(answer, volume);
@@ -312,7 +312,7 @@ function Board({ answer, testMode }) {
                       />
                     );
                   })}
-                  <Tooltip title={<Typography fontSize={16}>Play my guess</Typography>} arrow placement="right" style={{fontSize:"24px"}}>
+                  {/* <Tooltip title={<Typography fontSize={16}>Play my guess</Typography>} arrow placement="right"> */}
                   <button
                     className={styles.playButton}
                     onClick={(e) => {
@@ -327,7 +327,7 @@ function Board({ answer, testMode }) {
                     {/* <FontAwesomeIcon icon={faPlay} /> */}
                     <HeadphonesIcon />
                   </button>
-                  </Tooltip>
+                  {/* </Tooltip> */}
                 </div>
               );
             })}
