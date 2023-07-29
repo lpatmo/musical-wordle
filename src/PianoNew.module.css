@@ -141,6 +141,14 @@ margin-top: 0.58em;
   .black {
     height: 9rem;
   }
+  .keyBindings {
+    margin: 3em auto;
+  }
+}
+
+.keyBindings {
+  color: var(--wordle-answer-incorrect);
+  font-size: 1.5rem;
 }
 
 /* Safari 7.1+ */
