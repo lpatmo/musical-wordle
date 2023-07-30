@@ -76,10 +76,6 @@ button {
   width: 250px;
 }
 
-button.action {
-  margin: 10px auto;
-}
-
 button:hover {
   background: var(--btn-color-2);
   color: var(--btn-color-1);

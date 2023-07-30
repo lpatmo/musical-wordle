@@ -1,10 +1,7 @@
 import styles from './ModalInstructions.module.css'
 import Modal from './Modal'
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-    faPlay,
-} from "@fortawesome/free-solid-svg-icons";
 import AudiotrackIcon from '@mui/icons-material/Audiotrack';
+import HeadphonesIcon from '@mui/icons-material/Headphones';
 
 function ModalInstructions({ setIsOpen }) {
     return (
@@ -12,7 +9,7 @@ function ModalInstructions({ setIsOpen }) {
             <section className={styles.modalInstructions}>
                 <h2>How to Play</h2>
                 <ul>
-                    <li>Play the tune and identity the first 6 notes in 6 tries.</li>
+                    <li>Play the tune! Then identify the first 6 notes. You have 6 tries.</li>
                 </ul>
                 <h3><AudiotrackIcon /> Tips</h3>
                 <ul>
@@ -45,14 +42,14 @@ function ModalInstructions({ setIsOpen }) {
                         <span>D</span>
                     </div>
                         The note you've identified is not in the tune.</li>
-                        <li>Click on the <button
+                        <li>Click on <button
                             className={styles.playButton}
                             onClick={(e) => {
                                 e.preventDefault();
                             }}
                         >
-                            <FontAwesomeIcon icon={faPlay} />
-                        </button> button to listen to your guess before submitting a try.</li>
+                            <HeadphonesIcon />
+                        </button> to listen to your guess before submitting a try.</li>
                 </ul>
                 <p>A new musical ear training puzzle is released daily at midnight.</p>
             </section>

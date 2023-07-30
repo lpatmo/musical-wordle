@@ -7,6 +7,7 @@ import Paper from '@mui/material/Paper';
 import {
   faPlay,
 } from "@fortawesome/free-solid-svg-icons";
+import HeadphonesIcon from '@mui/icons-material/Headphones';
 import PianoNew from "./PianoNew";
 import VolumeContext from './contexts/VolumeContext'
 import Modal from './Modal';
@@ -85,6 +86,10 @@ function Board({ answer, testMode }) {
   const handleSubmit = useCallback(
     (e) => {
       e.preventDefault();
+      if (guess[currentRow].length === 0) {
+        setError("Please guess a note.")
+        return;
+      } 
       let answerArr = answer.sequence.slice(0, 6)
         .map((noteCluster) => {
           noteCluster = noteCluster.slice(0, -1)
@@ -113,7 +118,7 @@ function Board({ answer, testMode }) {
         updateStats();
 
       } else if (guessArr.length < 6) {
-        setError("Please fill out all the notes.");
+        setError("Please fill out all the notes in the row before submitting.");
         return;
       } else if (guessAttempts === 6) {
         playCelebrationSequence(answer, volume);
@@ -275,10 +280,17 @@ function Board({ answer, testMode }) {
       });
   }
 
+
   return (
     <Grid container spacing={1} justifyContent="center">
-      <Grid item lg={12}>
+      <Grid item xl={4} lg={5} md={7} className={styles.left}>
         <Paper elevation={0}>
+        <button type="button" className={styles.action}
+                onClick={() => {
+                  playSequence(answer, undefined, undefined, volume)
+                }
+                }>
+                  <FontAwesomeIcon icon={faPlay} /> Play the tune</button>
           <form className={styles.board} onSubmit={handleSubmit}>
             {guess.map((char, row) => {
               //char is the same thing as guess[row]
@@ -298,20 +310,26 @@ function Board({ answer, testMode }) {
                       />
                     );
                   })}
+
                   <button
                     className={styles.playButton}
                     onClick={(e) => {
                       e.preventDefault();
+                      if (guess[row].length === 0) {
+                        setError("Please guess a note.")
+                    } else {
                       playSequence(answer, guess, row, volume);
+                    }
                     }}
                   >
-                    <FontAwesomeIcon icon={faPlay} />
+                    <HeadphonesIcon />
                   </button>
+               
                 </div>
               );
             })}
 
-            <button type="submit" className="action">
+            <button type="submit" className={styles.submit}>
               Submit <AudiotrackIcon className={styles.iconMusic} />
             </button>
 
@@ -331,7 +349,10 @@ function Board({ answer, testMode }) {
         <div className={styles.errorWrapper}>
           <div className={styles.error}>{error}</div>
         </div>
-        <PianoNew handlePianoPress={handlePianoPress} octave={octave} hasFlats={answer?.hasFlats} />
+        </Grid>
+        <Grid item xl={4} lg={5} md={7} className={styles.right}>
+          <PianoNew handlePianoPress={handlePianoPress} octave={octave} hasFlats={answer?.hasFlats} />
+        </Grid>
         {testMode &&
           <>
             <p>Guess: {JSON.stringify(guess, 0, 2)}</p>
@@ -339,7 +360,6 @@ function Board({ answer, testMode }) {
             <p>octave: {octave}</p>
           </>
         }
-      </Grid>
     </Grid>
   );
 }

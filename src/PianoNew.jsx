@@ -13,6 +13,7 @@ function PianoNew({ handlePianoPress, octave, hasFlats }) {
             <PianoTiny octave={octave} />
             <PianoTiny octave={octave} />
             </section>
+            <section>
             <div className={styles.pianoNew}>
                 <ul className={styles.keyboard}>
                     <li onClick={() => handlePianoPress("C")} className={styles.white}>C{octave}</li>
@@ -30,6 +31,14 @@ function PianoNew({ handlePianoPress, octave, hasFlats }) {
                     <li aria-label="backspace" className={`${styles.white} ${styles.backspace}`} onClick={() => handlePianoPress("Backspace")}> <span>Backspace</span> <FontAwesomeIcon icon={faBackspace} /></li>
                 </ul>
             </div>
+                <div className={styles.keyBindings}>
+                    <p><strong>Keyboard Shortcuts</strong></p>
+                    <p> C D E F G A B </p>
+                    <p>Press Shift- to guess a sharp or flat <br /> if you think it's in the tune. For example:</p>
+                    <p>Shift-C | C#</p>
+                    <p>Shift-B | Bb</p>
+                </div>
+            </section>
         </>)
 }
 

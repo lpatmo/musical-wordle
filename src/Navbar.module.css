@@ -29,5 +29,6 @@
 @media (min-width: 600px) {
     .navbar img.note {
         display: block;
+        width: 12em;
     }
 }
