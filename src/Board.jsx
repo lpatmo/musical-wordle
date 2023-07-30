@@ -283,7 +283,7 @@ function Board({ answer, testMode }) {
 
   return (
     <Grid container spacing={1} justifyContent="center">
-      <Grid item xl={4} lg={5} md={7}>
+      <Grid item xl={4} lg={5} md={7} className={styles.left}>
         <Paper elevation={0}>
         <button type="button" className={styles.action}
                 onClick={() => {
@@ -350,7 +350,7 @@ function Board({ answer, testMode }) {
           <div className={styles.error}>{error}</div>
         </div>
         </Grid>
-        <Grid item xl={4} lg={5} md={7}>
+        <Grid item xl={4} lg={5} md={7} className={styles.right}>
           <PianoNew handlePianoPress={handlePianoPress} octave={octave} hasFlats={answer?.hasFlats} />
         </Grid>
         {testMode &&

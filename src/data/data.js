@@ -64,5 +64,7 @@ export const data = [
     { "sequence": ["E5", "D5", "F5", "E5", "E5", "D5", "F5", "E5", "E5", "D5","A5", "C5", "D5", "E5", "F5", "D5" ], "duration": [3, 1, 2, 2, 2, 2, 2, 2, 3, 1, 3, 0.5, 0.5, 3, 1, 4], song: "Dragonheart theme song", key: {note: "C", major: true} },
     { "sequence": ["E5", "D#5", "E5", "D#5", "E5", "B4", "D5", "C5", "A4" ], "duration": [1, 1, 1, 1, 1, 1, 1, 1, 2], song: "Für Elise", key: {note: "A", major: false} },
     { "sequence": ["F4", "C4", "F4", "C4", "G4", "C4", "Ab4", "C4", "Bb4", "C4", "Ab4", "C4", "G4", "C4", "F4", "C4", "F4", "C4", "E4", "C4", "F4", "C4", "G4", "C4", "F4", "E4", "Db5", "C5" ], "duration": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 2], song: "Wednesday Cello Solo", key: {note: "F", major: false} },
-    { "sequence": ["C#5", "C#5", "D5", "C#5", "C#5", "C#5", "D5", "C#5", "C#5", "C#5", "D5", "C#5", "B4", "C#5", "D5"], "duration": [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2], song: "Experience (Ludovico Einaudi)", key: {note: "D", major: false} }
+    { "sequence": ["C#5", "C#5", "D5", "C#5", "C#5", "C#5", "D5", "C#5", "C#5", "C#5", "D5", "C#5", "B4", "C#5", "D5"], "duration": [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2], song: "Experience (Ludovico Einaudi)", key: {note: "D", major: false} },
+    { "sequence": ["Bb3", "Eb4", "Eb4", "Eb4", "Db4", "Eb4", "Eb4", "Bb3", "Bb3", "Db4"], "duration": [1, 1, 2, 2, 2, 1, 1, 1, 1, 2], song: "Squid Game theme", key: {note: "Ab", major: false }, hasFlats: true},
+
 ]

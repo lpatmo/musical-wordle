@@ -123,5 +123,11 @@ button.playButton svg {
   button.playButton svg {
     width: 2rem;
   }
+  .left {
+    margin-left: auto;
+  }
+  .right {
+    margin-right: auto;
+  }
 }
 
