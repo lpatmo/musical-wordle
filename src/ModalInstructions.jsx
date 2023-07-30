@@ -42,14 +42,14 @@ function ModalInstructions({ setIsOpen }) {
                         <span>D</span>
                     </div>
                         The note you've identified is not in the tune.</li>
-                        <li>Click on the <button
+                        <li>Click on <button
                             className={styles.playButton}
                             onClick={(e) => {
                                 e.preventDefault();
                             }}
                         >
                             <HeadphonesIcon />
-                        </button> button to listen to your guess before submitting a try.</li>
+                        </button> to listen to your guess before submitting a try.</li>
                 </ul>
                 <p>A new musical ear training puzzle is released daily at midnight.</p>
             </section>

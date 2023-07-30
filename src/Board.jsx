@@ -7,8 +7,6 @@ import Paper from '@mui/material/Paper';
 import {
   faPlay,
 } from "@fortawesome/free-solid-svg-icons";
-import Typography from '@mui/material/Typography';
-import Tooltip from '@mui/material/Tooltip';
 import HeadphonesIcon from '@mui/icons-material/Headphones';
 import PianoNew from "./PianoNew";
 import VolumeContext from './contexts/VolumeContext'
@@ -312,7 +310,7 @@ function Board({ answer, testMode }) {
                       />
                     );
                   })}
-                  {/* <Tooltip title={<Typography fontSize={16}>Play my guess</Typography>} arrow placement="right"> */}
+
                   <button
                     className={styles.playButton}
                     onClick={(e) => {
@@ -324,10 +322,9 @@ function Board({ answer, testMode }) {
                     }
                     }}
                   >
-                    {/* <FontAwesomeIcon icon={faPlay} /> */}
                     <HeadphonesIcon />
                   </button>
-                  {/* </Tooltip> */}
+               
                 </div>
               );
             })}
