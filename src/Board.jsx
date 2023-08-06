@@ -16,6 +16,7 @@ import ModalStats from './ModalStats';
 import MidnightContext from './contexts/MidnightContext';
 import getNote from './helpers/getNote'
 
+
 function Board({ answer, testMode }) {
   const volume = useContext(VolumeContext);
   const [guess, setGuess] = useState(new Array(6).fill(""));
