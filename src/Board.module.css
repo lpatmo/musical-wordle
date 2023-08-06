@@ -109,6 +109,10 @@ button.playButton svg {
   margin: 0.25em auto 1.2em;
   padding: 0 
 }
+select.difficultyMode {
+  padding: 10px;
+  margin-bottom: 2em;
+}
 
 @media (min-width: 600px) {
   .board input {
@@ -122,12 +126,6 @@ button.playButton svg {
   }
   button.playButton svg {
     width: 2rem;
-  }
-  div.left {
-    margin-left: auto;
-  }
-  div.right {
-    margin-right: auto;
   }
 
 }
