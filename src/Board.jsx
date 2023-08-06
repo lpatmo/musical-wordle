@@ -69,8 +69,8 @@ function Board({ answer, testMode }) {
     setError("")
 
     //Update localStorage
-    const numberGuesses = guess.join("").length;
-    const storage = { title: answer["song"], timestamp: new Date(), guesses: hasWon ? numberGuesses / 6 : 'X' }
+    const numberGuesses = guess.join("").length/12;
+    const storage = { title: answer["song"], timestamp: new Date(), guesses: hasWon ? numberGuesses : 'X' }
 
     if (!localStorage.getItem("perfectPitchPuzzleStats")) {
       //if localStorage does not exist
@@ -352,14 +352,15 @@ function Board({ answer, testMode }) {
         </Grid>
         <Grid item xl={4} lg={5} md={7} className={styles.right}>
           <PianoNew handlePianoPress={handlePianoPress} octave={octave} hasFlats={answer?.hasFlats} />
-        </Grid>
-        {testMode &&
+          {testMode &&
           <>
             <p>Guess: {JSON.stringify(guess, 0, 2)}</p>
             <p>answer.sequence: {JSON.stringify(answer?.sequence, 0, 2)}</p>
             <p>octave: {octave}</p>
           </>
         }
+        </Grid>
+
     </Grid>
   );
 }
