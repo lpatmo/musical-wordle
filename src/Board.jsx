@@ -16,7 +16,6 @@ import ModalStats from './ModalStats';
 import MidnightContext from './contexts/MidnightContext';
 import getNote from './helpers/getNote'
 
-
 function Board({ answer, testMode }) {
   const volume = useContext(VolumeContext);
   const [guess, setGuess] = useState(new Array(6).fill(""));
@@ -360,18 +359,6 @@ function Board({ answer, testMode }) {
         <PianoNew handlePianoPress={handlePianoPress} octave={octave} hasFlats={answer?.hasFlats} />
         <hr />
         <p><strong>Difficulty Mode (beta)</strong></p>
-        {/* <Select
-          labelId="difficulty-mode"
-          id="difficulty-mode"
-          value={difficultyMode}
-          label="Difficult Mode"
-          onChange={(e) => setDifficultyMode(e.target.value)}
-          className={styles.difficultyMode}
-        >
-          <MenuItem value="normal">Normal</MenuItem>
-          <MenuItem value="difficult">Difficult - the "play my guess" buttons are gone</MenuItem>
-          <MenuItem value="tricky">Tricky - we play the tune in French Horn; you play back in piano</MenuItem>
-        </Select> */}
         <select onChange={(e) => setDifficultyMode(e.target.value)} className={styles.difficultyMode}>
           <option value="normal">Normal</option>
           <option value="difficult">Difficult - the "play my guess" buttons are gone</option>
