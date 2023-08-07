@@ -117,7 +117,7 @@ function Board({ answer, testMode }) {
           .querySelectorAll(`input[name^="note-${currentRow}"]`)
           .forEach((el) => el.classList.add(styles.correct));
         setMessage(
-          `🎉 Congratulations! You correctly guessed '${answer["song"]}' in ${guessAttempts}/${guess.length} tries!`
+          `🎉 Congratulations! You correctly guessed '${answer["song"]}' in ${guessAttempts}/${guess.length} tries${difficultyMode !== 'normal' ? ` in ${difficultyMode} mode` : ''}!`
         );
         //Update stats and open modal
         updateStats();
@@ -267,7 +267,7 @@ function Board({ answer, testMode }) {
   function shareResults() { //TODO: Refactor shareOutput to be calculated here without using state
     setIsOpen(false);
     let stat = gameWon ? guess.join("").length / 12 : "X";
-    let beginText = `Perfect Pitch Puzzle - '${answer["song"]}' ${stat}/${guess.length}\n`;
+    let beginText = `Perfect Pitch Puzzle - '${answer["song"]}' ${stat}/${guess.length} ${difficultyMode !== 'normal' ? `in ~${difficultyMode}~ mode` : ""}\n`;
     navigator.clipboard
       .writeText(
         beginText +
@@ -319,7 +319,7 @@ function Board({ answer, testMode }) {
                       />
                     );
                   })}
-                  {difficultyMode !== "difficult" &&
+                  {difficultyMode === 'normal' &&
                     <button
                       className={styles.playButton}
                       onClick={(e) => {
@@ -344,13 +344,13 @@ function Board({ answer, testMode }) {
             </button>
 
           </form>
-          {message && (
+          {/* {message && (
             <div className="announcement">
               <p>{message}</p>
               <ShareResults shareResults={shareResults} />
               <button onClick={() => setShowStatsModal(true)}>Show Stats</button>
             </div>
-          )}
+          )} */}
           {isOpen && (
             <Modal shareResults={shareResults} handleClose={() => setIsOpen(false)}><h4>{message}</h4></Modal>
           )}
@@ -363,7 +363,7 @@ function Board({ answer, testMode }) {
       <Grid item xl={4} lg={5} md={7} className={styles.right}>
         <PianoNew handlePianoPress={handlePianoPress} octave={octave} hasFlats={answer?.hasFlats} />
         <hr />
-        <p><strong>Difficulty Mode</strong></p>
+        <p><strong>Difficulty Mode (beta)</strong></p>
         {/* <Select
           labelId="difficulty-mode"
           id="difficulty-mode"
@@ -379,7 +379,7 @@ function Board({ answer, testMode }) {
         <select onChange={(e) => setDifficultyMode(e.target.value)} className={styles.difficultyMode}>
           <option value="normal">Normal</option>
           <option value="difficult">Difficult - the "play my guess" buttons are gone</option>
-          <option value="tricky">Tricky - we play the tune in French Horn; you play back in piano</option>
+          <option value="tricky">Tricky - we play the tune in French Horn; you guess the notes in piano</option>
         </select>
         {testMode &&
           <>

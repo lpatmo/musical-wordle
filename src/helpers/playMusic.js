@@ -12,7 +12,7 @@ const guitar = new Soundfont(context, { instrument: "french_horn" });
  * @return 
  */
  export function playSequenceGuitar(answer, guess, currentRow, volume) {
-    //console.log('====answer and guess and currentRow, volume', answer, guess, currentRow, volume)
+   //console.log('====answer and guess and currentRow, volume', answer, guess, currentRow, volume)
    //Stop any previous melodies from playing
    piano.stop();
    guitar.stop();
