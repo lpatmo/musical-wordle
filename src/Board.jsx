@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback, useContext } from "react";
 import styles from "./Board.module.css";
-import { playNote, playSequence, playCelebrationSequence, playSequenceGuitar } from "./helpers/playMusic";
+import { playNote, playSequence, playCelebrationSequence, playSequenceFrenchHorn } from "./helpers/playMusic";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
@@ -12,14 +12,9 @@ import PianoNew from "./PianoNew";
 import VolumeContext from './contexts/VolumeContext'
 import Modal from './Modal';
 import AudiotrackIcon from '@mui/icons-material/Audiotrack';
-import ShareResults from './ShareResults'
 import ModalStats from './ModalStats';
 import MidnightContext from './contexts/MidnightContext';
 import getNote from './helpers/getNote'
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
-
 
 function Board({ answer, testMode }) {
   const volume = useContext(VolumeContext);
@@ -293,7 +288,7 @@ function Board({ answer, testMode }) {
           <button type="button" className={styles.action}
             onClick={() => {
               if (difficultyMode === "tricky") {
-                playSequenceGuitar(answer, undefined, undefined, volume);
+                playSequenceFrenchHorn(answer, undefined, undefined, volume);
               } else {
                 playSequence(answer, undefined, undefined, volume);
               }
