@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback, useContext } from "react";
 import styles from "./Board.module.css";
-import { playNote, playSequence, playCelebrationSequence } from "./helpers/playMusic";
+import { playNote, playSequence, playCelebrationSequence, playSequenceFrenchHorn } from "./helpers/playMusic";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
@@ -12,7 +12,6 @@ import PianoNew from "./PianoNew";
 import VolumeContext from './contexts/VolumeContext'
 import Modal from './Modal';
 import AudiotrackIcon from '@mui/icons-material/Audiotrack';
-import ShareResults from './ShareResults'
 import ModalStats from './ModalStats';
 import MidnightContext from './contexts/MidnightContext';
 import getNote from './helpers/getNote'
@@ -30,6 +29,7 @@ function Board({ answer, testMode }) {
       return Array(6).fill("⬛");
     })
   );
+  const [difficultyMode, setDifficultyMode] = useState('normal')
   const [isOpen, setIsOpen] = useState(false);
   const [showStatsModal, setShowStatsModal] = useState(false);
   const { isMidnight } = useContext(MidnightContext);
@@ -69,7 +69,7 @@ function Board({ answer, testMode }) {
     setError("")
 
     //Update localStorage
-    const numberGuesses = guess.join("").length/12;
+    const numberGuesses = guess.join("").length / 12;
     const storage = { title: answer["song"], timestamp: new Date(), guesses: hasWon ? numberGuesses : 'X' }
 
     if (!localStorage.getItem("perfectPitchPuzzleStats")) {
@@ -89,7 +89,7 @@ function Board({ answer, testMode }) {
       if (guess[currentRow].length === 0) {
         setError("Please guess a note.")
         return;
-      } 
+      }
       let answerArr = answer.sequence.slice(0, 6)
         .map((noteCluster) => {
           noteCluster = noteCluster.slice(0, -1)
@@ -112,7 +112,7 @@ function Board({ answer, testMode }) {
           .querySelectorAll(`input[name^="note-${currentRow}"]`)
           .forEach((el) => el.classList.add(styles.correct));
         setMessage(
-          `🎉 Congratulations! You correctly guessed '${answer["song"]}' in ${guessAttempts}/${guess.length} tries!`
+          `🎉 Congratulations! You correctly guessed '${answer["song"]}' in ${guessAttempts}/${guess.length} tries${difficultyMode !== 'normal' ? ` in ${difficultyMode} mode` : ''}!`
         );
         //Update stats and open modal
         updateStats();
@@ -262,7 +262,7 @@ function Board({ answer, testMode }) {
   function shareResults() { //TODO: Refactor shareOutput to be calculated here without using state
     setIsOpen(false);
     let stat = gameWon ? guess.join("").length / 12 : "X";
-    let beginText = `Perfect Pitch Puzzle - '${answer["song"]}' ${stat}/${guess.length}\n`;
+    let beginText = `Perfect Pitch Puzzle - '${answer["song"]}' ${stat}/${guess.length} ${difficultyMode !== 'normal' ? `in ~${difficultyMode}~ mode` : ""}\n`;
     navigator.clipboard
       .writeText(
         beginText +
@@ -285,12 +285,16 @@ function Board({ answer, testMode }) {
     <Grid container spacing={1} justifyContent="center">
       <Grid item xl={4} lg={5} md={7} className={styles.left}>
         <Paper elevation={0}>
-        <button type="button" className={styles.action}
-                onClick={() => {
-                  playSequence(answer, undefined, undefined, volume)
-                }
-                }>
-                  <FontAwesomeIcon icon={faPlay} /> Play the tune</button>
+          <button type="button" className={styles.action}
+            onClick={() => {
+              if (difficultyMode === "tricky") {
+                playSequenceFrenchHorn(answer, undefined, undefined, volume);
+              } else {
+                playSequence(answer, undefined, undefined, volume);
+              }
+            }
+            }>
+            <FontAwesomeIcon icon={faPlay} /> Play the tune</button>
           <form className={styles.board} onSubmit={handleSubmit}>
             {guess.map((char, row) => {
               //char is the same thing as guess[row]
@@ -310,21 +314,22 @@ function Board({ answer, testMode }) {
                       />
                     );
                   })}
+                  {difficultyMode === 'normal' &&
+                    <button
+                      className={styles.playButton}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        if (guess[row].length === 0) {
+                          setError("Please guess a note.")
+                        } else {
+                          playSequence(answer, guess, row, volume);
+                        }
+                      }}
+                    >
+                      <HeadphonesIcon />
+                    </button>
+                  }
 
-                  <button
-                    className={styles.playButton}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      if (guess[row].length === 0) {
-                        setError("Please guess a note.")
-                    } else {
-                      playSequence(answer, guess, row, volume);
-                    }
-                    }}
-                  >
-                    <HeadphonesIcon />
-                  </button>
-               
                 </div>
               );
             })}
@@ -334,13 +339,13 @@ function Board({ answer, testMode }) {
             </button>
 
           </form>
-          {message && (
+          {/* {message && (
             <div className="announcement">
               <p>{message}</p>
               <ShareResults shareResults={shareResults} />
               <button onClick={() => setShowStatsModal(true)}>Show Stats</button>
             </div>
-          )}
+          )} */}
           {isOpen && (
             <Modal shareResults={shareResults} handleClose={() => setIsOpen(false)}><h4>{message}</h4></Modal>
           )}
@@ -349,17 +354,36 @@ function Board({ answer, testMode }) {
         <div className={styles.errorWrapper}>
           <div className={styles.error}>{error}</div>
         </div>
-        </Grid>
-        <Grid item xl={4} lg={5} md={7} className={styles.right}>
-          <PianoNew handlePianoPress={handlePianoPress} octave={octave} hasFlats={answer?.hasFlats} />
-          {testMode &&
+      </Grid>
+      <Grid item xl={4} lg={5} md={7} className={styles.right}>
+        <PianoNew handlePianoPress={handlePianoPress} octave={octave} hasFlats={answer?.hasFlats} />
+        <hr />
+        <p><strong>Difficulty Mode (beta)</strong></p>
+        {/* <Select
+          labelId="difficulty-mode"
+          id="difficulty-mode"
+          value={difficultyMode}
+          label="Difficult Mode"
+          onChange={(e) => setDifficultyMode(e.target.value)}
+          className={styles.difficultyMode}
+        >
+          <MenuItem value="normal">Normal</MenuItem>
+          <MenuItem value="difficult">Difficult - the "play my guess" buttons are gone</MenuItem>
+          <MenuItem value="tricky">Tricky - we play the tune in French Horn; you play back in piano</MenuItem>
+        </Select> */}
+        <select onChange={(e) => setDifficultyMode(e.target.value)} className={styles.difficultyMode}>
+          <option value="normal">Normal</option>
+          <option value="difficult">Difficult - the "play my guess" buttons are gone</option>
+          <option value="tricky">Tricky - we play the tune in French Horn; you guess the notes in piano</option>
+        </select>
+        {testMode &&
           <>
             <p>Guess: {JSON.stringify(guess, 0, 2)}</p>
             <p>answer.sequence: {JSON.stringify(answer?.sequence, 0, 2)}</p>
             <p>octave: {octave}</p>
           </>
         }
-        </Grid>
+      </Grid>
 
     </Grid>
   );
