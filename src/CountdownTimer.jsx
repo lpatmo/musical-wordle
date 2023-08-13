@@ -36,7 +36,7 @@ function CountdownTimer() {
     return () => {
       clearInterval(intervalId);
     };
-  }, []);
+  }, [countdown]);
 
   return <div className={styles.countdown}><span className={styles.countdownClock}>{countdown}</span> <br />until the next puzzle</div>;
 }
