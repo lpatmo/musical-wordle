@@ -6,6 +6,11 @@
 
    Note: the URL of the main repo is https://github.com/lpatmo/musical-wordle.git. You can find this by clicking ont he "code" button dropdown on https://github.com/lpatmo/musical-wordle.
 
+## How to deploy locally/setup dev environment
+1. `npm i`
+2. `npm start` (Port will be `http://localhost:5173/`)
+
+
 ## How to create a new branch
 
 `git checkout -b [BRANCHNAME]`
