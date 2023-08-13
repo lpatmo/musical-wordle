@@ -33,6 +33,7 @@ function App() {
 
   function setGameIndex() {
     let startDate = new Date('2023-08-05');
+    startDate.setHours(0,0,0,0);
     // Find number of days between now and startDate
     return differenceInDays(new Date(), startDate) - 1 > 0 ? differenceInDays(new Date(), startDate) - 1 : 0;
   }
@@ -85,6 +86,7 @@ function App() {
         <div className="App">
           <header className="App-header">
             <Navbar />
+            {/* {JSON.stringify(setGameIndex())} */}
             {testMode && <div className="testMode"><h2>You are in test mode!
               <button onClick={() => { alert("Stats cleared!"); clearStorage() }}>Clear stats</button>
               <button onClick={() => setShowStats(true)}>Show stats</button>
