@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import EqualizerIcon from '@mui/icons-material/Equalizer';
 import InfoIcon from '@mui/icons-material/Info';
-import Grid from '@mui/material/Grid';
 import styles from './Navbar.module.css';
 import ModalStats from './ModalStats';
 import ModalInstructions from './ModalInstructions';
@@ -25,7 +24,7 @@ function Navbar() {
         <div className={styles.navbar}>
             <img src="/logo_transparent.svg" alt="Perfect Pitch Puzzle logo" className={styles.logo} />
             {/* <span className={styles.instructions}>Figure out the first few notes of the tune. You have 6 tries.</span> */}
-            <img src="/instructions_transparent.svg" className={styles.note} alt="Identity the first 6 notes of the tune. You have 6 tries." width="380" />
+            {/* <img src="/instructions_transparent.svg" className={styles.note} alt="Identity the first 6 notes of the tune. You have 6 tries." width="380" /> */}
 
             <InfoIcon onClick={() => setShowInstructions(true)} style={{ fontSize: 40 }} />
             <EqualizerIcon onClick={() => setShowStats(true)} style={{ fontSize: 40 }} />

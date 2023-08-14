@@ -15,6 +15,7 @@ import AudiotrackIcon from '@mui/icons-material/Audiotrack';
 import ModalStats from './ModalStats';
 import MidnightContext from './contexts/MidnightContext';
 import getNote from './helpers/getNote'
+import ShareResults from './ShareResults'
 
 function Board({ answer, testMode }) {
   const volume = useContext(VolumeContext);
@@ -339,13 +340,13 @@ function Board({ answer, testMode }) {
             </button>
 
           </form>
-          {/* {message && (
+          {message && (
             <div className="announcement">
               <p>{message}</p>
               <ShareResults shareResults={shareResults} />
               <button onClick={() => setShowStatsModal(true)}>Show Stats</button>
             </div>
-          )} */}
+          )}
           {isOpen && (
             <Modal shareResults={shareResults} handleClose={() => setIsOpen(false)}><h4>{message}</h4></Modal>
           )}
