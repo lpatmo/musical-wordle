@@ -5,7 +5,7 @@ import styles from "./CountdownTimer.module.css";
 
 function CountdownTimer() {
   const [countdown, setCountdown] = useState('');
-  const {setIsMidnight} = useContext(MidnightContext);
+  const { setIsMidnight } = useContext(MidnightContext);
   useEffect(() => {
     let now = new Date();
     let startOfToday = startOfDay(now);
