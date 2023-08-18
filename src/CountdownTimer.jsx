@@ -5,7 +5,7 @@ import styles from "./CountdownTimer.module.css";
 
 function CountdownTimer() {
   const [countdown, setCountdown] = useState('');
-  const {setIsMidnight} = useContext(MidnightContext);
+  const { setIsMidnight } = useContext(MidnightContext);
   useEffect(() => {
     let now = new Date();
     let startOfToday = startOfDay(now);
@@ -36,7 +36,7 @@ function CountdownTimer() {
     return () => {
       clearInterval(intervalId);
     };
-  }, []);
+  }, [countdown]);
 
   return <div className={styles.countdown}><span className={styles.countdownClock}>{countdown}</span> <br />until the next puzzle</div>;
 }

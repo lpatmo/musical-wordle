@@ -5,7 +5,7 @@ const piano = new Soundfont(context, { instrument: "acoustic_grand_piano" });
 const frenchHorn = new Soundfont(context, { instrument: "french_horn" });
 
 /**
- * Plays a sequence of notes in guitar
+ * Plays a sequence of notes in french horn
  * @params {object} answer
  * @params {array} guess
  * @params {integer} currentRow

@@ -15,6 +15,7 @@ import AudiotrackIcon from '@mui/icons-material/Audiotrack';
 import ModalStats from './ModalStats';
 import MidnightContext from './contexts/MidnightContext';
 import getNote from './helpers/getNote'
+import ShareResults from './ShareResults'
 
 function Board({ answer, testMode }) {
   const volume = useContext(VolumeContext);
@@ -339,13 +340,13 @@ function Board({ answer, testMode }) {
             </button>
 
           </form>
-          {/* {message && (
+          {message && (
             <div className="announcement">
               <p>{message}</p>
               <ShareResults shareResults={shareResults} />
               <button onClick={() => setShowStatsModal(true)}>Show Stats</button>
             </div>
-          )} */}
+          )}
           {isOpen && (
             <Modal shareResults={shareResults} handleClose={() => setIsOpen(false)}><h4>{message}</h4></Modal>
           )}
@@ -359,18 +360,6 @@ function Board({ answer, testMode }) {
         <PianoNew handlePianoPress={handlePianoPress} octave={octave} hasFlats={answer?.hasFlats} />
         <hr />
         <p><strong>Difficulty Mode (beta)</strong></p>
-        {/* <Select
-          labelId="difficulty-mode"
-          id="difficulty-mode"
-          value={difficultyMode}
-          label="Difficult Mode"
-          onChange={(e) => setDifficultyMode(e.target.value)}
-          className={styles.difficultyMode}
-        >
-          <MenuItem value="normal">Normal</MenuItem>
-          <MenuItem value="difficult">Difficult - the "play my guess" buttons are gone</MenuItem>
-          <MenuItem value="tricky">Tricky - we play the tune in French Horn; you play back in piano</MenuItem>
-        </Select> */}
         <select onChange={(e) => setDifficultyMode(e.target.value)} className={styles.difficultyMode}>
           <option value="normal">Normal</option>
           <option value="difficult">Difficult - the "play my guess" buttons are gone</option>
