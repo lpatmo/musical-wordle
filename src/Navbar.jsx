@@ -5,6 +5,9 @@ import styles from './Navbar.module.css';
 import ModalStats from './ModalStats';
 import ModalInstructions from './ModalInstructions';
 import CountdownTimer from './CountdownTimer';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faDiscord } from '@fortawesome/free-brands-svg-icons'
+
 
 
 function Navbar() {
@@ -28,6 +31,7 @@ function Navbar() {
 
             <InfoIcon onClick={() => setShowInstructions(true)} style={{ fontSize: 40 }} />
             <EqualizerIcon onClick={() => setShowStats(true)} style={{ fontSize: 40 }} />
+            {/* <a href="https://discord.gg/gzgghM2JVD" target="_blank" referrer="no-referrer" className={styles.discordIcon}><FontAwesomeIcon icon={faDiscord} /></a> */}
             <CountdownTimer />
             {showStats && <ModalStats setIsOpen={setShowStats} />}
             {showInstructions && <ModalInstructions setIsOpen={setShowInstructions} />}

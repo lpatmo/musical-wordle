@@ -115,6 +115,13 @@ button[type="submit"] svg {
   top: 0px;
 }
 
+.discordIcon {
+  color: var(--wordle-background-color-darkmode);
+  font-size: 1.2em;
+  position: relative;
+  left: 2px;
+}
+
 @media (min-width: 600px) {
   .announcement {
     width: 400px;

@@ -16,6 +16,7 @@ import ModalStats from './ModalStats';
 import MidnightContext from './contexts/MidnightContext';
 import getNote from './helpers/getNote'
 import ShareResults from './ShareResults'
+import { faDiscord } from '@fortawesome/free-brands-svg-icons'
 
 function Board({ answer, testMode }) {
   const volume = useContext(VolumeContext);
@@ -365,6 +366,9 @@ function Board({ answer, testMode }) {
           <option value="difficult">Difficult - the "play my guess" buttons are gone</option>
           <option value="tricky">Tricky - we play the tune in French Horn; you guess the notes in piano</option>
         </select>
+        <div>
+          <a href="https://discord.gg/gzgghM2JVD" target="_blank" referrer="no-referrer" className="discordIcon"><FontAwesomeIcon icon={faDiscord} /></a>
+        </div>
         {testMode &&
           <>
             <p>Guess: {JSON.stringify(guess, 0, 2)}</p>
@@ -373,7 +377,6 @@ function Board({ answer, testMode }) {
           </>
         }
       </Grid>
-
     </Grid>
   );
 }
