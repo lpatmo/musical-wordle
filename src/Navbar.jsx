@@ -5,8 +5,7 @@ import styles from './Navbar.module.css';
 import ModalStats from './ModalStats';
 import ModalInstructions from './ModalInstructions';
 import CountdownTimer from './CountdownTimer';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDiscord } from '@fortawesome/free-brands-svg-icons'
+
 
 
 

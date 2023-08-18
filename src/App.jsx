@@ -13,6 +13,8 @@ import VolumeContext from './contexts/VolumeContext'
 import MidnightContext from './contexts/MidnightContext'
 import { differenceInDays } from 'date-fns';
 import ModalStats from './ModalStats';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faDiscord } from '@fortawesome/free-brands-svg-icons'
 
 /* To access mock data for validation testing
  *  1) Uncomment the following for mock data for validation testing
@@ -54,8 +56,8 @@ function App() {
       setAnswer(data[randomIndex])
       setTestMode(true);
     } else {
-      setAnswer(data[setGameIndex()]);
-      //setAnswer(data[data.length-1])
+      //setAnswer(data[setGameIndex()]);
+      setAnswer(data[data.length-1])
       setTestMode(false);
     }
     /* Uncomment when adding new songs
@@ -109,6 +111,9 @@ function App() {
             </div>
 
         </div>
+        <footer>
+          <a href="https://discord.gg/gzgghM2JVD" target="_blank" referrer="no-referrer" className="discordIcon"><FontAwesomeIcon icon={faDiscord} /></a>
+        </footer>
       </VolumeContext.Provider>
     </MidnightContext.Provider>
   );

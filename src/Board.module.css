@@ -111,7 +111,7 @@ button.playButton svg {
 }
 select.difficultyMode {
   padding: 10px;
-  margin-bottom: 2em;
+  margin-bottom: 5em;
 }
 
 @media (min-width: 600px) {
@@ -127,6 +127,10 @@ select.difficultyMode {
   button.playButton svg {
     width: 2rem;
   }
+  select.difficultyMode {
+    margin-bottom: 3em;
+  }
+  
 
 }
 
