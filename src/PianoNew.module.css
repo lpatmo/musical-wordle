@@ -160,10 +160,10 @@
   display: none;
 }
 
-.shortcutsIcon {
-  font-size: 2rem;
+.keyBindings .shortcutsIcon {
+  font-size: 2.2rem;
   position: relative;
-  top: 4px;
+  top: 5px;
   cursor: pointer;
 }
 
