@@ -137,5 +137,8 @@ footer {
   .announcement {
     width: 400px;
   }
+  footer {
+    display: none;
+  }
 }
 

@@ -38,6 +38,7 @@ function PianoNew({ handlePianoPress, octave, hasFlats }) {
                     <p>Shift-C | C#</p>
                     <p>Shift-B | Bb</p>
                 </div>
+              
             </section>
         </>)
 }

@@ -129,7 +129,7 @@ margin-top: 0.58em;
 
 @media (max-width: 600px) {
   .pianoNew {
-    margin-bottom: 2rem;
+    margin-bottom: 2em;
   }
   .keyboard {
     padding: 0 1px;
@@ -149,7 +149,16 @@ margin-top: 0.58em;
 .keyBindings {
   color: var(--wordle-answer-incorrect);
   font-size: 1.5rem;
+  display: none;
 }
+
+@media (min-width: 600px) {
+  .keyBindings {
+    display: block;
+    padding-bottom: 1em;
+  }
+}
+
 
 /* Safari 7.1+ */
 _::-webkit-full-page-media, _:future, :root .highlight {
