@@ -6,9 +6,6 @@ import ModalStats from './ModalStats';
 import ModalInstructions from './ModalInstructions';
 import CountdownTimer from './CountdownTimer';
 
-
-
-
 function Navbar() {
     const [showStats, setShowStats] = useState(false);
     const [showInstructions, setShowInstructions] = useState(false);
@@ -34,7 +31,6 @@ function Navbar() {
             <CountdownTimer />
             {showStats && <ModalStats setIsOpen={setShowStats} />}
             {showInstructions && <ModalInstructions setIsOpen={setShowInstructions} />}
-
         </div>
     )
 }

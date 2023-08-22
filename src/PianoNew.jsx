@@ -1,10 +1,13 @@
-import React from "react";
+import {useState} from "react";
 import styles from "./PianoNew.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBackspace } from "@fortawesome/free-solid-svg-icons";
 import PianoTiny from './PianoTiny'
+import HelpIcon from '@mui/icons-material/Help';
+import ModalShortcuts from './ModalShortcuts';
 
 function PianoNew({ handlePianoPress, octave, hasFlats }) {
+    const [showShortcuts, setShowShortcuts] = useState(false);
     return (
         <>
             <section className={styles.tinyPianos}>
@@ -32,11 +35,8 @@ function PianoNew({ handlePianoPress, octave, hasFlats }) {
                 </ul>
             </div>
                 <div className={styles.keyBindings}>
-                    <p><strong>Keyboard Shortcuts</strong></p>
-                    <p> C D E F G A B </p>
-                    <p>Press Shift- to guess a sharp or flat <br /> if you think it's in the tune. For example:</p>
-                    <p>Shift-C | C#</p>
-                    <p>Shift-B | Bb</p>
+                    <p><strong>Keyboard Shortcuts <HelpIcon className={styles.shortcutsIcon} onClick={() => setShowShortcuts(true)} /></strong></p>
+                    {showShortcuts && <ModalShortcuts setIsOpen={setShowShortcuts} />}
                 </div>
               
             </section>

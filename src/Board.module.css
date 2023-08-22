@@ -114,6 +114,11 @@ select.difficultyMode {
   margin-bottom: 5em;
 }
 
+.discordLink {
+  display: none;
+}
+
+
 @media (min-width: 600px) {
   .board input {
     width: 4rem;
@@ -130,9 +135,14 @@ select.difficultyMode {
   select.difficultyMode {
     margin-bottom: 3em;
   }
-  
-
+  .discordLink, .discordLink a {
+    font-size: 1.6rem;
+    text-align: right;
+    display: block;
+  }
 }
+
+
 
 
 
