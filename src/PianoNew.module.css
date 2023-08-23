@@ -164,7 +164,11 @@
   font-size: 2.2rem;
   position: relative;
   top: 5px;
+}
+
+.keyBindings .shortcutsTitle {
   cursor: pointer;
+  text-decoration: underline dotted;
 }
 
 @media (min-width: 600px) {

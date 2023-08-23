@@ -138,7 +138,12 @@ footer {
     width: 400px;
   }
   footer {
-    display: none;
+    background-color: white;
+    color: black;
+    text-align: right;
+  }
+  footer svg {
+    margin: 1em;
   }
 }
 

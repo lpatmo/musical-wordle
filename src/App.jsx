@@ -58,8 +58,8 @@ function App() {
       setAnswer(data[randomIndex])
       setTestMode(true);
     } else {
-      //setAnswer(data[setGameIndex()]);
-      setAnswer(data[data.length-1])
+      setAnswer(data[setGameIndex()]);
+      //setAnswer(data[data.length-1])
       //setAnswer(data[57])
       setTestMode(false);
     }
@@ -115,7 +115,7 @@ function App() {
 
         </div>
         <footer>
-          <a href="https://discord.gg/gzgghM2JVD" target="_blank" referrer="no-referrer" className="discordIcon"><FontAwesomeIcon icon={faDiscord} /></a>
+          <a href="https://discord.gg/gzgghM2JVD" target="_blank" referrer="no-referrer" className="discordIcon"><FontAwesomeIcon icon={faDiscord} aria-labelledby="Join us on Discord" /></a>
         </footer>
       </VolumeContext.Provider>
     </MidnightContext.Provider>
