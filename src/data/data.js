@@ -71,4 +71,5 @@ export const data = [
     { "sequence": ["D5", "E5", "A4", "A5", "G5", "F#5", "E5", "F#5", "G5", "F#5", "E5", "D5", "C#5", "D5", "C#5", "B4", "A4"], "duration": [4, 3, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 1, 2, 1, 4, 4], song: "My Heart Will Go On", key: {note: "E", major: true }, hasFlats: false},
     { "sequence": ["C4", "C4", "F4", "G4", "A4", "C4", "C4", "C4", "C4", "C4", "C4", "F4", "A4", "G4", "E4", "C4"], "duration": [0.5, 0.5, 1, 1, 1, 0.5, 0.5, 1, 0.5, 0.5, 1, 0.5, 0.5, 1, 1, 1], song: "William Tell Overture", key: {note: "C", major: true }, hasFlats: false},
     { "sequence": ["E5", "G#5", "G#5", "G#5", "F#5", "E5", "B5", "B5", "A5", "G#5", "G#5", "G#5", "F#5", "E5", "B5"], "duration": [1, 1, 1, 1, 0.5, 0.5, 3, 0.5, 0.5, 1, 1, 1, 0.5, 0.5, 3], song: "Spring (Vivaldi)", key: {note: "E", major: true }, hasFlats: false},
+    { "sequence": ["D5", "D5", "A4", "D5", "A4", "C#5", "C#5", "A4", "C#5", "A4", "C#5", "C#5", "A4", "C#5", "A4", "B4", "B4", "A4", "B4", "A4"], "duration": [1, 1, 2, 1, 2, 2, 1, 2, 1, 2, 2, 1, 2, 1, 2, 2, 1, 2, 1, 2], song: "Pompeii", key: {note: "A", major: true }, hasFlats: false},
 ]

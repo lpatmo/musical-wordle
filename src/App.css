@@ -136,12 +136,16 @@ footer {
 @media (min-width: 600px) {
   .announcement {
     width: 400px;
+    margin-bottom: 5em;
   }
   footer {
     background-color: white;
     color: black;
     text-align: right;
-    z-index: -10;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 100%;
   }
   footer svg {
     margin: 1em;
