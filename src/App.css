@@ -83,7 +83,7 @@ button:hover {
 }
 
 .announcement {
-  margin: 20px auto;
+  margin: 20px auto 60px;
   border: 1px solid #ccc;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
   padding: 15px 20px;
@@ -115,9 +115,36 @@ button[type="submit"] svg {
   top: 0px;
 }
 
+.discordIcon {
+  color: var(--wordle-background-color-darkmode);
+  font-size: 1.2em;
+  position: relative;
+  left: 2px;
+}
+
+footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: var(--navbar-bg);
+  color: var(--background-lightmode);
+  text-align: center;
+  z-index: 10;
+}
+
 @media (min-width: 600px) {
   .announcement {
     width: 400px;
+  }
+  footer {
+    background-color: white;
+    color: black;
+    text-align: right;
+    z-index: -10;
+  }
+  footer svg {
+    margin: 1em;
   }
 }
 

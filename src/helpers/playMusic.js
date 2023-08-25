@@ -77,7 +77,7 @@ export function playSequence(answer, guess, currentRow, volume) {
 
 export function playCelebrationSequence(answer, volume) {
     piano.output.setVolume(volume * 35);
-
+    piano.stop();
     piano.loaded().then(() => {
         const now = context.currentTime;
         answer.sequence.forEach((note, i) => {

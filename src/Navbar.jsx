@@ -6,7 +6,6 @@ import ModalStats from './ModalStats';
 import ModalInstructions from './ModalInstructions';
 import CountdownTimer from './CountdownTimer';
 
-
 function Navbar() {
     const [showStats, setShowStats] = useState(false);
     const [showInstructions, setShowInstructions] = useState(false);
@@ -28,10 +27,10 @@ function Navbar() {
 
             <InfoIcon onClick={() => setShowInstructions(true)} style={{ fontSize: 40 }} />
             <EqualizerIcon onClick={() => setShowStats(true)} style={{ fontSize: 40 }} />
+            {/* <a href="https://discord.gg/gzgghM2JVD" target="_blank" referrer="no-referrer" className={styles.discordIcon}><FontAwesomeIcon icon={faDiscord} /></a> */}
             <CountdownTimer />
             {showStats && <ModalStats setIsOpen={setShowStats} />}
             {showInstructions && <ModalInstructions setIsOpen={setShowInstructions} />}
-
         </div>
     )
 }

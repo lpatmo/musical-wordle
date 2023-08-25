@@ -1,9 +1,10 @@
 /*Piano*/
 .pianoNew {
-display: flex;
-justify-content: center;
-margin-top: 0.58em;
+  display: flex;
+  justify-content: center;
+  margin-top: 0.58em;
 }
+
 .white,
 .black {
   position: relative;
@@ -16,6 +17,7 @@ margin-top: 0.58em;
   cursor: pointer;
   font-size: 1.7rem;
 }
+
 #keyboard li:first-child {
   border-radius: 5px 0 5px 5px;
 }
@@ -63,13 +65,12 @@ margin-top: 0.58em;
 .black:active {
   box-shadow: -1px -1px 2px var(--white-20) inset,
     0 -2px 2px 3px var(--black-60) inset, 0 1px 2px var(--black-50);
-  background: linear-gradient(
-    to right,
-    hsl(0, 0%, 27%) 0%,
-    hsl(0, 0%, 13%) 100%
-  );
+  background: linear-gradient(to right,
+      hsl(0, 0%, 27%) 0%,
+      hsl(0, 0%, 13%) 100%);
   outline: none;
 }
+
 .offset {
   margin: 0 0 0 -2.2rem;
 }
@@ -114,12 +115,15 @@ margin-top: 0.58em;
 .octave3 {
   transform: translateX(-83px);
 }
+
 .octave4 {
   transform: translateX(0px);
 }
+
 .octave5 {
   transform: translateX(84px);
 }
+
 .octaveText {
   position: relative;
   top: -40px;
@@ -129,18 +133,22 @@ margin-top: 0.58em;
 
 @media (max-width: 600px) {
   .pianoNew {
-    margin-bottom: 2rem;
+    margin-bottom: 2em;
   }
+
   .keyboard {
     padding: 0 1px;
   }
+
   .white {
     width: 4.3rem;
     height: 16rem;
   }
+
   .black {
     height: 9rem;
   }
+
   .keyBindings {
     margin: 3em auto;
   }
@@ -149,15 +157,40 @@ margin-top: 0.58em;
 .keyBindings {
   color: var(--wordle-answer-incorrect);
   font-size: 1.5rem;
+  display: none;
 }
 
-/* Safari 7.1+ */
-_::-webkit-full-page-media, _:future, :root .highlight {
-  /* Safari-specific styles go here */
-    height: 4.1rem;
-    background: yellow;
+.keyBindings .shortcutsIcon {
+  font-size: 2.2rem;
+  position: relative;
+  top: 5px;
 }
-_::-webkit-full-page-media, _:future, :root .octaveText {
+
+.keyBindings .shortcutsTitle {
+  cursor: pointer;
+  text-decoration: underline dotted;
+}
+
+@media (min-width: 600px) {
+  .keyBindings {
+    display: block;
+    padding-bottom: 1em;
+  }
+}
+
+
+/* Safari 7.1+ */
+_::-webkit-full-page-media,
+_:future,
+:root .highlight {
   /* Safari-specific styles go here */
-    font-size: 1.6rem;
+  height: 4.1rem;
+  background: var(--navbar-bg);
+}
+
+_::-webkit-full-page-media,
+_:future,
+:root .octaveText {
+  /* Safari-specific styles go here */
+  font-size: 1.6rem;
 }

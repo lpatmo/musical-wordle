@@ -26,6 +26,13 @@
     color: var(--wordle-text-color-lightmode);
 }
 
+.discordIcon {
+    color: var(--wordle-background-color-lightmode);
+    font-size: 1.2em;
+    position: relative;
+    left: 2px;
+}
+
 @media (min-width: 600px) {
     .navbar img.note {
         display: block;

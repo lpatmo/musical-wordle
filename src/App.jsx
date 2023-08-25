@@ -13,6 +13,8 @@ import VolumeContext from './contexts/VolumeContext'
 import MidnightContext from './contexts/MidnightContext'
 import { differenceInDays } from 'date-fns';
 import ModalStats from './ModalStats';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faDiscord } from '@fortawesome/free-brands-svg-icons'
 
 /* To access mock data for validation testing
  *  1) Uncomment the following for mock data for validation testing
@@ -32,7 +34,9 @@ function App() {
     let startDate = new Date('2023-08-05');
     startDate.setHours(0,0,0,0);
     // Find number of days between now and startDate
-    return differenceInDays(new Date(), startDate) - 1 > 0 ? differenceInDays(new Date(), startDate) - 1 : 0;
+    const daysDifference = differenceInDays(new Date(), startDate) - 1 > 0 ? differenceInDays(new Date(), startDate) - 1 : 0;
+    // if the daysDifference exceeds the total # of songs in the data array, return the mod of the length of the array
+    return daysDifference % data.length;
   }
 
   function clearStorage() {
@@ -56,6 +60,7 @@ function App() {
     } else {
       setAnswer(data[setGameIndex()]);
       //setAnswer(data[data.length-1])
+      //setAnswer(data[57])
       setTestMode(false);
     }
     /* Uncomment when adding new songs
@@ -109,6 +114,9 @@ function App() {
             </div>
 
         </div>
+        <footer>
+          <a href="https://discord.gg/gzgghM2JVD" target="_blank" referrer="no-referrer" className="discordIcon"><FontAwesomeIcon icon={faDiscord} aria-labelledby="Join us on Discord" /></a>
+        </footer>
       </VolumeContext.Provider>
     </MidnightContext.Provider>
   );
