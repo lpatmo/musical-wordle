@@ -16,6 +16,9 @@ import ModalStats from './ModalStats';
 import MidnightContext from './contexts/MidnightContext';
 import getNote from './helpers/getNote'
 import ShareResults from './ShareResults'
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+
 
 function Board({ answer, testMode }) {
   const volume = useContext(VolumeContext);
@@ -30,6 +33,7 @@ function Board({ answer, testMode }) {
       return Array(6).fill("⬛");
     })
   );
+  const [playTuneTries, setPlayTuneTries] = useState(3);
   const [difficultyMode, setDifficultyMode] = useState('normal')
   const [isOpen, setIsOpen] = useState(false);
   const [showStatsModal, setShowStatsModal] = useState(false);
@@ -287,15 +291,20 @@ function Board({ answer, testMode }) {
       <Grid item xl={4} lg={5} md={7} className={styles.left}>
         <Paper elevation={0}>
           <button type="button" className={styles.action}
-            onClick={() => {
-              if (difficultyMode === "tricky") {
-                playSequenceFrenchHorn(answer, undefined, undefined, volume);
-              } else {
-                playSequence(answer, undefined, undefined, volume);
+            onClick={(e) => {
+              if (difficultyMode === "difficult") {
+                if (playTuneTries === 0) {
+                  e.preventDefault();
+                  setError("You've maxed out the number of times you can play the tune")
+                  return;
+                } 
+                setPlayTuneTries(playTuneTries-1);
               }
+              playSequence(answer, undefined, undefined, volume);
             }
             }>
-            <FontAwesomeIcon icon={faPlay} /> Play the tune</button>
+            <FontAwesomeIcon icon={faPlay} /> Play the tune {difficultyMode === 'difficult' && `- ${playTuneTries} plays left`}</button>
+
           <form className={styles.board} onSubmit={handleSubmit}>
             {guess.map((char, row) => {
               //char is the same thing as guess[row]
@@ -360,11 +369,23 @@ function Board({ answer, testMode }) {
         <PianoNew handlePianoPress={handlePianoPress} octave={octave} hasFlats={answer?.hasFlats} />
         <hr />
         <p><strong>Difficulty Mode (beta)</strong></p>
-        <select onChange={(e) => setDifficultyMode(e.target.value)} className={styles.difficultyMode}>
+        {/* <select onChange={(e) => setDifficultyMode(e.target.value)} className={styles.difficultyMode}>
           <option value="normal">Normal</option>
           <option value="difficult">Difficult - the "play my guess" buttons are gone</option>
           <option value="tricky">Tricky - we play the tune in French Horn; you guess the notes in piano</option>
-        </select>
+        </select> */}
+        <Select
+          labelId="difficulty-level"
+          id="difficulty-level"
+          label="Difficulty Level"
+          defaultValue="normal"
+          onChange={(e) => setDifficultyMode(e.target.value)}
+          className={styles.difficultyMode}
+          sx={{fontSize: '1.6rem'}}
+        >
+          <MenuItem value="normal">Normal</MenuItem>
+          <MenuItem value="difficult">Difficult - play tune up to 3 times and the "play my guess" buttons are gone</MenuItem>
+        </Select>
         {testMode &&
           <>
             <p>Guess: {JSON.stringify(guess, 0, 2)}</p>

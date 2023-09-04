@@ -17,13 +17,16 @@ form .row {
 }
 
 button.action {
-  margin: 0px auto 10px;
+  margin: 0px auto;
 }
 
 button.submit {
   margin: 10px auto;
 }
 
+.board {
+  margin-top: 10px;
+}
 .board input {
   width: 3.1rem;
   height: 3.1rem;
