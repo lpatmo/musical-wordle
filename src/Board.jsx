@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback, useContext } from "react";
 import styles from "./Board.module.css";
-import { playNote, playSequence, playCelebrationSequence, playSequenceFrenchHorn } from "./helpers/playMusic";
+import { playNote, playSequence, playCelebrationSequence } from "./helpers/playMusic";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
@@ -16,8 +16,8 @@ import ModalStats from './ModalStats';
 import MidnightContext from './contexts/MidnightContext';
 import getNote from './helpers/getNote'
 import ShareResults from './ShareResults'
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
+import InputLabel from '@mui/material/InputLabel';
+import NativeSelect from '@mui/material/NativeSelect';
 
 
 function Board({ answer, testMode }) {
@@ -34,6 +34,7 @@ function Board({ answer, testMode }) {
     })
   );
   const [playTuneTries, setPlayTuneTries] = useState(3);
+  const [instrument, setInstrument] = useState("acoustic_grand_piano")
   const [difficultyMode, setDifficultyMode] = useState('normal')
   const [isOpen, setIsOpen] = useState(false);
   const [showStatsModal, setShowStatsModal] = useState(false);
@@ -111,7 +112,7 @@ function Board({ answer, testMode }) {
 
       if (guessArr.join("") === answerArr.join("")) {
         setGameWon(true);
-        playCelebrationSequence(answer, volume);
+        playCelebrationSequence(instrument, answer, volume);
         setShareOutput(shareOutput.slice(0, currentRow + 1));
         document
           .querySelectorAll(`input[name^="note-${currentRow}"]`)
@@ -126,13 +127,13 @@ function Board({ answer, testMode }) {
         setError("Please fill out all the notes in the row before submitting.");
         return;
       } else if (guessAttempts === 6) {
-        playCelebrationSequence(answer, volume);
+        playCelebrationSequence(instrument, answer, volume);
         setMessage(`Better luck next time! The song was '${answer["song"]}'.\n
         Notes: ${answerArr.join("").replace(/\./g, "")}`);
         updateStats(false);
       } else {
         /*If user has submitted 6 notes, play the notes when they submit*/
-        playSequence(answer, guess, currentRow, volume);
+        playSequence(instrument, answer, guess, currentRow, volume);
         /*Increment the row*/
         setCurrentRow(currentRow + 1);
         setError("Please try again");
@@ -215,7 +216,7 @@ function Board({ answer, testMode }) {
           }
 
           /*Play the note in the same octave as the corresponding answer*/
-          playNote(note, answer, guess[currentRow].length / 2, volume);
+          playNote(instrument, note, answer, guess[currentRow].length / 2, volume);
           //setError("");
           break;
         case event.key === "Enter":
@@ -297,10 +298,10 @@ function Board({ answer, testMode }) {
                   e.preventDefault();
                   setError("You've maxed out the number of times you can play the tune")
                   return;
-                } 
-                setPlayTuneTries(playTuneTries-1);
+                }
+                setPlayTuneTries(playTuneTries - 1);
               }
-              playSequence(answer, undefined, undefined, volume);
+              playSequence(instrument, answer, undefined, undefined, volume);
             }
             }>
             <FontAwesomeIcon icon={faPlay} /> Play the tune {difficultyMode === 'difficult' && `- ${playTuneTries} plays left`}</button>
@@ -332,7 +333,7 @@ function Board({ answer, testMode }) {
                         if (guess[row].length === 0) {
                           setError("Please guess a note.")
                         } else {
-                          playSequence(answer, guess, row, volume);
+                          playSequence(instrument, answer, guess, row, volume);
                         }
                       }}
                     >
@@ -368,24 +369,46 @@ function Board({ answer, testMode }) {
       <Grid item xl={4} lg={5} md={7} className={styles.right}>
         <PianoNew handlePianoPress={handlePianoPress} octave={octave} hasFlats={answer?.hasFlats} />
         <hr />
-        <p><strong>Difficulty Mode (beta)</strong></p>
-        {/* <select onChange={(e) => setDifficultyMode(e.target.value)} className={styles.difficultyMode}>
-          <option value="normal">Normal</option>
-          <option value="difficult">Difficult - the "play my guess" buttons are gone</option>
-          <option value="tricky">Tricky - we play the tune in French Horn; you guess the notes in piano</option>
-        </select> */}
-        <Select
-          labelId="difficulty-level"
-          id="difficulty-level"
-          label="Difficulty Level"
-          defaultValue="normal"
-          onChange={(e) => setDifficultyMode(e.target.value)}
-          className={styles.difficultyMode}
-          sx={{fontSize: '1.6rem'}}
-        >
-          <MenuItem value="normal">Normal</MenuItem>
-          <MenuItem value="difficult">Difficult - play tune up to 3 times and the "play my guess" buttons are gone</MenuItem>
-        </Select>
+        <section className={styles.settings}>
+          <div>
+            <InputLabel variant="standard" htmlFor="instrument">
+              Instrument
+            </InputLabel>
+            <NativeSelect
+              defaultValue="acoustic_grand_piano"
+              inputProps={{
+                name: 'instrument',
+                id: 'instrument',
+              }}
+              onChange={(e) => setInstrument(e.target.value)}
+              sx={{ fontSize: '1.6rem', mr: '2em' }}
+            >
+              <option value="acoustic_grand_piano">Piano</option>
+              <option value="choir_aahs">Choir</option>
+              <option value="flute">Flute</option>
+              <option value="french_horn">French Horn</option>
+              <option value="acoustic_guitar_steel">Guitar</option>
+              <option value="violin">Violin</option>
+            </NativeSelect>
+          </div>
+          <div>
+            <InputLabel variant="standard" htmlFor="difficulty">
+              Difficulty
+            </InputLabel>
+            <NativeSelect
+              defaultValue="normal"
+              inputProps={{
+                name: 'difficulty',
+                id: 'difficulty',
+              }}
+              onChange={(e) => setDifficultyMode(e.target.value)}
+              sx={{ fontSize: '1.6rem' }}
+            >
+              <option value="normal">Normal</option>
+              <option value="difficult">Hard</option>
+            </NativeSelect>
+          </div>
+        </section>
         {testMode &&
           <>
             <p>Guess: {JSON.stringify(guess, 0, 2)}</p>
