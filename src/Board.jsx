@@ -229,7 +229,7 @@ function Board({ answer, testMode }) {
           break;
       }
     },
-    [answer, gameOver, currentRow, guess, handleSubmit, volume]
+    [answer, gameOver, currentRow, guess, handleSubmit, volume, instrument]
   );
 
 
@@ -372,7 +372,7 @@ function Board({ answer, testMode }) {
         <section className={styles.settings}>
           <div>
             <InputLabel variant="standard" htmlFor="instrument">
-              Instrument {instrument}
+              Instrument 
             </InputLabel>
             <NativeSelect
               defaultValue="acoustic_grand_piano"
