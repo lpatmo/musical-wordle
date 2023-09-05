@@ -2,8 +2,17 @@ import { Soundfont } from "smplr";
 
 const context = new AudioContext();
 
-function getInstrument(selectedInstrument) {
-    return new Soundfont(context, {instrument: selectedInstrument});
+const instrumentsObj = {};
+const instrumentsArr = ["acoustic_grand_piano", "violin", "french_horn", "choir_aahs", "acoustic_guitar_steel", "bird_tweet"]
+
+for (let i = 0; i < instrumentsArr.length; i++) {
+    instrumentsObj[instrumentsArr[i]] = new Soundfont(context, { instrument: instrumentsArr[i] });
+}
+
+function stopAll() {
+    instrumentsArr.forEach((instrument) => {
+        instrumentsObj[instrument].stop();
+    })
 }
 
 /**
@@ -14,16 +23,16 @@ function getInstrument(selectedInstrument) {
  * @return 
  */
 export function playSequence(selectedInstrument, answer, guess, currentRow, volume) {
-     //console.log('====answer and guess and currentRow, volume', answer, guess, currentRow, volume)
+    //console.log('====answer and guess and currentRow, volume', answer, guess, currentRow, volume)
     //Stop any previous melodies from playing
-    const instrument = getInstrument(selectedInstrument)
-    instrument.stop();
+    stopAll();
+    const instrument = instrumentsObj[selectedInstrument];
     instrument.output.setVolume(volume * 35);
     instrument.loaded().then(() => {
         const now = context.currentTime;
 
         answer.sequence.slice(0, 6).forEach((note, i) => {
-            const transformedNote = guess !== undefined && guess[currentRow][i*2] !== '' ? guess[currentRow].slice(i*2, 2*(i+1)).split('.')[0] + note.slice(-1) : note;
+            const transformedNote = guess !== undefined && guess[currentRow][i * 2] !== '' ? guess[currentRow].slice(i * 2, 2 * (i + 1)).split('.')[0] + note.slice(-1) : note;
             //console.log('====transformedNote', transformedNote) 
             instrument.start(
                 {
@@ -47,9 +56,10 @@ export function playSequence(selectedInstrument, answer, guess, currentRow, volu
  */
 
 export function playCelebrationSequence(selectedInstrument, answer, volume) {
-    const instrument = getInstrument(selectedInstrument)
+    //Stop any previous melodies from playing
+    stopAll();
+    const instrument = instrumentsObj[selectedInstrument];
     instrument.output.setVolume(volume * 35);
-    instrument.stop();
     instrument.loaded().then(() => {
         const now = context.currentTime;
         answer.sequence.forEach((note, i) => {
@@ -68,7 +78,11 @@ export function playCelebrationSequence(selectedInstrument, answer, volume) {
  */
 
 export function playNote(selectedInstrument, note, answer, currentNote, volume) {
-    const instrument = getInstrument(selectedInstrument)
+    //Stop any previous melodies from playing
+    stopAll();
+    const instrument = instrumentsObj[selectedInstrument];
+    instrument.output.setVolume(volume * 35);
+
     if (currentNote === 6) {
         return;
     }
@@ -76,7 +90,6 @@ export function playNote(selectedInstrument, note, answer, currentNote, volume) 
     if (note.slice(-1) === ".") {
         note = note[0];
     }
-    instrument.output.setVolume(volume * 35);
 
     instrument.loaded().then(() => {
         const octave = answer.sequence[currentNote].slice(-1);

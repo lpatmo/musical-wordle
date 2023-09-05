@@ -372,7 +372,7 @@ function Board({ answer, testMode }) {
         <section className={styles.settings}>
           <div>
             <InputLabel variant="standard" htmlFor="instrument">
-              Instrument
+              Instrument {instrument}
             </InputLabel>
             <NativeSelect
               defaultValue="acoustic_grand_piano"
@@ -389,6 +389,7 @@ function Board({ answer, testMode }) {
               <option value="french_horn">French Horn</option>
               <option value="acoustic_guitar_steel">Guitar</option>
               <option value="violin">Violin</option>
+              <option value="bird_tweet">Bird Tweet</option>
             </NativeSelect>
           </div>
           <div>
