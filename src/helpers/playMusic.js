@@ -1,39 +1,18 @@
 import { Soundfont } from "smplr";
 
 const context = new AudioContext();
-const piano = new Soundfont(context, { instrument: "acoustic_grand_piano" });
-const frenchHorn = new Soundfont(context, { instrument: "french_horn" });
 
-/**
- * Plays a sequence of notes in french horn
- * @params {object} answer
- * @params {array} guess
- * @params {integer} currentRow
- * @return 
- */
- export function playSequenceFrenchHorn(answer, guess, currentRow, volume) {
-   //console.log('====answer and guess and currentRow, volume', answer, guess, currentRow, volume)
-   //Stop any previous melodies from playing
-   piano.stop();
-   frenchHorn.stop();
-   frenchHorn.output.setVolume(volume * 35);
-   frenchHorn.loaded().then(() => {
-       const now = context.currentTime;
+const instrumentsObj = {};
+const instrumentsArr = ["acoustic_grand_piano", "violin", "french_horn", "choir_aahs", "acoustic_guitar_steel", "bird_tweet", "flute"]
 
-       answer.sequence.slice(0, 6).forEach((note, i) => {
-           const transformedNote = guess !== undefined && guess[currentRow][i*2] !== '' ? guess[currentRow].slice(i*2, 2*(i+1)).split('.')[0] + note.slice(-1) : note;
-           //console.log('====transformedNote', transformedNote) 
-           frenchHorn.start(
-               {
-                   note: transformedNote,
-                   time: now + answer.duration.slice(0, i).reduce((a, b) => a + b, 0) / 4,
-                   duration: answer.duration[i] / 4
-               }
-           );
-       });
-   })
+for (let i = 0; i < instrumentsArr.length; i++) {
+    instrumentsObj[instrumentsArr[i]] = new Soundfont(context, { instrument: instrumentsArr[i] });
+}
 
-   return;
+function stopAll() {
+    instrumentsArr.forEach((instrument) => {
+        instrumentsObj[instrument].stop();
+    })
 }
 
 /**
@@ -43,18 +22,19 @@ const frenchHorn = new Soundfont(context, { instrument: "french_horn" });
  * @params {integer} currentRow
  * @return 
  */
-export function playSequence(answer, guess, currentRow, volume) {
-     //console.log('====answer and guess and currentRow, volume', answer, guess, currentRow, volume)
+export function playSequence(selectedInstrument, answer, guess, currentRow, volume) {
+    //console.log('====answer and guess and currentRow, volume', answer, guess, currentRow, volume)
     //Stop any previous melodies from playing
-    piano.stop();
-    piano.output.setVolume(volume * 35);
-    piano.loaded().then(() => {
+    stopAll();
+    const instrument = instrumentsObj[selectedInstrument];
+    instrument.output.setVolume(volume * 35);
+    instrument.loaded().then(() => {
         const now = context.currentTime;
 
         answer.sequence.slice(0, 6).forEach((note, i) => {
-            const transformedNote = guess !== undefined && guess[currentRow][i*2] !== '' ? guess[currentRow].slice(i*2, 2*(i+1)).split('.')[0] + note.slice(-1) : note;
+            const transformedNote = guess !== undefined && guess[currentRow][i * 2] !== '' ? guess[currentRow].slice(i * 2, 2 * (i + 1)).split('.')[0] + note.slice(-1) : note;
             //console.log('====transformedNote', transformedNote) 
-            piano.start(
+            instrument.start(
                 {
                     note: transformedNote,
                     time: now + answer.duration.slice(0, i).reduce((a, b) => a + b, 0) / 4,
@@ -75,13 +55,15 @@ export function playSequence(answer, guess, currentRow, volume) {
  * @return 
  */
 
-export function playCelebrationSequence(answer, volume) {
-    piano.output.setVolume(volume * 35);
-    piano.stop();
-    piano.loaded().then(() => {
+export function playCelebrationSequence(selectedInstrument, answer, volume) {
+    //Stop any previous melodies from playing
+    stopAll();
+    const instrument = instrumentsObj[selectedInstrument];
+    instrument.output.setVolume(volume * 35);
+    instrument.loaded().then(() => {
         const now = context.currentTime;
         answer.sequence.forEach((note, i) => {
-            piano.start({ note, time: now + answer.duration.slice(0, i).reduce((a, b) => a + b, 0) / 4, duration: answer.duration[i] / 4 });
+            instrument.start({ note, time: now + answer.duration.slice(0, i).reduce((a, b) => a + b, 0) / 4, duration: answer.duration[i] / 4 });
         });
     })
     return;
@@ -95,7 +77,12 @@ export function playCelebrationSequence(answer, volume) {
  * @return 
  */
 
-export function playNote(note, answer, currentNote, volume) {
+export function playNote(selectedInstrument, note, answer, currentNote, volume) {
+    //Stop any previous melodies from playing
+    stopAll();
+    const instrument = instrumentsObj[selectedInstrument];
+    instrument.output.setVolume(volume * 35);
+
     if (currentNote === 6) {
         return;
     }
@@ -103,12 +90,11 @@ export function playNote(note, answer, currentNote, volume) {
     if (note.slice(-1) === ".") {
         note = note[0];
     }
-    piano.output.setVolume(volume * 35);
 
-    piano.loaded().then(() => {
+    instrument.loaded().then(() => {
         const octave = answer.sequence[currentNote].slice(-1);
         const now = context.currentTime;
-        piano.start({ note: `${note}${octave}`, time: now, duration: 0.5 });
+        instrument.start({ note: `${note}${octave}`, time: now, duration: 0.5 });
     })
     return;
 }
