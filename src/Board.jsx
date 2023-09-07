@@ -170,7 +170,7 @@ function Board({ answer, testMode }) {
         }
       }
     },
-    [answer, currentRow, guess]
+    [answer, currentRow, guess, instrument]
   );
 
   const handleKeyDown = useCallback(
