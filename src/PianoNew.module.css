@@ -175,6 +175,7 @@
   .keyBindings {
     display: block;
     padding-bottom: 1em;
+    text-align: center;
   }
 }
 

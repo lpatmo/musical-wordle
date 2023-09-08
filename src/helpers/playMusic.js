@@ -82,7 +82,10 @@ export function playNote(selectedInstrument, note, answer, currentNote, volume) 
     stopAll();
     const instrument = instrumentsObj[selectedInstrument];
     instrument.output.setVolume(volume * 35);
-
+    console.log('note', note)
+    console.log('answer', answer)
+    console.log('currentNote', currentNote)
+    console.log('volume', volume)
     if (currentNote === 6) {
         return;
     }
