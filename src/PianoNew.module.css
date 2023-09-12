@@ -52,7 +52,7 @@
   color: var(--white-100);
 }
 
-.white:active {
+/* .white:active {
   border-top: 1px solid hsl(0, 0%, 47%);
   border-left: 1px solid hsl(0, 0%, 60%);
   border-bottom: 1px solid hsl(0, 0%, 60%);
@@ -69,7 +69,7 @@
       hsl(0, 0%, 27%) 0%,
       hsl(0, 0%, 13%) 100%);
   outline: none;
-}
+} */
 
 .offset {
   margin: 0 0 0 -2.2rem;
