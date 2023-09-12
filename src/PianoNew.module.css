@@ -113,15 +113,15 @@
 }
 
 .octave3 {
-  transform: translateX(-83px);
+  transform: translateX(-42px);
 }
 
 .octave4 {
-  transform: translateX(0px);
+  transform: translateX(41px);
 }
 
 .octave5 {
-  transform: translateX(84px);
+  transform: translateX(125px);
 }
 
 .octaveText {
@@ -177,6 +177,15 @@
     padding-bottom: 1em;
     text-align: center;
   }
+}
+
+svg.arrow {
+  font-size: 4.1rem;
+  cursor: pointer;
+}
+
+.hidden {
+  visibility: hidden;
 }
 
 

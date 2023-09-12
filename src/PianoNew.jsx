@@ -14,11 +14,11 @@ function PianoNew({ handlePianoPress, octave, hasFlats, className, setOctave }) 
         <div className={className}>
             <section className={styles.tinyPianos}>
                 <div className={`${styles.highlight} ${octave === 3 && styles.octave3} ${octave === 4 && styles.octave4} ${octave === 5 && styles.octave5}`}><span className={styles.octaveText}>Octave: {octave}</span></div>
-                {setOctave && <KeyboardArrowLeftIcon onClick={(e) => setOctave(octave-1)}/>}
+                 <KeyboardArrowLeftIcon className={`${styles.arrow} ${setOctave ?? styles.hidden}  ${octave === 3 && styles.hidden}`} onClick={(e) => setOctave(octave-1)}/>
                 <PianoTiny octave={octave} />
                 <PianoTiny octave={octave} />
                 <PianoTiny octave={octave} />
-                {setOctave && <KeyboardArrowRightIcon onClick={(e) => setOctave(octave+1)} />}
+                <KeyboardArrowRightIcon className={`${styles.arrow} ${setOctave ?? styles.hidden} ${octave === 5 && styles.hidden}`} onClick={(e) => setOctave(octave+1)} />
             </section>
             <section>
                 <div className={styles.pianoNew}>

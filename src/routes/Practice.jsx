@@ -44,9 +44,35 @@ export default function Practice() {
                         note = note.toUpperCase();
                     }
 
+                    
                     /*Play the note in the same octave as the corresponding answer*/
                     playNote(instrument, note, answer, 0, volume);
                     //setError("");
+
+                    //highlight piano keyboard notes
+                    setTimeout(() => {
+                        if (note[1] === '.') {
+                            document.querySelector(`#${note[0]}`).classList.add('activeWhite')
+                        } else {
+                            if (answer?.hasFlats) {
+                                document.querySelector(`#${note[0]}flat`).classList.add('activeBlack')
+                            } else {
+                                document.querySelector(`#${note[0]}sharp`).classList.add('activeBlack')
+                            }
+                        }
+                    }, 0)
+
+                    setTimeout(() => {
+                        if (note[1] === '.') {
+                            document.querySelector(`#${note[0]}`).classList.remove('activeWhite')
+                        } else {
+                            if (answer?.hasFlats) {
+                                document.querySelector(`#${note[0]}flat`).classList.remove('activeBlack')
+                            } else {
+                                document.querySelector(`#${note[0]}sharp`).classList.remove('activeBlack')
+                            }
+                        }
+                    }, 200)
                     break;
                 case event.key === "Enter":
                     handleSubmit(event);
