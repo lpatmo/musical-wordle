@@ -17,9 +17,11 @@ function stopAll() {
 
 /**
  * Plays a sequence of notes in piano
+ * @params {string} selectedInstrument
  * @params {object} answer
  * @params {array} guess
  * @params {integer} currentRow
+ * @params {integer} volume
  * @return 
  */
 export function playSequence(selectedInstrument, answer, guess, currentRow, volume) {
@@ -49,9 +51,9 @@ export function playSequence(selectedInstrument, answer, guess, currentRow, volu
 
 /**
  * Play celebration
+ * @params {string} selectedInstrument
  * @params {object} answer
- * @params {array} guess
- * @params {integer} currentRow
+ * @params {integer} volume
  * @return 
  */
 
@@ -71,13 +73,16 @@ export function playCelebrationSequence(selectedInstrument, answer, volume) {
 
 /**
  * Plays a single note
+ * @params {string} selectedInstrument
  * @params {string} note
  * @params {object} answer
  * @params {integer} currentRow
+ * @params {integer} volume
+ * @params {integer} octave
  * @return 
  */
 
-export function playNote(selectedInstrument, note, answer, currentNote, volume) {
+export function playNote(selectedInstrument, note, answer, currentNote, volume, octave=answer.sequence[currentNote].slice(-1)) {
     //Stop any previous melodies from playing
     stopAll();
     const instrument = instrumentsObj[selectedInstrument];
@@ -95,7 +100,8 @@ export function playNote(selectedInstrument, note, answer, currentNote, volume) 
     }
 
     instrument.loaded().then(() => {
-        const octave = answer.sequence[currentNote].slice(-1);
+        //If octave is passed in as an optional param, get it from that; otherwise, get it from the octave.
+        //const oct = octave || answer.sequence[currentNote].slice(-1);
         const now = context.currentTime;
         instrument.start({ note: `${note}${octave}`, time: now, duration: 0.5 });
     })
