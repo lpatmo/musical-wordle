@@ -34,6 +34,15 @@ export default function Practice() {
                 case gameOver:
                     /*Do not accept user input if game is over */
                     break;
+                case event.keyCode === 37:
+                    // The left arrow key was pressed.
+                    console.log("left key pressed", event.keyCode)
+                    setOctave(octave > 3 ? octave-1 : octave);
+                    break;
+                case event.keyCode === 39:
+                    // The right arrow key was pressed.
+                    setOctave(octave < 5 ? octave+1 : octave);
+                    break;
                 case isNote(event.key):
                     /*Update guess state after valid note*/
                     let note = getNote(event, answer?.hasFlats);
