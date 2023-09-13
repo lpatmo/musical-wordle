@@ -19,7 +19,7 @@ export default function Practice() {
     const [octave, setOctave] = useState(4);
     const [error, setError] = useState(null);
     const [guess, setGuess] = useState("");
-    const [answer, setAnswer] = useState({ sequence: [`Ab${octave}`], duration: [1], hasFlats: false })
+    const [answer, setAnswer] = useState({ sequence: [`Ab${octave}`], duration: [2], hasFlats: false })
     const [firstTimePlayed, setFirstTimePlayed] = useState(true);
     const possibleNotes = ["A", "B", "C", "D", "E", "F", "G", "Db", "C#", "Eb", "D#", "Gb", "F#", "Ab", "G#", "Bb", "A#"]
     const possibleOctaves = [3, 4, 5];
@@ -54,20 +54,12 @@ export default function Practice() {
     function compareNoteWithAnswer(note, answerNote) {
         //note: F. Ab C# G.
         //answerNote: Gb3 F4 C#3
-        console.log('!!!comparing', note, answerNote)
-        console.log('1) answerNote.slice(0,-1)', answerNote.slice(0,-1))
-        console.log('2) with', note[1] === '.' ? note[0] : note)
         return answerNote.slice(0,-1) === (note[1] === '.' ? note[0] : note)
     } 
 
-    // function getPercentage() {
-    //     console.log("guess", guess)
-    //     console.log("guess.length", guess.length)
-    //     console.log("typeof guess", typeof guess)
-    //     console.log("guess[0]", guess[0])
-    //     console.log("guess[1]", guess[1])
-    //     return `${guess.split("").filter((el) => el === "\uDFE9").length} / ${guess.length}`;
-    // }
+    function getPercentage() {
+        return `${guess.split("").filter((el) => el === "\uDFE9").length} / ${guess.length/2}`;
+    }
 
     const handleKeyDown = useCallback(
         (event) => {
@@ -157,8 +149,8 @@ export default function Practice() {
             <VolumeContext.Provider value={volume}>
                 <Navbar showCountdown={false} isPracticing={true} />
                 <Grid container sx={{ mt: 5 }} spacing={1} justifyContent="center">
-                <div className={styles.guessContainer}>{answer?.sequence[0]}{guess}</div>
-                {/* {getPercentage()} */}
+                <div className={styles.guessContainer}>{guess}</div>
+                {getPercentage()}
                 </Grid>
                 <PianoNew handlePianoPress={handlePianoPress} octave={octave} hasFlats={answer?.hasFlats} className={styles.keyboard} setOctave={setOctave} />
                 <Grid container spacing={1} justifyContent="center">
