@@ -18,18 +18,18 @@ function PianoNew({ handlePianoPress, octave, hasFlats }) {
             <section>
                 <div className={styles.pianoNew}>
                     <ul className={styles.keyboard}>
-                        <li onClick={() => handlePianoPress("C")} className={styles.white}>C{octave}</li>
-                        <li onClick={() => handlePianoPress(hasFlats ? "Db" : "C#")} className={styles.black}>{hasFlats ? "Db" : "C#"}</li>
-                        <li onClick={() => handlePianoPress("D")} className={`${styles.white} ${styles.offset}`}>D{octave}</li>
-                        <li onClick={() => handlePianoPress(hasFlats ? "Eb" : "D#")} className={styles.black}>{hasFlats ? "Eb" : "D#"}</li>
-                        <li onClick={() => handlePianoPress("E")} className={`${styles.white} ${styles.offset}`}>E{octave}</li>
-                        <li onClick={() => handlePianoPress("F")} className={styles.white}>F{octave}</li>
-                        <li onClick={() => handlePianoPress(hasFlats ? "Gb" : "F#")} className={styles.black}>{hasFlats ? "Gb" : "F#"}</li>
-                        <li onClick={() => handlePianoPress("G")} className={`${styles.white} ${styles.offset}`}>G{octave}</li>
-                        <li onClick={() => handlePianoPress(hasFlats ? "Ab" : "G#")} className={styles.black}>{hasFlats ? "Ab" : "G#"}</li>
-                        <li onClick={() => handlePianoPress("A")} className={`${styles.white} ${styles.offset}`}>A{octave}</li>
-                        <li onClick={() => handlePianoPress(hasFlats ? "Bb" : "A#")} className={styles.black}>{hasFlats ? "Bb" : "A#"}</li>
-                        <li onClick={() => handlePianoPress("B")} className={`${styles.white} ${styles.offset}`}>B{octave}</li>
+                        <li id="C" onClick={() => handlePianoPress("C")} className={styles.white}>C{octave}</li>
+                        <li id={hasFlats ? "Dflat" : "Csharp"} onClick={() => handlePianoPress(hasFlats ? "Db" : "C#")} className={styles.black}>{hasFlats ? "Db" : "C#"}</li>
+                        <li id="D" onClick={() => handlePianoPress("D")} className={`${styles.white} ${styles.offset}`}>D{octave}</li>
+                        <li id={hasFlats ? "Eflat" : "Dsharp"} onClick={() => handlePianoPress(hasFlats ? "Eb" : "D#")} className={styles.black}>{hasFlats ? "Eb" : "D#"}</li>
+                        <li id="E" onClick={() => handlePianoPress("E")} className={`${styles.white} ${styles.offset}`}>E{octave}</li>
+                        <li id="F" onClick={() => handlePianoPress("F")} className={styles.white}>F{octave}</li>
+                        <li id={hasFlats ? "Gflat" : "Fsharp"} onClick={() => handlePianoPress(hasFlats ? "Gb" : "F#")} className={styles.black}>{hasFlats ? "Gb" : "F#"}</li>
+                        <li id="G" onClick={() => handlePianoPress("G")} className={`${styles.white} ${styles.offset}`}>G{octave}</li>
+                        <li id={hasFlats ? "Aflat" : "Gsharp"} onClick={() => handlePianoPress(hasFlats ? "Ab" : "G#")} className={styles.black}>{hasFlats ? "Ab" : "G#"}</li>
+                        <li id="A" onClick={() => handlePianoPress("A")} className={`${styles.white} ${styles.offset}`}>A{octave}</li>
+                        <li id={hasFlats ? "Bflat" : "Asharp"} onClick={() => handlePianoPress(hasFlats ? "Bb" : "A#")} className={styles.black}>{hasFlats ? "Bb" : "A#"}</li>
+                        <li id="B" onClick={() => handlePianoPress("B")} className={`${styles.white} ${styles.offset}`}>B{octave}</li>
                         <li aria-label="backspace" className={`${styles.white} ${styles.backspace}`} onClick={() => handlePianoPress("Backspace")}> <span>Backspace</span> <FontAwesomeIcon icon={faBackspace} /></li>
                     </ul>
                 </div>
