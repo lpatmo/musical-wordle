@@ -15,9 +15,11 @@ import AudiotrackIcon from '@mui/icons-material/Audiotrack';
 import ModalStats from './ModalStats';
 import MidnightContext from './contexts/MidnightContext';
 import getNote from './helpers/getNote'
+import isNote from './helpers/isNote'
 import ShareResults from './ShareResults'
 import InputLabel from '@mui/material/InputLabel';
 import NativeSelect from '@mui/material/NativeSelect';
+import Instruments from './Instruments'
 
 
 function Board({ answer, testMode }) {
@@ -274,11 +276,6 @@ function Board({ answer, testMode }) {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [guess, currentRow, handleSubmit, handleKeyDown, isMidnight]);
 
-  function isNote(str) {
-    //console.log('isNote str', str)
-    return str.length <= 2 && "abcdefg".includes(str[0].toLowerCase());
-  }
-
   function getFreqCount(noteSeq) {
     let freq = {};
     for (let i = 0; i < noteSeq.length; i++) {
@@ -402,26 +399,7 @@ function Board({ answer, testMode }) {
         <hr />
         <section className={styles.settings}>
           <div>
-            <InputLabel variant="standard" htmlFor="instrument">
-              Instrument 
-            </InputLabel>
-            <NativeSelect
-              defaultValue="acoustic_grand_piano"
-              inputProps={{
-                name: 'instrument',
-                id: 'instrument',
-              }}
-              onChange={(e) => setInstrument(e.target.value)}
-              sx={{ fontSize: '1.6rem', mr: '2em' }}
-            >
-              <option value="acoustic_grand_piano">Piano</option>
-              <option value="choir_aahs">Choir</option>
-              <option value="flute">Flute</option>
-              <option value="french_horn">French Horn</option>
-              <option value="acoustic_guitar_steel">Guitar</option>
-              <option value="violin">Violin</option>
-              <option value="bird_tweet">Bird Tweet</option>
-            </NativeSelect>
+            <Instruments instrument={instrument} setInstrument={setInstrument}/>
           </div>
           <div>
             <InputLabel variant="standard" htmlFor="difficulty">

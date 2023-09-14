@@ -15,6 +15,7 @@ import { differenceInDays } from 'date-fns';
 import ModalStats from './ModalStats';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDiscord } from '@fortawesome/free-brands-svg-icons'
+import { Link } from "react-router-dom";
 
 /* To access mock data for validation testing
  *  1) Uncomment the following for mock data for validation testing
@@ -42,7 +43,6 @@ function App() {
   function clearStorage() {
     window.localStorage.removeItem('perfectPitchPuzzleStats');
   }
-
 
 
   useEffect(() => {
@@ -87,7 +87,7 @@ function App() {
       <VolumeContext.Provider value={volume}>
         <div className="App">
           <header className="App-header">
-            <Navbar />
+            <Navbar showCountdown={true}/>
             {/* {JSON.stringify(setGameIndex())} */}
             {testMode && <div className="testMode"><h2>You are in test mode!
               <button onClick={() => { alert("Stats cleared!"); clearStorage() }}>Clear stats</button>
@@ -115,6 +115,7 @@ function App() {
 
         </div>
         <footer>
+          <Link to="/practice">Practice</Link>
           <a href="https://discord.gg/gzgghM2JVD" target="_blank" referrer="no-referrer" className="discordIcon"><FontAwesomeIcon icon={faDiscord} aria-labelledby="Join us on Discord" /></a>
         </footer>
       </VolumeContext.Provider>
