@@ -58,7 +58,7 @@ export default function Practice() {
     } 
 
     function getPercentage() {
-        return `${guess.split("").filter((el) => el === "\uDFE9").length} / ${guess.length/2}`;
+        return ` ${guess.split("").filter((el) => el === "\uDFE9").length} / ${guess.length/2}`;
     }
 
     const handleKeyDown = useCallback(
@@ -163,7 +163,7 @@ export default function Practice() {
                         <>
                             <button type="button" className={styles.action} onClick={playGame}>{firstTimePlayed ? "Hear next note" : "Hear again"}</button>
                             <button type="button" className={styles.action} onClick={(e) => { e.preventDefault(); setIsPaused(!isPaused); if (isPaused) { playGame() } }}>{isPaused ? "Continue" : "Pause"}</button>
-                            <button type="button" className={styles.action} onClick={(e) => { e.preventDefault(); setInProgress(false); setGuess("") }}>Reset game</button>
+                            <button type="button" className={styles.action} onClick={(e) => { e.preventDefault(); setInProgress(false); setGuess(""); setIsPaused(false); }}>Reset game</button>
                         </>
 
                         : <button type="button" className={styles.action} onClick={startGame}>Start Game</button>}
