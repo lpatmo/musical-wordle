@@ -135,7 +135,7 @@ export default function Practice() {
                     break;
             }
         },
-        [answer, gameOver, volume, instrument, guess, isPaused]
+        [answer, gameOver, volume, instrument, guess, isPaused, octave]
     );
 
     useEffect(() => {
