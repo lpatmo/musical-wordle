@@ -118,7 +118,7 @@ function Board({ answer, testMode }) {
           .querySelectorAll(`input[name^="note-${currentRow}"]`)
           .forEach((el) => el.classList.add(styles.correct));
         setMessage(
-          `🎉 Congratulations! You correctly guessed '${answer["song"]}' in ${guessAttempts}/${guess.length} tries${difficultyMode !== 'normal' ? ` in ${difficultyMode} mode` : ''}!`
+          `🎉 Congratulations! You correctly guessed Song #${answer["id"]}: '${answer["song"]}' in ${guessAttempts}/${guess.length} tries${difficultyMode !== 'normal' ? ` in ${difficultyMode} mode` : ''}!`
         );
         //Update stats and open modal
         updateStats();
@@ -299,7 +299,7 @@ function Board({ answer, testMode }) {
   function shareResults() { //TODO: Refactor shareOutput to be calculated here without using state
     setIsOpen(false);
     let stat = gameWon ? guess.join("").length / 12 : "X";
-    let beginText = `Perfect Pitch Puzzle - '${answer["song"]}' ${stat}/${guess.length} ${difficultyMode !== 'normal' ? `in ~${difficultyMode}~ mode` : ""}\n`;
+    let beginText = `Perfect Pitch Puzzle - 'Song #${answer["id"]}' ${stat}/${guess.length} ${difficultyMode !== 'normal' ? `in ~${difficultyMode}~ mode` : ""}\n`;
     navigator.clipboard
       .writeText(
         beginText +
