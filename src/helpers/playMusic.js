@@ -84,16 +84,13 @@ export function playCelebrationSequence(selectedInstrument, answer, volume) {
 
 export function playNote(selectedInstrument, note, answer, currentNote, volume, octave=answer.sequence[currentNote].slice(-1)) {
     //Stop any previous melodies from playing
+    console.log({selectedInstrument, note, answer, currentNote, volume, octave})
     stopAll();
     const instrument = instrumentsObj[selectedInstrument];
     instrument.output.setVolume(volume * 35);
-    console.log('note', note)
-    console.log('answer', answer)
-    console.log('currentNote', currentNote)
-    console.log('volume', volume)
-    if (currentNote === 6) {
-        return;
-    }
+    // if (currentNote === 6) {
+    //     return;
+    // }
     //If we are passing down "X." as the note, remove the '.'
     if (note.slice(-1) === ".") {
         note = note[0];

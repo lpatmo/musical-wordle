@@ -180,6 +180,16 @@ function Board({ answer, testMode }) {
       switch (true) {
         case gameOver:
           /*Do not accept user input if game is over */
+          if (isNote(event.key)) {
+            let note = getNote(event, answer?.hasFlats);
+     
+            if (note[1] === "b") {
+              note = note[0].toUpperCase() + note[1];
+            } else {
+              note = note.toUpperCase();
+            }
+            playNote(instrument, note, answer, guess[currentRow].length / 2, volume, octave);
+          }
           break;
         case event.key === "Backspace":
           /*Updated guess state after backspace*/
