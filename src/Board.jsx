@@ -18,6 +18,7 @@ import getNote from './helpers/getNote'
 import ShareResults from './ShareResults'
 import InputLabel from '@mui/material/InputLabel';
 import NativeSelect from '@mui/material/NativeSelect';
+import getInstrument from './helpers/getInstrument'
 
 
 function Board({ answer, testMode }) {
@@ -299,7 +300,7 @@ function Board({ answer, testMode }) {
   function shareResults() { //TODO: Refactor shareOutput to be calculated here without using state
     setIsOpen(false);
     let stat = gameWon ? guess.join("").length / 12 : "X";
-    let beginText = `Perfect Pitch Puzzle - Song #${answer["id"]} ${stat}/${guess.length}${difficultyMode !== 'normal' ? ` in ~${difficultyMode}~ mode` : ""} - ${instrument} 🎵\n`;
+    let beginText = `Perfect Pitch Puzzle - Song #${answer["id"]} ${stat}/${guess.length}${difficultyMode !== 'normal' ? ` in ${difficultyMode.toUpperCase()} mode` : ""} - ${getInstrument(instrument)} 🎵\n`;
     navigator.clipboard
       .writeText(
         beginText +
