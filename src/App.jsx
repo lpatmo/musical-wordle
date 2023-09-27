@@ -115,7 +115,7 @@ function App() {
 
         </div>
         <footer>
-          <a href="https://discord.gg/gzgghM2JVD" target="_blank" referrer="no-referrer" className="discordIcon"><FontAwesomeIcon icon={faDiscord} aria-labelledby="Join us on Discord" /></a>
+          <a href="https://discord.gg/8k3zA8nbsE" target="_blank" referrer="no-referrer" className="discordIcon"><FontAwesomeIcon icon={faDiscord} aria-labelledby="Join us on Discord" /></a>
         </footer>
       </VolumeContext.Provider>
     </MidnightContext.Provider>

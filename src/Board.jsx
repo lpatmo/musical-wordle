@@ -448,7 +448,7 @@ function Board({ answer, testMode }) {
             <p>octave: {octave}</p>
           </>
         }
-        {/* <p className={styles.discordLink}>Join us on <a href="https://discord.gg/gzgghM2JVD" target="_blank" referrer="no-referrer" className="discordIcon">Discord</a></p> */}
+        {/* <p className={styles.discordLink}>Join us on <a href="https://discord.gg/8k3zA8nbsE" target="_blank" referrer="no-referrer" className="discordIcon">Discord</a></p> */}
       </Grid>
     </Grid>
   );

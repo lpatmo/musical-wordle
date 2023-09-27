@@ -27,7 +27,7 @@ function Navbar() {
 
             <InfoIcon onClick={() => setShowInstructions(true)} style={{ fontSize: 40 }} />
             <EqualizerIcon onClick={() => setShowStats(true)} style={{ fontSize: 40 }} />
-            {/* <a href="https://discord.gg/gzgghM2JVD" target="_blank" referrer="no-referrer" className={styles.discordIcon}><FontAwesomeIcon icon={faDiscord} /></a> */}
+            {/* <a href="https://discord.gg/8k3zA8nbsE" target="_blank" referrer="no-referrer" className={styles.discordIcon}><FontAwesomeIcon icon={faDiscord} /></a> */}
             <CountdownTimer />
             {showStats && <ModalStats setIsOpen={setShowStats} />}
             {showInstructions && <ModalInstructions setIsOpen={setShowInstructions} />}
