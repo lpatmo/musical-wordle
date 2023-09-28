@@ -12,7 +12,8 @@ export default function getInstrument(instrument) {
         "choir_aahs": "Choir 🎤",
         "acoustic_guitar_steel": "Guitar 🎸",
         "bird_tweet": "Bird Tweet 🐦 (extra points)",
-        "flute": "Flute 🌬️"
+        "flute": "Flute 🌬️",
+        "ocarina": "Ocarina 🎐"
     }
     return instrumentMapping[instrument];
 }

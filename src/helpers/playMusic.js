@@ -3,7 +3,7 @@ import { Soundfont } from "smplr";
 const context = new AudioContext();
 
 const instrumentsObj = {};
-const instrumentsArr = ["acoustic_grand_piano", "violin", "french_horn", "choir_aahs", "acoustic_guitar_steel", "bird_tweet", "flute"]
+const instrumentsArr = ["acoustic_grand_piano", "violin", "french_horn", "choir_aahs", "acoustic_guitar_steel", "bird_tweet", "flute", "ocarina"]
 
 for (let i = 0; i < instrumentsArr.length; i++) {
     instrumentsObj[instrumentsArr[i]] = new Soundfont(context, { instrument: instrumentsArr[i] });
