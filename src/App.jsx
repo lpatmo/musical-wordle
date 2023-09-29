@@ -59,7 +59,7 @@ function App() {
       setTestMode(true);
     } else {
       setAnswer(data[setGameIndex()]);
-      setAnswer(data[data.length-1])
+      //setAnswer(data[data.length-1])
       //setAnswer(data[57])
       setTestMode(false);
     }
