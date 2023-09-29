@@ -420,6 +420,7 @@ function Board({ answer, testMode }) {
               <option value="flute">Flute</option>
               <option value="french_horn">French Horn</option>
               <option value="acoustic_guitar_steel">Guitar</option>
+              <option value="ocarina">Ocarina</option>
               <option value="violin">Violin</option>
               <option value="bird_tweet">Bird Tweet</option>
             </NativeSelect>
