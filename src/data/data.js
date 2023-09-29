@@ -89,4 +89,5 @@ export const data = [
     { "id": 87, "sequence": ["E4", "F#4", "G4", "A4", "B4", "G4", "B4", "A#4", "F#4", "A#4", "A4", "F4", "A4"], "duration": [1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 2], song: "In the Hall of the Mountain King (Grieg)", key: { note: "G", major: true }, hasFlats: false },
     { "id": 88, "sequence": ["E4", "F#4", "A4", "B3", "A3", "A3", "F#4", "F#4", "A3", "F#4", "F#4", "F#4", "A4", "A4", "B3", "A3", "A3", "D4", "D4", "E4", "E4"], "duration": [1, 1, 1, 5, 1, 1, 2, 0.6, 0.6, 2, 0.8, 0.5, 0.6, 1, 5, 1, 1, 1, 1, 1, 2], song: "For Good (Wicked)", key: { note: "D flat", major: true }, hasFlats: false },
     { "id": 89, "sequence": ["C4", "C4", "G4", "C4", "Ab4", "C4", "G4", "F4", "Ab3", "Ab3", "Eb4", "F4", "G3", "G3", "D4", "Eb4"], "duration": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], song: "Sweet Dreams", key: { note: "E flat", major: false }, hasFlats: true },
+    { "id": 90, "sequence": ["G4", "D5", "G4", "Eb5", "G4", "Eb5", "G4", "D5"], "duration": [1, 2, 1, 4, 1, 2, 1, 4], song: "Yeah! (Usher)", key: { note: "G minor", major: false }, hasFlats: true },
 ]
