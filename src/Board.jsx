@@ -18,7 +18,8 @@ import getNote from './helpers/getNote'
 import ShareResults from './ShareResults'
 import InputLabel from '@mui/material/InputLabel';
 import NativeSelect from '@mui/material/NativeSelect';
-import getInstrument from './helpers/getInstrument'
+import getInstrument from './helpers/getInstrument';
+import {instrumentMapping} from './helpers/getInstrument';
 
 
 function Board({ answer, testMode }) {
@@ -415,14 +416,9 @@ function Board({ answer, testMode }) {
               onChange={(e) => setInstrument(e.target.value)}
               sx={{ fontSize: '1.6rem', mr: '2em' }}
             >
-              <option value="acoustic_grand_piano">Piano</option>
-              <option value="choir_aahs">Choir</option>
-              <option value="flute">Flute</option>
-              <option value="french_horn">French Horn</option>
-              <option value="acoustic_guitar_steel">Guitar</option>
-              <option value="ocarina">Ocarina</option>
-              <option value="violin">Violin</option>
-              <option value="bird_tweet">Bird Tweet</option>
+              {Object.keys(instrumentMapping).map((instrument) => {
+                return  <option value={instrument}>{instrumentMapping[instrument]}</option>
+              })}
             </NativeSelect>
           </div>
           <div>
