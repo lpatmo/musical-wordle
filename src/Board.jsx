@@ -24,40 +24,44 @@ import {instrumentMapping} from './helpers/getInstrument';
 
 function Board({ answer, testMode }) {
   const volume = useContext(VolumeContext);
-  const [guess, setGuess] = useState(new Array(6).fill(""));
   const [currentRow, setCurrentRow] = useState(0);
   const [error, setError] = useState("");
   const [message, setMessage] = useState(null);
   const [gameOver, setGameOver] = useState(false);
   const [gameWon, setGameWon] = useState(false);
-  const [shareOutput, setShareOutput] = useState(
-    new Array(6).fill(null).map((row) => {
-      return Array(6).fill("⬛");
-    })
-  );
   const [playTuneTries, setPlayTuneTries] = useState(3);
   const [instrument, setInstrument] = useState("acoustic_grand_piano")
   const [difficultyMode, setDifficultyMode] = useState('normal')
   const [isOpen, setIsOpen] = useState(false);
   const [showStatsModal, setShowStatsModal] = useState(false);
   const { isMidnight } = useContext(MidnightContext);
+
+  const [numberTiles, setNumberTiles] = useState(difficultyMode === "difficult" ? 8 : 6);
+  console.log('numberTiles', numberTiles)
+  const [shareOutput, setShareOutput] = useState(
+    new Array(numberTiles).fill(null).map((row) => {
+      return Array(numberTiles).fill("⬛");
+    })
+  );
+  const [guess, setGuess] = useState(new Array(6).fill(""));
+
   let octave = +answer?.sequence[(guess[currentRow].length / 2)].slice(-1);
   //after the sixth note, show the octave from the sixth note and not the seventh 
-  if (guess[currentRow].length === 12) {
+  if (guess[currentRow].length === (numberTiles * 2)) {
     //console.log('reached last note')
     octave = +answer?.sequence[5].slice(-1);
   }
 
   function resetBoard() {
-    setGuess(new Array(6).fill(""));
+    setGuess(new Array(numberTiles).fill(""));
     setCurrentRow(0);
     setError("");
     setMessage(null);
     setGameOver(false);
     setGameWon(false);
     setShareOutput(
-      new Array(6).fill(null).map((row) => {
-        return Array(6).fill("⬛");
+      new Array(numberTiles).fill(null).map((row) => {
+        return Array(numberTiles).fill("⬛");
       }))
 
     //Remove the colors for the bg tiles as well
@@ -77,7 +81,7 @@ function Board({ answer, testMode }) {
     setError("")
 
     //Update localStorage
-    const numberGuesses = guess.join("").length / 12;
+    const numberGuesses = guess.join("").length / (numberTiles * 2);
     const storage = { title: answer["song"], timestamp: new Date(), guesses: hasWon ? numberGuesses : 'X' }
 
     if (!localStorage.getItem("perfectPitchPuzzleStats")) {
@@ -98,7 +102,7 @@ function Board({ answer, testMode }) {
         setError("Please guess a note.")
         return;
       }
-      let answerArr = answer.sequence.slice(0, 6)
+      let answerArr = answer.sequence.slice(0, numberTiles)
         .map((noteCluster) => {
           noteCluster = noteCluster.slice(0, -1)
           if (noteCluster.length === 1) {
@@ -110,7 +114,7 @@ function Board({ answer, testMode }) {
       const guessArr = guess[currentRow].match(/.{1,2}/g);
       //console.log('guessArr', guessArr)
       const answerFreqCount = getFreqCount(answerArr);
-      const guessAttempts = guess.join("").length / 12
+      const guessAttempts = guess.join("").length / (numberTiles * 2)
 
       if (guessArr.join("") === answerArr.join("")) {
         setGameWon(true);
@@ -125,17 +129,17 @@ function Board({ answer, testMode }) {
         //Update stats and open modal
         updateStats();
 
-      } else if (guessArr.length < 6) {
+      } else if (guessArr.length < numberTiles) {
         setError("Please fill out all the notes in the row before submitting.");
         return;
-      } else if (guessAttempts === 6) {
+      } else if (guessAttempts === numberTiles) {
         playCelebrationSequence(instrument, answer, volume);
         setMessage(`Better luck next time! The song was '${answer["song"]}'.\n
         Notes: ${answerArr.join("").replace(/\./g, "")}`);
         updateStats(false);
       } else {
-        /*If user has submitted 6 notes, play the notes when they submit*/
-        playSequence(instrument, answer, guess, currentRow, volume);
+        /*If user has submitted numberTiles notes, play the notes when they submit*/
+        playSequence(instrument, answer, guess, currentRow, numberTiles, volume);
         /*Increment the row*/
         setCurrentRow(currentRow + 1);
         setError("Please try again");
@@ -233,7 +237,7 @@ function Board({ answer, testMode }) {
             }
           }, 200)
   
-          if (guess[currentRow].length < 12) {
+          if (guess[currentRow].length < (numberTiles * 2)) {
             setGuess(
               guess.map((guessNote, i) => {
                 if (i === currentRow) {
@@ -249,7 +253,7 @@ function Board({ answer, testMode }) {
           }
 
           /*Play the note in the same octave as the corresponding answer*/
-          playNote(instrument, note, answer, guess[currentRow].length / 2, volume);
+          playNote(instrument, note, answer, guess[currentRow].length / 2, numberTiles, volume);
           //setError("");
           break;
         case event.key === "Enter":
@@ -262,7 +266,7 @@ function Board({ answer, testMode }) {
           break;
       }
     },
-    [answer, gameOver, currentRow, guess, handleSubmit, volume, instrument]
+    [answer, gameOver, currentRow, guess, handleSubmit, volume, numberTiles, instrument]
   );
 
 
@@ -271,10 +275,11 @@ function Board({ answer, testMode }) {
     if (isMidnight) {
       resetBoard();
     }
+    setNumberTiles(difficultyMode === 'difficult' ? 8 : 6)
     //listen to keyboard events
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [guess, currentRow, handleSubmit, handleKeyDown, isMidnight]);
+  }, [guess, currentRow, handleSubmit, handleKeyDown, isMidnight, difficultyMode]);
 
   function isNote(str) {
     //console.log('isNote str', str)
@@ -300,7 +305,7 @@ function Board({ answer, testMode }) {
   }
   function shareResults() { //TODO: Refactor shareOutput to be calculated here without using state
     setIsOpen(false);
-    let stat = gameWon ? guess.join("").length / 12 : "X";
+    let stat = gameWon ? guess.join("").length / (numberTiles * 2) : "X";
     let beginText = `Perfect Pitch Puzzle - Song #${answer["id"]} ${stat}/${guess.length}${difficultyMode !== 'normal' ? ` in ${difficultyMode.toUpperCase()} mode` : ""} - ${getInstrument(instrument)} 🎵\n`;
     navigator.clipboard
       .writeText(
@@ -334,7 +339,7 @@ function Board({ answer, testMode }) {
                 }
                 setPlayTuneTries(playTuneTries - 1);
               }
-              playSequence(instrument, answer, undefined, undefined, volume);
+              playSequence(instrument, answer, undefined, undefined, numberTiles, volume);
             }
             }>
             <FontAwesomeIcon icon={faPlay} /> Play the tune {difficultyMode === 'difficult' && `- ${playTuneTries} plays left`}</button>
@@ -342,9 +347,13 @@ function Board({ answer, testMode }) {
           <form className={styles.board} onSubmit={handleSubmit}>
             {guess.map((char, row) => {
               //char is the same thing as guess[row]
+              const myRow = [];
+              for (let i=0; i<numberTiles; i++) {
+                myRow.push(i);
+              }
               return (
                 <div key={row} className={styles.row}>
-                  {[0, 1, 2, 3, 4, 5].map((column) => {
+                  {myRow.map((column) => {
                     return (
                       <input
                         key={column}
@@ -366,7 +375,7 @@ function Board({ answer, testMode }) {
                         if (guess[row].length === 0) {
                           setError("Please guess a note.")
                         } else {
-                          playSequence(instrument, answer, guess, row, volume);
+                          playSequence(instrument, answer, guess, row, numberTiles, volume);
                         }
                       }}
                     >
@@ -426,7 +435,7 @@ function Board({ answer, testMode }) {
               Difficulty
             </InputLabel>
             <NativeSelect
-              defaultValue="normal"
+              defaultValue={difficultyMode}
               inputProps={{
                 name: 'difficulty',
                 id: 'difficulty',
@@ -435,7 +444,7 @@ function Board({ answer, testMode }) {
               sx={{ fontSize: '1.6rem' }}
             >
               <option value="normal">Normal</option>
-              <option value="difficult">Hard</option>
+              <option value="difficult">Difficult</option>
             </NativeSelect>
           </div>
         </section>
