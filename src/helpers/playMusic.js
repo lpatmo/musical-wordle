@@ -9,11 +9,26 @@ for (let i = 0; i < instrumentsArr.length; i++) {
     instrumentsObj[instrumentsArr[i]] = new Soundfont(context, { instrument: instrumentsArr[i] });
 }
 
-function stopAll() {
+/**
+ * Stop all instruments
+ */
+export function stopAll() {
     instrumentsArr.forEach((instrument) => {
         instrumentsObj[instrument].stop();
     })
 }
+
+
+/**
+ * Change volume of all instruments
+ * @params {number} volume
+ */
+export function changeVolume(volume) {
+    instrumentsArr.forEach((instrument) => {
+        instrumentsObj[instrument].output.setVolume(volume);
+    })
+}
+
 
 /**
  * Plays a sequence of notes in piano

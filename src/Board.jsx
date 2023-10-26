@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback, useContext } from "react";
 import styles from "./Board.module.css";
-import { playNote, playSequence, playCelebrationSequence } from "./helpers/playMusic";
+import { playNote, playSequence, playCelebrationSequence, stopAll, changeVolume } from "./helpers/playMusic";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
@@ -24,6 +24,10 @@ import {instrumentMapping} from './helpers/getInstrument';
 
 function Board({ answer, testMode }) {
   const volume = useContext(VolumeContext);
+  const modesToTiles = {
+    'normal': 6,
+    'difficult': 8
+  }
   const [currentRow, setCurrentRow] = useState(0);
   const [error, setError] = useState("");
   const [message, setMessage] = useState(null);
@@ -36,14 +40,15 @@ function Board({ answer, testMode }) {
   const [showStatsModal, setShowStatsModal] = useState(false);
   const { isMidnight } = useContext(MidnightContext);
 
-  const [numberTiles, setNumberTiles] = useState(difficultyMode === "difficult" ? 8 : 6);
-  console.log('numberTiles', numberTiles)
+  const [numberTiles, setNumberTiles] = useState(modesToTiles[difficultyMode]);
   const [shareOutput, setShareOutput] = useState(
     new Array(numberTiles).fill(null).map((row) => {
       return Array(numberTiles).fill("⬛");
     })
   );
   const [guess, setGuess] = useState(new Array(6).fill(""));
+
+
 
   let octave = +answer?.sequence[(guess[currentRow].length / 2)].slice(-1);
   //after the sixth note, show the octave from the sixth note and not the seventh 
@@ -53,6 +58,7 @@ function Board({ answer, testMode }) {
   }
 
   function resetBoard() {
+    stopAll();
     setGuess(new Array(numberTiles).fill(""));
     setCurrentRow(0);
     setError("");
@@ -275,11 +281,15 @@ function Board({ answer, testMode }) {
     if (isMidnight) {
       resetBoard();
     }
-    setNumberTiles(difficultyMode === 'difficult' ? 8 : 6)
+    //Change the volume if it changes
+    if (volume === 0) {
+      changeVolume(volume);
+    }
+    setNumberTiles(modesToTiles[difficultyMode])
     //listen to keyboard events
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [guess, currentRow, handleSubmit, handleKeyDown, isMidnight, difficultyMode]);
+  }, [guess, currentRow, handleSubmit, handleKeyDown, isMidnight, difficultyMode, volume]);
 
   function isNote(str) {
     //console.log('isNote str', str)
@@ -440,7 +450,7 @@ function Board({ answer, testMode }) {
                 name: 'difficulty',
                 id: 'difficulty',
               }}
-              onChange={(e) => setDifficultyMode(e.target.value)}
+              onChange={(e) => {setDifficultyMode(e.target.value); resetBoard();}}
               sx={{ fontSize: '1.6rem' }}
             >
               <option value="normal">Normal</option>
