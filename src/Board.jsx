@@ -59,7 +59,7 @@ function Board({ answer, testMode }) {
 
   function resetBoard() {
     stopAll();
-    setGuess(new Array(numberTiles).fill(""));
+    setGuess(new Array(6).fill(""));
     setCurrentRow(0);
     setError("");
     setMessage(null);
@@ -450,8 +450,12 @@ function Board({ answer, testMode }) {
                 name: 'difficulty',
                 id: 'difficulty',
               }}
-              onChange={(e) => {setDifficultyMode(e.target.value); resetBoard();}}
+              onChange={(e) => {
+                setDifficultyMode(e.target.value); 
+                  resetBoard();
+              }}
               sx={{ fontSize: '1.6rem' }}
+              disabled={gameOver}
             >
               <option value="normal">Normal</option>
               <option value="difficult">Difficult</option>
