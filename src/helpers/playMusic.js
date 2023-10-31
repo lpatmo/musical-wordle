@@ -9,11 +9,26 @@ for (let i = 0; i < instrumentsArr.length; i++) {
     instrumentsObj[instrumentsArr[i]] = new Soundfont(context, { instrument: instrumentsArr[i] });
 }
 
-function stopAll() {
+/**
+ * Stop all instruments
+ */
+export function stopAll() {
     instrumentsArr.forEach((instrument) => {
         instrumentsObj[instrument].stop();
     })
 }
+
+
+/**
+ * Change volume of all instruments
+ * @params {number} volume
+ */
+export function changeVolume(volume) {
+    instrumentsArr.forEach((instrument) => {
+        instrumentsObj[instrument].output.setVolume(volume);
+    })
+}
+
 
 /**
  * Plays a sequence of notes in piano
@@ -22,7 +37,7 @@ function stopAll() {
  * @params {integer} currentRow
  * @return 
  */
-export function playSequence(selectedInstrument, answer, guess, currentRow, volume) {
+export function playSequence(selectedInstrument, answer, guess, currentRow, numberTiles, volume) {
     //console.log('====answer and guess and currentRow, volume', answer, guess, currentRow, volume)
     //Stop any previous melodies from playing
     stopAll();
@@ -31,7 +46,7 @@ export function playSequence(selectedInstrument, answer, guess, currentRow, volu
     instrument.loaded().then(() => {
         const now = context.currentTime;
 
-        answer.sequence.slice(0, 6).forEach((note, i) => {
+        answer.sequence.slice(0, numberTiles).forEach((note, i) => {
             const transformedNote = guess !== undefined && guess[currentRow][i * 2] !== '' ? guess[currentRow].slice(i * 2, 2 * (i + 1)).split('.')[0] + note.slice(-1) : note;
             //console.log('====transformedNote', transformedNote) 
             instrument.start(
@@ -77,13 +92,13 @@ export function playCelebrationSequence(selectedInstrument, answer, volume) {
  * @return 
  */
 
-export function playNote(selectedInstrument, note, answer, currentNote, volume) {
+export function playNote(selectedInstrument, note, answer, currentNote, numberTiles, volume) {
     //Stop any previous melodies from playing
     stopAll();
     const instrument = instrumentsObj[selectedInstrument];
     instrument.output.setVolume(volume * 35);
 
-    if (currentNote === 6) {
+    if (currentNote === numberTiles) {
         return;
     }
     //If we are passing down "X." as the note, remove the '.'
