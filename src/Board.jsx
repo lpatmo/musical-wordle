@@ -138,7 +138,7 @@ function Board({ answer, testMode }) {
       } else if (guessArr.length < numberTiles) {
         setError("Please fill out all the notes in the row before submitting.");
         return;
-      } else if (guessAttempts === numberTiles) {
+      } else if (guessAttempts === 6) {
         playCelebrationSequence(instrument, answer, volume);
         setMessage(`Better luck next time! The song was '${answer["song"]}'.\n
         Notes: ${answerArr.join("").replace(/\./g, "")}`);
