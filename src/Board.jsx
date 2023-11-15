@@ -27,7 +27,7 @@ function Board({ answer, testMode }) {
   const modesToTiles = {
     'easy': 6,
     'normal': 6,
-    'difficult': 8
+    'hard': 8
   }
   const [currentRow, setCurrentRow] = useState(0);
   const [error, setError] = useState("");
@@ -48,6 +48,7 @@ function Board({ answer, testMode }) {
     })
   );
   const [guess, setGuess] = useState(new Array(6).fill(""));
+  const guessAttempts = guess.filter((row) => row.length === numberTiles * 2).length
 
 
 
@@ -88,8 +89,7 @@ function Board({ answer, testMode }) {
     setError("")
 
     //Update localStorage
-    const numberGuesses = guess.join("").length / (numberTiles * 2);
-    const storage = { title: answer["song"], timestamp: new Date(), guesses: hasWon ? numberGuesses : 'X' }
+    const storage = { title: answer["song"], timestamp: new Date(), guesses: hasWon ? guessAttempts : 'X' }
 
     if (!localStorage.getItem("perfectPitchPuzzleStats")) {
       //if localStorage does not exist
@@ -121,7 +121,6 @@ function Board({ answer, testMode }) {
       const guessArr = guess[currentRow].match(/.{1,2}/g);
       //console.log('guessArr', guessArr)
       const answerFreqCount = getFreqCount(answerArr);
-      const guessAttempts = guess.filter((row) => row.length === numberTiles * 2).length
 
       if (guessArr.join("") === answerArr.join("")) {
         setGameWon(true);
@@ -336,7 +335,7 @@ function Board({ answer, testMode }) {
   }
   function shareResults() { //TODO: Refactor shareOutput to be calculated here without using state
     setIsOpen(false);
-    let stat = gameWon ? guess.join("").length / (numberTiles * 2) : "X";
+    let stat = gameWon ? guessAttempts : "X";
     let beginText = `Perfect Pitch Puzzle - Song #${answer["id"]} ${stat}/${guess.length}${difficultyMode !== 'normal' ? ` in ${difficultyMode.toUpperCase()} mode` : ""} - ${getInstrument(instrument)} 🎵\n`;
     navigator.clipboard
       .writeText(
@@ -362,7 +361,7 @@ function Board({ answer, testMode }) {
         <Paper elevation={0}>
           <button type="button" className={styles.action}
             onClick={(e) => {
-              if (difficultyMode === "difficult") {
+              if (difficultyMode === "hard") {
                 if (playTuneTries === 0) {
                   e.preventDefault();
                   setError("You've maxed out the number of times you can play the tune")
@@ -373,7 +372,7 @@ function Board({ answer, testMode }) {
               playSequence(instrument, answer, undefined, undefined, numberTiles, volume);
             }
             }>
-            <FontAwesomeIcon icon={faPlay} /> Play the tune {difficultyMode === 'difficult' && `- ${playTuneTries} plays left`}</button>
+            <FontAwesomeIcon icon={faPlay} /> Play the tune {difficultyMode === 'hard' && `- ${playTuneTries} plays left`}</button>
 
           <form className={styles.board} onSubmit={handleSubmit}>
             {guess.map((char, row) => {
@@ -480,7 +479,7 @@ function Board({ answer, testMode }) {
             >
               <option value="easy">Easy</option>
               <option value="normal">Normal</option>
-              <option value="difficult">Difficult</option>
+              <option value="hard">Hard</option>
             </NativeSelect>
           </div>
         </section>
