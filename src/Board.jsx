@@ -25,8 +25,9 @@ import {instrumentMapping} from './helpers/getInstrument';
 function Board({ answer, testMode }) {
   const volume = useContext(VolumeContext);
   const modesToTiles = {
+    'easy': 6,
     'normal': 6,
-    'difficult': 8
+    'hard': 8
   }
   const [currentRow, setCurrentRow] = useState(0);
   const [error, setError] = useState("");
@@ -47,6 +48,7 @@ function Board({ answer, testMode }) {
     })
   );
   const [guess, setGuess] = useState(new Array(6).fill(""));
+  const guessAttempts = guess.filter((row) => row.length === numberTiles * 2).length
 
 
 
@@ -87,8 +89,7 @@ function Board({ answer, testMode }) {
     setError("")
 
     //Update localStorage
-    const numberGuesses = guess.join("").length / (numberTiles * 2);
-    const storage = { title: answer["song"], timestamp: new Date(), guesses: hasWon ? numberGuesses : 'X' }
+    const storage = { title: answer["song"], timestamp: new Date(), guesses: hasWon ? guessAttempts : 'X' }
 
     if (!localStorage.getItem("perfectPitchPuzzleStats")) {
       //if localStorage does not exist
@@ -120,7 +121,6 @@ function Board({ answer, testMode }) {
       const guessArr = guess[currentRow].match(/.{1,2}/g);
       //console.log('guessArr', guessArr)
       const answerFreqCount = getFreqCount(answerArr);
-      const guessAttempts = guess.join("").length / (numberTiles * 2)
 
       if (guessArr.join("") === answerArr.join("")) {
         setGameWon(true);
@@ -192,6 +192,10 @@ function Board({ answer, testMode }) {
           /*Do not accept user input if game is over */
           break;
         case event.key === "Backspace":
+          /*if easy mode and only first tile guessed, return*/
+          if (difficultyMode === 'easy' && guess[currentRow].length === 2) {
+            return;
+          }
           /*Updated guess state after backspace*/
           const updatedGuess = guess.map((guessArr, i) => {
             if (i === currentRow) {
@@ -286,10 +290,26 @@ function Board({ answer, testMode }) {
       changeVolume(volume);
     }
     setNumberTiles(modesToTiles[difficultyMode])
+
     //listen to keyboard events
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [guess, currentRow, handleSubmit, handleKeyDown, isMidnight, difficultyMode, volume]);
+
+  useEffect(() => {
+        //easy mode 
+        if (difficultyMode === "easy") {
+          const updatedGuess = guess.map(() => { 
+            if (answer.sequence[0][1] !== '#' && answer.sequence[0][1] !== 'b') {
+              return answer.sequence[0][0] + '.'
+            } else {
+              return answer.sequence.slice(0,2);
+            } 
+          });
+          setGuess(updatedGuess);
+          // console.log(document.querySelectorAll('div input[name^="note-"]:first'));
+        }
+  }, [difficultyMode])
 
   function isNote(str) {
     //console.log('isNote str', str)
@@ -315,7 +335,7 @@ function Board({ answer, testMode }) {
   }
   function shareResults() { //TODO: Refactor shareOutput to be calculated here without using state
     setIsOpen(false);
-    let stat = gameWon ? guess.join("").length / (numberTiles * 2) : "X";
+    let stat = gameWon ? guessAttempts : "X";
     let beginText = `Perfect Pitch Puzzle - Song #${answer["id"]} ${stat}/${guess.length}${difficultyMode !== 'normal' ? ` in ${difficultyMode.toUpperCase()} mode` : ""} - ${getInstrument(instrument)} 🎵\n`;
     navigator.clipboard
       .writeText(
@@ -341,7 +361,7 @@ function Board({ answer, testMode }) {
         <Paper elevation={0}>
           <button type="button" className={styles.action}
             onClick={(e) => {
-              if (difficultyMode === "difficult") {
+              if (difficultyMode === "hard") {
                 if (playTuneTries === 0) {
                   e.preventDefault();
                   setError("You've maxed out the number of times you can play the tune")
@@ -352,7 +372,7 @@ function Board({ answer, testMode }) {
               playSequence(instrument, answer, undefined, undefined, numberTiles, volume);
             }
             }>
-            <FontAwesomeIcon icon={faPlay} /> Play the tune {difficultyMode === 'difficult' && `- ${playTuneTries} plays left`}</button>
+            <FontAwesomeIcon icon={faPlay} /> Play the tune {difficultyMode === 'hard' && `- ${playTuneTries} plays left`}</button>
 
           <form className={styles.board} onSubmit={handleSubmit}>
             {guess.map((char, row) => {
@@ -369,7 +389,7 @@ function Board({ answer, testMode }) {
                         key={column}
                         type="text"
                         name={`note-${row}-${column}`}
-                        disabled={currentRow !== row}
+                        disabled={currentRow !== row || (difficultyMode === 'easy' && column === 0) }
                         maxLength={1}
                         value={char.slice(column * 2, 2 * (column + 1)).split(".")[0] || ""}
                         tabIndex={-1}
@@ -377,7 +397,7 @@ function Board({ answer, testMode }) {
                       />
                     );
                   })}
-                  {difficultyMode === 'normal' &&
+                  {(difficultyMode === 'normal' || difficultyMode === 'easy') &&
                     <button
                       className={styles.playButton}
                       onClick={(e) => {
@@ -457,8 +477,9 @@ function Board({ answer, testMode }) {
               sx={{ fontSize: '1.6rem' }}
               disabled={gameOver}
             >
+              <option value="easy">Easy</option>
               <option value="normal">Normal</option>
-              <option value="difficult">Difficult</option>
+              <option value="hard">Hard</option>
             </NativeSelect>
           </div>
         </section>
