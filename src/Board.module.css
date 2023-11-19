@@ -37,10 +37,28 @@ button.submit {
   pointer-events: none;
   font-weight: bold;
   padding: 4px;
+  transition: padding 0.1s;
 }
 .board input:focus {
   border: 2px solid black;
 }
+
+@keyframes paddingAnimation {
+  0% {
+    padding: 4.5px;
+  }
+  100% {
+    padding: 4px;
+  }
+}
+input:placeholder-shown {
+  border-color: var(--tile-border-color);
+}
+input:not(:placeholder-shown) {
+  border-color: var(--black-60);
+  animation: paddingAnimation 0.5s forwards;
+}
+
 
 input.correct {
   background: var(--wordle-correct-color);
