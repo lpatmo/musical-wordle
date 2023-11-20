@@ -393,6 +393,7 @@ function Board({ answer, testMode }) {
                         maxLength={1}
                         value={char.slice(column * 2, 2 * (column + 1)).split(".")[0] || ""}
                         tabIndex={-1}
+                        placeholder=" "
                         readOnly
                       />
                     );
