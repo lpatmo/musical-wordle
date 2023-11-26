@@ -15,13 +15,19 @@ form .row {
   display: flex;
   justify-content: center;
 }
-
-button.action {
-  margin: 0px auto;
+.buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
 }
 
 button.submit {
-  margin: 10px auto;
+  display: none;
+}
+
+button.submitMobile, button.action {
+  width: auto;
+  font-size: 2rem;
 }
 
 .board {
@@ -30,7 +36,7 @@ button.submit {
 .board input {
   width: 3.1rem;
   height: 3.1rem;
-  font-size: 2.5rem;
+  font-size: 2rem;
   text-align: center;
   border: 2px solid var(--tile-border-color);
   margin: 5px;
@@ -142,7 +148,7 @@ select.difficultyMode {
 .settings {
   display: flex;
   justify-content: center;
-  margin-bottom: 5em;
+  margin-bottom: 2em;
 }
 
 
@@ -150,6 +156,7 @@ select.difficultyMode {
   .board input {
     width: 4rem;
     height: 4rem;
+    font-size: 2.5rem;
   }
   button.playButton {
     margin-left: 5px;
@@ -166,6 +173,19 @@ select.difficultyMode {
     font-size: 1.6rem;
     text-align: right;
     display: block;
+  }
+  button.action {
+    font-size: 2.5rem;
+  }
+  button.submit {
+    margin: 10px auto;
+    display: block;
+  }
+  button.action {
+    margin: 0px auto;
+  }
+  button.submitMobile {
+    display: none;
   }
 }
 

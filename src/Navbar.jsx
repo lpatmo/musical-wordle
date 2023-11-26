@@ -5,6 +5,8 @@ import styles from './Navbar.module.css';
 import ModalStats from './ModalStats';
 import ModalInstructions from './ModalInstructions';
 import CountdownTimer from './CountdownTimer';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faDiscord } from '@fortawesome/free-brands-svg-icons'
 
 function Navbar() {
     const [showStats, setShowStats] = useState(false);
@@ -27,6 +29,7 @@ function Navbar() {
 
             <InfoIcon onClick={() => setShowInstructions(true)} style={{ fontSize: 40 }} />
             <EqualizerIcon onClick={() => setShowStats(true)} style={{ fontSize: 40 }} />
+            <a href="https://discord.gg/8k3zA8nbsE" target="_blank" referrer="no-referrer" className="discordIcon mobileShow"><FontAwesomeIcon icon={faDiscord} aria-labelledby="Join us on Discord" /></a>
             {/* <a href="https://discord.gg/8k3zA8nbsE" target="_blank" referrer="no-referrer" className={styles.discordIcon}><FontAwesomeIcon icon={faDiscord} /></a> */}
             <CountdownTimer />
             {showStats && <ModalStats setIsOpen={setShowStats} />}
