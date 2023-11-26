@@ -164,6 +164,7 @@ li.activeBlack {
     right: 0;
     width: 100%;
     display: block;
+    z-index: 0;
   }
   footer svg {
     margin: 1em;
