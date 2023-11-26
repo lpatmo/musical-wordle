@@ -2,7 +2,6 @@
 .pianoNew {
   display: flex;
   justify-content: center;
-  margin-top: 0.58em;
 }
 
 .white,
@@ -127,8 +126,13 @@
 .octaveText {
   position: relative;
   top: -40px;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   font-weight: bold;
+}
+
+.chooseInstructions {
+  font-size: 1.5rem;
+  color: var(--wordle-answer-incorrect);
 }
 
 @media (max-width: 600px) {
@@ -141,16 +145,19 @@
   }
 
   .white {
-    width: 4.3rem;
-    height: 16rem;
+    width: 4.35rem;
+    height: 14rem;
   }
 
   .black {
-    height: 9rem;
+    height: 7rem;
   }
 
   .keyBindings {
     margin: 3em auto;
+  }
+  .octaveText {
+    font-size: 1.8rem;
   }
 }
 

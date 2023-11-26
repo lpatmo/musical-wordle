@@ -359,6 +359,8 @@ function Board({ answer, testMode }) {
     <Grid container spacing={1} justifyContent="center">
       <Grid item xl={4} lg={5} md={7} className={styles.left}>
         <Paper elevation={0}>
+
+          <div className={styles.buttons}>
           <button type="button" className={styles.action}
             onClick={(e) => {
               if (difficultyMode === "hard") {
@@ -373,6 +375,10 @@ function Board({ answer, testMode }) {
             }
             }>
             <FontAwesomeIcon icon={faPlay} /> Play the tune {difficultyMode === 'hard' && `- ${playTuneTries} plays left`}</button>
+            <button type="submit" className={styles.submitMobile} onClick={handleSubmit}>
+              Submit
+            </button>
+          </div>
 
           <form className={styles.board} onSubmit={handleSubmit}>
             {guess.map((char, row) => {
@@ -456,7 +462,7 @@ function Board({ answer, testMode }) {
               sx={{ fontSize: '1.6rem', mr: '2em' }}
             >
               {Object.keys(instrumentMapping).map((instrument) => {
-                return  <option value={instrument}>{instrumentMapping[instrument]}</option>
+                return  <option value={instrument} key={instrument}>{instrumentMapping[instrument]}</option>
               })}
             </NativeSelect>
           </div>

@@ -32,7 +32,7 @@ function App() {
 
   function setGameIndex() {
     let startDate = new Date('2023-08-05');
-    startDate.setHours(0,0,0,0);
+    startDate.setHours(0, 0, 0, 0);
     // Find number of days between now and startDate
     const daysDifference = differenceInDays(new Date(), startDate) - 1 > 0 ? differenceInDays(new Date(), startDate) - 1 : 0;
     // if the daysDifference exceeds the total # of songs in the data array, return the mod of the length of the array
@@ -96,22 +96,29 @@ function App() {
             </h2>
 
             </div>}
-            </header>
-            <div className="App-body">
+          </header>
+          <div className="App-body">
             {showStats && <ModalStats setIsOpen={setShowStats} />}
             {mobileOrSafari ? <p className="error">Sorry, this game is not available on Safari or on mobile devices.</p> : <>
 
 
-              <Box sx={{ width: 300, margin: '20px auto' }}>
+              <Box className="mobileHide">
 
-                <Stack spacing={3} direction="row" sx={{ mb: 3 }} alignItems="center" className="audioSettings">
+                <Stack spacing={3} direction="row" alignItems="center" className="audioSettings">
                   <VolumeDown onClick={handleMute} className="muteVolume" /> <Slider aria-label="Volume" value={volume} onChange={handleVolume} min={0} max={6} /> <VolumeUp />
                 </Stack>
 
               </Box>
               <Board answer={answer} testMode={testMode} />
+              <Box className="mobileShow">
+
+                <Stack spacing={3} direction="row" alignItems="center" className="audioSettings">
+                  <VolumeDown onClick={handleMute} className="muteVolume" /> <Slider aria-label="Volume" value={volume} onChange={handleVolume} min={0} max={6} /> <VolumeUp />
+                </Stack>
+
+              </Box>
             </>}
-            </div>
+          </div>
 
         </div>
         <footer>

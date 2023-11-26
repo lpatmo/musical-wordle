@@ -11,7 +11,7 @@
     cursor: pointer;
 }
 .navbar img.logo {
-    width: 200px;
+    width: 100px;
 }
 .navbar img.note {
     display: none;
@@ -37,5 +37,8 @@
     .navbar img.note {
         display: block;
         width: 12em;
+    }
+    .navbar img.logo {
+        width: 180px;
     }
 }

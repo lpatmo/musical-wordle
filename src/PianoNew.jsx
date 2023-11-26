@@ -6,7 +6,7 @@ import PianoTiny from './PianoTiny'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 function PianoNew({ handlePianoPress, octave, hasFlats }) {
-    const [showShortcuts, setShowShortcuts] = useState(true);
+    const [showShortcuts, setShowShortcuts] = useState(false);
     return (
         <>
             <section className={styles.tinyPianos}>
@@ -15,6 +15,7 @@ function PianoNew({ handlePianoPress, octave, hasFlats }) {
                 <PianoTiny octave={octave} />
                 <PianoTiny octave={octave} />
             </section>
+            <span className={styles.chooseInstructions}>Choose from the notes in the octave above.</span>
             <section>
                 <div className={styles.pianoNew}>
                     <ul className={styles.keyboard}>

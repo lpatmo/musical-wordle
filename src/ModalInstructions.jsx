@@ -22,7 +22,7 @@ function ModalInstructions({ setIsOpen }) {
                             <span>F</span>
                             <span>F</span>
                         </div>
-                        You've identified a correct note and it's in the correct spot.</li>
+                        Correct note in the correct spot.</li>
                     <li>
                         <div className={styles.exampleTiles}>
                             <span>B</span>
@@ -32,7 +32,7 @@ function ModalInstructions({ setIsOpen }) {
                             <span>F</span>
                             <span>F</span>
                         </div>
-                        You've identified a correct note but it's in the wrong spot.</li>
+                        Correct note in the wrong spot.</li>
                     <li>      <div className={styles.exampleTiles}>
                         <span>B</span>
                         <span>B</span>
@@ -41,7 +41,7 @@ function ModalInstructions({ setIsOpen }) {
                         <span className={styles.incorrect}>D</span>
                         <span>D</span>
                     </div>
-                        The note you've identified is not in the tune.</li>
+                        The note is not in the tune.</li>
                         <li>Click on <button
                             className={styles.playButton}
                             onClick={(e) => {

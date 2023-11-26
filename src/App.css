@@ -35,17 +35,6 @@ body {
   color: var(--text-color-lightmode);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 h1 {
   margin: 0;
   font-size: 2rem;
@@ -62,6 +51,11 @@ p {
 
 .muteVolume { 
   cursor: pointer;
+}
+
+.audioSettings {
+  width: 300px;
+  margin: 10px auto;
 }
 
 button {
@@ -110,6 +104,14 @@ button:hover {
   transform: rotate(90deg);
 }
 
+.mobileHide {
+  display: none;
+}
+
+.mobileShow {
+  display: block;
+}
+
 button[type="submit"] svg {
   position: relative;
   top: 0px;
@@ -123,14 +125,7 @@ button[type="submit"] svg {
 }
 
 footer {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  background-color: var(--navbar-bg);
-  color: var(--background-lightmode);
-  text-align: center;
-  z-index: 10;
+  display: none;
 }
 
 li.activeWhite {
@@ -157,6 +152,9 @@ li.activeBlack {
     width: 400px;
     margin-bottom: 5em;
   }
+  .audioSettings {
+    margin: 30px auto 30px;
+  }  
   footer {
     background-color: white;
     color: black;
@@ -165,9 +163,16 @@ li.activeBlack {
     bottom: 0;
     right: 0;
     width: 100%;
+    display: block;
   }
   footer svg {
     margin: 1em;
+  }
+  .mobileHide {
+    display: block;
+  }
+  .mobileShow {
+    display: none;
   }
 }
 
