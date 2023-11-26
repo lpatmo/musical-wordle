@@ -136,10 +136,6 @@
 }
 
 @media (max-width: 600px) {
-  .pianoNew {
-    margin-bottom: 2em;
-  }
-
   .keyboard {
     padding: 0 1px;
   }
