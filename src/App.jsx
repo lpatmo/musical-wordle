@@ -11,10 +11,10 @@ import Box from '@mui/material/Box';
 import Navbar from './Navbar';
 import VolumeContext from './contexts/VolumeContext'
 import MidnightContext from './contexts/MidnightContext'
-import { differenceInDays } from 'date-fns';
 import ModalStats from './ModalStats';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDiscord } from '@fortawesome/free-brands-svg-icons'
+import getGameIndex from './helpers/getGameIndex';
 
 /* To access mock data for validation testing
  *  1) Uncomment the following for mock data for validation testing
@@ -29,15 +29,6 @@ function App() {
   const [mobileOrSafari, setMobileOrSafari] = useState(false);
   const [testMode, setTestMode] = useState(false);
   const [showStats, setShowStats] = useState(false);
-
-  function setGameIndex() {
-    let startDate = new Date('2023-08-05');
-    startDate.setHours(0, 0, 0, 0);
-    // Find number of days between now and startDate
-    const daysDifference = differenceInDays(new Date(), startDate) - 1 > 0 ? differenceInDays(new Date(), startDate) - 1 : 0;
-    // if the daysDifference exceeds the total # of songs in the data array, return the mod of the length of the array
-    return daysDifference % data.length;
-  }
 
   function clearStorage() {
     window.localStorage.removeItem('perfectPitchPuzzleStats');
@@ -58,7 +49,8 @@ function App() {
       setAnswer(data[randomIndex])
       setTestMode(true);
     } else {
-      setAnswer(data[setGameIndex()]);
+      console.log(getGameIndex())
+      setAnswer(data[getGameIndex()]);
       // setAnswer(data[data.length-1])
       //setAnswer(data[102])
       setTestMode(false);
@@ -88,7 +80,7 @@ function App() {
         <div className="App">
           <header className="App-header">
             <Navbar />
-            {/* {JSON.stringify(setGameIndex())} */}
+            {/* {JSON.stringify(getGameIndex())} */}
             {testMode && <div className="testMode"><h2>You are in test mode!
               <button onClick={() => { alert("Stats cleared!"); clearStorage() }}>Clear stats</button>
               <button onClick={() => setShowStats(true)}>Show stats</button>

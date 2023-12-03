@@ -7,6 +7,7 @@ import ModalInstructions from './ModalInstructions';
 import CountdownTimer from './CountdownTimer';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDiscord } from '@fortawesome/free-brands-svg-icons'
+import getGameIndex from './helpers/getGameIndex';
 
 function Navbar() {
     const [showStats, setShowStats] = useState(false);
@@ -22,6 +23,8 @@ function Navbar() {
     }, [])
 
     return (
+        <>
+        <span>Left!!!</span>
         <div className={styles.navbar}>
             <img src="/logo_transparent.svg" alt="Perfect Pitch Puzzle logo" className={styles.logo} />
             {/* <span className={styles.instructions}>Figure out the first few notes of the tune. You have 6 tries.</span> */}
@@ -35,6 +38,7 @@ function Navbar() {
             {showStats && <ModalStats setIsOpen={setShowStats} />}
             {showInstructions && <ModalInstructions setIsOpen={setShowInstructions} />}
         </div>
+        </>
     )
 }
 

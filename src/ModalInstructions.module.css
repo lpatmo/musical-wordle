@@ -19,7 +19,7 @@
     padding: 0;
 }
 .modalInstructions li {
-    margin: 1em 0;
+    margin: 0.1em 0;
     font-size: 1.6rem;
 }
 .modalInstructions p {
@@ -62,4 +62,10 @@
 .exampleTiles .incorrect {
     background: var(--wordle-answer-incorrect);
     color: var(--wordle-answer-text-color);
+}
+
+@media (min-width: 600px) {
+    .modalInstructions li {
+        margin: 1em 0;
+    }
 }
