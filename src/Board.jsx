@@ -39,6 +39,7 @@ function Board({ answer, testMode }) {
   const [difficultyMode, setDifficultyMode] = useState('normal')
   const [isOpen, setIsOpen] = useState(false);
   const [showStatsModal, setShowStatsModal] = useState(false);
+  const [usedBackSpace, setUsedBackspace] = useState(false);
   const { isMidnight } = useContext(MidnightContext);
 
   const [numberTiles, setNumberTiles] = useState(modesToTiles[difficultyMode]);
@@ -67,6 +68,7 @@ function Board({ answer, testMode }) {
     setMessage(null);
     setGameOver(false);
     setGameWon(false);
+    setUsedBackspace(false);
     setShareOutput(
       new Array(numberTiles).fill(null).map((row) => {
         return Array(numberTiles).fill("⬛");
@@ -130,7 +132,7 @@ function Board({ answer, testMode }) {
           .querySelectorAll(`input[name^="note-${currentRow}"]`)
           .forEach((el) => el.classList.add(styles.correct));
         setMessage(
-          `🎉 Congratulations! You correctly guessed Song #${answer["id"]}: '${answer["song"]}' in ${guessAttempts}/${guess.length} tries${difficultyMode !== 'normal' ? ` in ${difficultyMode} mode` : ''}!`
+          `🎉 Congratulations! You correctly guessed Song #${answer["id"]}: '${answer["song"]}' in ${guessAttempts}/${guess.length} tries${difficultyMode !== 'normal' ? ` in ${difficultyMode} mode` : ''}${usedBackSpace === false ? " with no backspaces used 🥇" : ""}!`
         );
         //Update stats and open modal
         updateStats();
@@ -199,6 +201,7 @@ function Board({ answer, testMode }) {
           /*Updated guess state after backspace*/
           const updatedGuess = guess.map((guessArr, i) => {
             if (i === currentRow) {
+              setUsedBackspace(true);
               return guessArr.slice(0, guessArr.length - 2);
             } else {
               return guessArr;
@@ -336,7 +339,7 @@ function Board({ answer, testMode }) {
   function shareResults() { //TODO: Refactor shareOutput to be calculated here without using state
     setIsOpen(false);
     let stat = gameWon ? guessAttempts : "X";
-    let beginText = `Perfect Pitch Puzzle - Song #${answer["id"]} ${stat}/${guess.length}${difficultyMode !== 'normal' ? ` in ${difficultyMode.toUpperCase()} mode` : ""} - ${getInstrument(instrument)} 🎵\n`;
+    let beginText = `Perfect Pitch Puzzle - Song #${answer["id"]} ${stat}/${guess.length}${difficultyMode !== 'normal' ? ` in ${difficultyMode.toUpperCase()} mode` : ""} - ${getInstrument(instrument)} 🎵 ${usedBackSpace === false ? " with no backspaces used 🥇" : "" }\n`;
     navigator.clipboard
       .writeText(
         beginText +
@@ -359,7 +362,6 @@ function Board({ answer, testMode }) {
     <Grid container spacing={1} justifyContent="center">
       <Grid item xl={4} lg={5} md={7} className={styles.left}>
         <Paper elevation={0}>
-
           <div className={styles.buttons}>
           <button type="button" className={styles.action}
             onClick={(e) => {
@@ -379,7 +381,6 @@ function Board({ answer, testMode }) {
               Submit
             </button>
           </div>
-
           <form className={styles.board} onSubmit={handleSubmit}>
             {guess.map((char, row) => {
               //char is the same thing as guess[row]
