@@ -92,7 +92,7 @@ export function playCelebrationSequence(selectedInstrument, answer, volume) {
  * @return 
  */
 
-export function playNote(selectedInstrument, note, answer, currentNote, numberTiles, volume) {
+export function playNote(selectedInstrument, note, answer, currentNote, numberTiles, volume, octave) {
     //Stop any previous melodies from playing
     stopAll();
     const instrument = instrumentsObj[selectedInstrument];
@@ -105,11 +105,11 @@ export function playNote(selectedInstrument, note, answer, currentNote, numberTi
     if (note.slice(-1) === ".") {
         note = note[0];
     }
-
+    console.log('octave inside playNote is', octave)
     instrument.loaded().then(() => {
-        const octave = answer.sequence[currentNote].slice(-1);
+        const oct = octave || answer.sequence[currentNote].slice(-1);
         const now = context.currentTime;
-        instrument.start({ note: `${note}${octave}`, time: now, duration: 0.5 });
+        instrument.start({ note: `${note}${oct}`, time: now, duration: 0.5 });
     })
     return;
 }

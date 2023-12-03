@@ -87,7 +87,7 @@ function App() {
       <VolumeContext.Provider value={volume}>
         <div className="App">
           <header className="App-header">
-            <Navbar />
+            <Navbar showCountdown={true} />
             {/* {JSON.stringify(setGameIndex())} */}
             {testMode && <div className="testMode"><h2>You are in test mode!
               <button onClick={() => { alert("Stats cleared!"); clearStorage() }}>Clear stats</button>
