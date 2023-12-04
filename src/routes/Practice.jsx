@@ -11,6 +11,12 @@ import { instrumentMapping } from '../helpers/getInstrument';
 import InputLabel from '@mui/material/InputLabel';
 import NativeSelect from '@mui/material/NativeSelect';
 import styles from './Practice.module.css'
+import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
+import StopIcon from '@mui/icons-material/Stop';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import LoopIcon from '@mui/icons-material/Loop';
+import PianoIcon from '@mui/icons-material/Piano';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
 
 
@@ -27,8 +33,15 @@ export default function Practice() {
     const [firstTimePlayed, setFirstTimePlayed] = useState(true);
     const [recording, setRecording] = useState({ "id": 125, "sequence": [], "duration": [], song: "", key: { note: "D", major: false }, hasFlats: true },
     )
+    const [showDrum, setShowDrum] = useState(false);
+    const [clickTimes, setClickTimes] = useState([]);
+    const [fields, setFields] = useState({});
     const possibleNotes = ["A", "B", "C", "D", "E", "F", "G", "Db", "C#", "Eb", "D#", "Gb", "F#", "Ab", "G#", "Bb", "A#"]
     const possibleOctaves = [3, 4, 5];
+
+    function handleFields(e) {
+        setFields(...fields, {[e.target.name]: e.target.value})
+    }
 
     function getRandomElement(possibleValues) {
         const randomIndex = Math.floor(Math.random() * possibleValues.length)
@@ -51,7 +64,7 @@ export default function Practice() {
             setFirstTimePlayed(false);
         }
         setIsPaused(false);
-        playSequence(instrument, answer, undefined, undefined, volume);
+        playSequence(instrument, answer, undefined, undefined, undefined, volume);
     }
 
     function handlePianoPress(note) {
@@ -67,6 +80,47 @@ export default function Practice() {
         return ` ${guess.split("").filter((el) => el === "\uDFE9").length} / ${guess.length / 2}`;
     }
 
+    function recordRhythm() {
+        setShowDrum(true);
+    }
+
+    function recordBeat() {
+        const currentTime = new Date().getTime();
+        setClickTimes((prevClickTimes) => [...prevClickTimes, currentTime])
+    }
+
+    function copy() {
+        navigator.clipboard.writeText(JSON.stringify(recording))
+    }
+
+    function calculateBeats() {
+
+        //calculate differences
+        const timeDifferences = [];
+        for (let i = 1; i < clickTimes.length; i++) {
+          const differenceInSeconds = (clickTimes[i] - clickTimes[i - 1]) / 1000;
+          timeDifferences.push(Math.round(differenceInSeconds * 3 * 100)/100);
+        }
+        //add last beat
+        timeDifferences.push(1)
+        setRecording(prevRecording => ({
+            ...prevRecording,
+            duration: timeDifferences
+        }));
+    }
+
+    function playRecording() {
+        playSequence(instrument, recording, undefined, undefined, undefined, volume);
+    }
+
+    function resetRhythm() {
+        setRecording(prevRecording => ({
+            ...prevRecording,
+            duration: []
+        }))
+        setClickTimes([])
+    }
+
     const handleKeyDown = useCallback(
         (event) => {
             switch (true) {
@@ -74,7 +128,6 @@ export default function Practice() {
                     /*Do not accept user input if game is over */
                     break;
                 case event.key === "Backspace":
-                    console.log('event.key', event.key)
                     /*Updated guess state after backspace*/
                     console.log('recording is', recording)
                     console.log(recording.sequence)
@@ -87,20 +140,16 @@ export default function Practice() {
                     break;
                 case event.keyCode === 37:
                     // The left arrow key was pressed.
-                    console.log("left key pressed", event.keyCode)
                     setOctave(octave > 3 ? octave - 1 : octave);
                     break;
                 case event.keyCode === 39:
                     // The right arrow key was pressed.
-                    console.log("right key pressed", event.keyCode)
                     setOctave(octave < 5 ? octave + 1 : octave);
                     break;
                 case isNote(event.key):
                     /*Update guess state after valid note*/
-                    console.log('event.key', event.key)
                     let note = getNote(event, answer?.hasFlats)
                     let noteWithOctave = getNoteWithOctave(event, answer?.hasFlats, octave).toUpperCase();
-
                     if (note[1] === "b") {
                         note = note[0].toUpperCase() + note[1];
                     } else {
@@ -174,11 +223,11 @@ export default function Practice() {
         <>
             <VolumeContext.Provider value={volume}>
                 <Navbar showCountdown={false} isPracticing={true} />
-                <Grid container sx={{ mb: 5, mt: 5 }} spacing={1} justifyContent="center">
+                <Grid container sx={{ mb: 5, mt: 5 }} justifyContent="center">
                     <div className={styles.guessContainer}>{guess}</div>
                     {getPercentage()}
                 </Grid>
-                <Grid container spacing={1} justifyContent="center">
+                <Grid container sx={{ mb: 5, mt: 5 }} spacing={1} justifyContent="center">
                     <Grid item xl={4} lg={5} md={7} className={styles.right}>
                         <PianoPractice handlePianoPress={handlePianoPress} octave={octave} hasFlats={answer?.hasFlats} className={styles.keyboard} setOctave={setOctave} />
 
@@ -200,10 +249,36 @@ export default function Practice() {
                         </NativeSelect>
                     </Grid>
                 </Grid>
-                <Grid container sx={{ mt: 5 }} spacing={1} justifyContent="center">
-                    <div style={{maxWidth: '20em', wordWrap: 'break-word'}} placeholder={JSON.stringify(recording)}>{JSON.stringify(recording)}</div>
+                <Grid container sx={{ mb: 5, mt: 5 }} spacing={1} justifyContent="center">
+                    <input type="text" onClick={handleFields} name="id"/>
+                    <input type="text" onClick={handleFields} name="song"/>
+                    <input type="text" onClick={handleFields} name="key"/>
+                    <input type="text" onClick={handleFields} name="isMajor"/>
+                    <input type="text" onClick={handleFields} name="hasFlats"/>
+
                 </Grid>
-                <Grid container sx={{ mt: 5 }} spacing={1} justifyContent="center">
+                <Grid container sx={{ mb: 5, mt: 5 }} spacing={1} justifyContent="center">
+                    <Grid item xl={8} className={styles.recordingBlock}>
+                    <button type="button" className={styles.action} onClick={recordRhythm}><FiberManualRecordIcon /></button>
+                    <button type="button" className={styles.action} onClick={calculateBeats}><StopIcon /></button>
+                    <button type="button" className={styles.action} onClick={playRecording}><PlayArrowIcon /></button>
+                    <button type="button" className={styles.action} onClick={resetRhythm}><LoopIcon /></button>
+                    </Grid>
+                    <Grid item xl={8} className={styles.recordingBlock}>
+                    {showDrum && <PianoIcon onClick={recordBeat} className={styles.drum} />}
+                    </Grid>
+                    <Grid item xl={8}>
+
+                    <div className={styles.recordingBlock}>
+                        <small>{JSON.stringify(clickTimes)}</small>
+                        <small>{JSON.stringify(fields)}</small>
+                        <br />
+                        {JSON.stringify(recording)}
+                        <p><ContentCopyIcon className={styles.copy} onClick={copy}/></p>
+                    </div>
+                    </Grid>
+                </Grid>
+                <Grid container sx={{ mt: 5, mb: 5 }} spacing={1} justifyContent="center">
                     {inProgress || isPaused ?
                         <>
                             <button type="button" className={styles.action} onClick={playGame}>{firstTimePlayed ? "Hear next note" : "Hear again"}</button>

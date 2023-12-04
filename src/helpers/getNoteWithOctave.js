@@ -36,5 +36,5 @@
             }
         }
     }
-    return event.key.length === 1 ? event.key + octave : event.key;   
+    return event.key + octave;   
 }

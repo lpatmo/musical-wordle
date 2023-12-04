@@ -112,15 +112,15 @@
   }
   
   .octave3 {
-    transform: translateX(-70px);
+    transform: translateX(-98px);
   }
   
   .octave4 {
-    transform: translateX(0px);
+    transform: translateX(-15px);
   }
   
   .octave5 {
-    transform: translateX(98px);
+    transform: translateX(68px);
   }
   
   .octaveText {

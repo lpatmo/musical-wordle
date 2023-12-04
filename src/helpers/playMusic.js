@@ -105,7 +105,6 @@ export function playNote(selectedInstrument, note, answer, currentNote, numberTi
     if (note.slice(-1) === ".") {
         note = note[0];
     }
-    console.log('octave inside playNote is', octave)
     instrument.loaded().then(() => {
         const oct = octave || answer.sequence[currentNote].slice(-1);
         const now = context.currentTime;
