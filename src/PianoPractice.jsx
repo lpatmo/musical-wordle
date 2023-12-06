@@ -7,17 +7,17 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
-function PianoNew({ handlePianoPress, octave, hasFlats, setOctave }) {
+function PianoPractice({ handlePianoPress, octave, hasFlats, setOctave }) {
     const [showShortcuts, setShowShortcuts] = useState(false);
     return (
         <>
             <section className={styles.tinyPianos}>
                 <div className={`${styles.highlight} ${octave === 3 && styles.octave3} ${octave === 4 && styles.octave4} ${octave === 5 && styles.octave5}`}><span className={styles.octaveText}>Octave: {octave}</span></div>
-                <KeyboardArrowLeftIcon className={`${styles.arrow} ${setOctave ?? styles.hidden}  ${octave === 3 && styles.hidden}`} onClick={(e) => setOctave(octave-1)}/>
+                <KeyboardArrowLeftIcon className={`${styles.arrow} ${octave === 3 && styles.hidden}`} onClick={(e) => setOctave(octave-1)}/>
                 <PianoTiny octave={octave} />
                 <PianoTiny octave={octave} />
                 <PianoTiny octave={octave} />
-                <KeyboardArrowRightIcon className={`${styles.arrow} ${setOctave ?? styles.hidden} ${octave === 5 && styles.hidden}`} onClick={(e) => setOctave(octave+1)} />
+                <KeyboardArrowRightIcon className={`${styles.arrow} ${octave === 5 && styles.hidden}`} onClick={(e) => setOctave(octave+1)} />
             </section>
             <section>
                 <div className={styles.pianoNew}>
@@ -55,4 +55,4 @@ function PianoNew({ handlePianoPress, octave, hasFlats, setOctave }) {
         </>)
 }
 
-export default PianoNew;
+export default PianoPractice;

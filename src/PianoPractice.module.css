@@ -110,17 +110,27 @@
     transition: transform 0.5s;
     border-radius: 0 0 3px 3px;
   }
+
+  svg.arrow {
+    position: relative;
+    font-size: 1em;
+    top: 6px;
+  }
+
+  svg.hidden {
+    visibility: hidden;
+  }
   
   .octave3 {
-    transform: translateX(-98px);
+    transform: translateX(-88px);
   }
   
   .octave4 {
-    transform: translateX(-15px);
+    transform: translateX(-5px);
   }
   
   .octave5 {
-    transform: translateX(68px);
+    transform: translateX(78px);
   }
   
   .octaveText {

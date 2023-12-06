@@ -17,6 +17,7 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import LoopIcon from '@mui/icons-material/Loop';
 import PianoIcon from '@mui/icons-material/Piano';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import TextField from '@mui/material/TextField';
 
 
 
@@ -31,16 +32,35 @@ export default function Practice() {
     const [guess, setGuess] = useState("");
     const [answer, setAnswer] = useState({ sequence: [`Ab${octave}`], duration: [2], hasFlats: false })
     const [firstTimePlayed, setFirstTimePlayed] = useState(true);
-    const [recording, setRecording] = useState({ "id": 125, "sequence": [], "duration": [], song: "", key: { note: "D", major: false }, hasFlats: true },
+    const [recording, setRecording] = useState({ "id": 125, "sequence": [], "duration": [], song: "", key: { note: "D", major: false }, hasFlats: false },
     )
+    const [fields, setFields] = useState({hasFlats: false, isMajor: false})
     const [showDrum, setShowDrum] = useState(false);
     const [clickTimes, setClickTimes] = useState([]);
-    const [fields, setFields] = useState({});
     const possibleNotes = ["A", "B", "C", "D", "E", "F", "G", "Db", "C#", "Eb", "D#", "Gb", "F#", "Ab", "G#", "Bb", "A#"]
     const possibleOctaves = [3, 4, 5];
 
     function handleFields(e) {
-        setFields(...fields, {[e.target.name]: e.target.value})
+        if (e.target.name === "hasFlats") {
+            console.log('e.target.name, e.target.value', e.target.name, e.target.value)
+            setFields({...fields, hasFlats: !fields.hasFlats})
+            setRecording((prevRecording) => ({
+                ...prevRecording, [e.target.name]: !fields.hasFlats
+            }))
+        } else if (e.target.name === "isMajor") {
+            setFields({...fields, isMajor: !fields.isMajor})
+            setRecording(prevState => ({
+                ...prevState,
+                key: {
+                  ...prevState.key,
+                  major: !fields.isMajor
+                }
+              }));
+        } else {
+        setRecording((prevRecording) => ({
+            ...prevRecording, [e.target.name]: e.target.value
+        }))
+        }
     }
 
     function getRandomElement(possibleValues) {
@@ -98,8 +118,8 @@ export default function Practice() {
         //calculate differences
         const timeDifferences = [];
         for (let i = 1; i < clickTimes.length; i++) {
-          const differenceInSeconds = (clickTimes[i] - clickTimes[i - 1]) / 1000;
-          timeDifferences.push(Math.round(differenceInSeconds * 3 * 100)/100);
+            const differenceInSeconds = (clickTimes[i] - clickTimes[i - 1]) / 1000;
+            timeDifferences.push(Math.round(differenceInSeconds * 3 * 100) / 100);
         }
         //add last beat
         timeDifferences.push(1)
@@ -124,6 +144,8 @@ export default function Practice() {
     const handleKeyDown = useCallback(
         (event) => {
             switch (true) {
+                case document.activeElement.tagName === 'INPUT':
+                    break;
                 case gameOver:
                     /*Do not accept user input if game is over */
                     break;
@@ -250,32 +272,31 @@ export default function Practice() {
                     </Grid>
                 </Grid>
                 <Grid container sx={{ mb: 5, mt: 5 }} spacing={1} justifyContent="center">
-                    <input type="text" onClick={handleFields} name="id"/>
-                    <input type="text" onClick={handleFields} name="song"/>
-                    <input type="text" onClick={handleFields} name="key"/>
-                    <input type="text" onClick={handleFields} name="isMajor"/>
-                    <input type="text" onClick={handleFields} name="hasFlats"/>
+                    <TextField id="outlined-basic" label="id" variant="outlined" name="id" onChange={(e) => handleFields(e)} size="large"  />
+                    <TextField id="outlined-basic" label="song" variant="outlined" name="song" onChange={(e) => handleFields(e)}  />
+                    <TextField id="outlined-basic" label="key" variant="outlined" name="key" onChange={(e) => handleFields(e)} />
+                    <input type="checkbox" onChange={(e) => handleFields(e)} name="isMajor" defaultValue={fields.isMajor}/>
+                    <input type="checkbox" onChange={(e) => handleFields(e)} name="hasFlats" defaultValue={fields.hasFlats}/>
 
                 </Grid>
                 <Grid container sx={{ mb: 5, mt: 5 }} spacing={1} justifyContent="center">
                     <Grid item xl={8} className={styles.recordingBlock}>
-                    <button type="button" className={styles.action} onClick={recordRhythm}><FiberManualRecordIcon /></button>
-                    <button type="button" className={styles.action} onClick={calculateBeats}><StopIcon /></button>
-                    <button type="button" className={styles.action} onClick={playRecording}><PlayArrowIcon /></button>
-                    <button type="button" className={styles.action} onClick={resetRhythm}><LoopIcon /></button>
+                        <button type="button" className={styles.action} onClick={recordRhythm}><FiberManualRecordIcon /></button>
+                        <button type="button" className={styles.action} onClick={calculateBeats}><StopIcon /></button>
+                        <button type="button" className={styles.action} onClick={playRecording}><PlayArrowIcon /></button>
+                        <button type="button" className={styles.action} onClick={resetRhythm}><LoopIcon /></button>
                     </Grid>
                     <Grid item xl={8} className={styles.recordingBlock}>
-                    {showDrum && <PianoIcon onClick={recordBeat} className={styles.drum} />}
+                        {showDrum && <PianoIcon onClick={recordBeat} className={styles.drum} />}
                     </Grid>
                     <Grid item xl={8}>
 
-                    <div className={styles.recordingBlock}>
-                        <small>{JSON.stringify(clickTimes)}</small>
-                        <small>{JSON.stringify(fields)}</small>
-                        <br />
-                        {JSON.stringify(recording)}
-                        <p><ContentCopyIcon className={styles.copy} onClick={copy}/></p>
-                    </div>
+                        <div className={styles.recordingBlock}>
+                            <small>{JSON.stringify(clickTimes)}</small>
+                            <br />
+                            {JSON.stringify(recording)}
+                            <p><ContentCopyIcon className={styles.copy} onClick={copy} /></p>
+                        </div>
                     </Grid>
                 </Grid>
                 <Grid container sx={{ mt: 5, mb: 5 }} spacing={1} justifyContent="center">
