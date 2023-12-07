@@ -38,6 +38,7 @@ export default function Practice() {
     const [showDrum, setShowDrum] = useState(false);
     const [clickTimes, setClickTimes] = useState([]);
     const [showRecordingSection, setShowRecordingSection] = useState(false);
+    const [hasFlats, setHasFlats] = useState(answer?.hasFlats)
     const possibleNotes = ["A", "B", "C", "D", "E", "F", "G", "Db", "C#", "Eb", "D#", "Gb", "F#", "Ab", "G#", "Bb", "A#"]
     const possibleOctaves = [3, 4, 5];
 
@@ -48,6 +49,7 @@ export default function Practice() {
             setRecording((prevRecording) => ({
                 ...prevRecording, [e.target.name]: !fields.hasFlats
             }))
+            setHasFlats(!hasFlats);
         } else if (e.target.name === "isMajor") {
             setFields({ ...fields, isMajor: !fields.isMajor })
             setRecording(prevState => ({
@@ -57,6 +59,10 @@ export default function Practice() {
                     major: !fields.isMajor
                 }
             }));
+        } else if (e.target.name === "id") {
+            setRecording((prevRecording) => ({
+                ...prevRecording, [e.target.name]: parseInt(e.target.value)
+            }))
         } else {
             setRecording((prevRecording) => ({
                 ...prevRecording, [e.target.name]: e.target.value
@@ -171,8 +177,8 @@ export default function Practice() {
                     break;
                 case isNote(event.key):
                     /*Update guess state after valid note*/
-                    let note = getNote(event, answer?.hasFlats)
-                    let noteWithOctave = getNoteWithOctave(event, answer?.hasFlats, octave).toUpperCase();
+                    let note = getNote(event, hasFlats)
+                    let noteWithOctave = getNoteWithOctave(event, hasFlats, octave);
                     if (note[1] === "b") {
                         note = note[0].toUpperCase() + note[1];
                     } else {
@@ -193,7 +199,7 @@ export default function Practice() {
                         if (note[1] === '.') {
                             document.querySelector(`#${note[0]}`).classList.add('activeWhite')
                         } else {
-                            if (answer?.hasFlats) {
+                            if (hasFlats) {
                                 document.querySelector(`#${note[0]}flat`).classList.add('activeBlack')
                             } else {
                                 document.querySelector(`#${note[0]}sharp`).classList.add('activeBlack')
@@ -205,7 +211,7 @@ export default function Practice() {
                         if (note[1] === '.') {
                             document.querySelector(`#${note[0]}`).classList.remove('activeWhite')
                         } else {
-                            if (answer?.hasFlats) {
+                            if (hasFlats) {
                                 document.querySelector(`#${note[0]}flat`).classList.remove('activeBlack')
                             } else {
                                 document.querySelector(`#${note[0]}sharp`).classList.remove('activeBlack')
@@ -265,7 +271,7 @@ export default function Practice() {
                 </Grid>
                 <Grid container sx={{ mb: 5, mt: 5 }} spacing={1} justifyContent="center">
                     <Grid item xl={4} lg={5} md={7} className={styles.right}>
-                        <PianoPractice handlePianoPress={handlePianoPress} octave={octave} hasFlats={answer?.hasFlats} className={styles.keyboard} setOctave={setOctave} />
+                        <PianoPractice handlePianoPress={handlePianoPress} octave={octave} hasFlats={hasFlats} className={styles.keyboard} setOctave={setOctave} />
                     </Grid>
                 </Grid>
                 <Grid container sx={{ mb: 5, mt: 5 }} spacing={1} justifyContent="center">
