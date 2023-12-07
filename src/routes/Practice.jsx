@@ -44,7 +44,6 @@ export default function Practice() {
 
     function handleFields(e) {
         if (e.target.name === "hasFlats") {
-            console.log('e.target.name, e.target.value', e.target.name, e.target.value)
             setFields({ ...fields, hasFlats: !fields.hasFlats })
             setRecording((prevRecording) => ({
                 ...prevRecording, [e.target.name]: !fields.hasFlats
@@ -65,7 +64,7 @@ export default function Practice() {
             }))
         } else {
             setRecording((prevRecording) => ({
-                ...prevRecording, [e.target.name]: e.target.value
+                ...prevRecording, [e.target.name]: e.target.value   
             }))
         }
     }
@@ -158,8 +157,6 @@ export default function Practice() {
                     break;
                 case event.key === "Backspace":
                     /*Updated guess state after backspace*/
-                    console.log('recording is', recording)
-                    console.log(recording.sequence)
                     if (recording.sequence.length > 0) {
                         setRecording(prevRecording => ({
                             ...prevRecording,
@@ -189,7 +186,6 @@ export default function Practice() {
                         sequence: [...prevRecording.sequence, noteWithOctave]
                     }));
 
-                    console.log('octave', octave)
                     /*Play the note in the same octave as the corresponding answer*/
                     playNote(instrument, note, answer, 0, 6, volume, octave);
                     //setError("");
@@ -220,7 +216,6 @@ export default function Practice() {
                     }, 200)
 
                     if (inProgress && !isPaused) {
-                        console.log('comparing...')
                         if (compareNoteWithAnswer(note, answer?.sequence[0])) {
                             setGuess(guess + '🟩')
                             getNewNote();
