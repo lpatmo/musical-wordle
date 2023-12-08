@@ -8,7 +8,6 @@ import getNoteWithOctave from '../helpers/getNoteWithOctave';
 import { playNote, playSequence } from "../helpers/playMusic";
 import Grid from '@mui/material/Grid';
 import { instrumentMapping } from '../helpers/getInstrument';
-import InputLabel from '@mui/material/InputLabel';
 import NativeSelect from '@mui/material/NativeSelect';
 import styles from './Practice.module.css'
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
@@ -18,6 +17,7 @@ import LoopIcon from '@mui/icons-material/Loop';
 import PianoIcon from '@mui/icons-material/Piano';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import TextField from '@mui/material/TextField';
+import {data} from '../data/data.js'
 
 
 
@@ -32,7 +32,7 @@ export default function Practice() {
     const [guess, setGuess] = useState("");
     const [answer, setAnswer] = useState({ sequence: [`Ab${octave}`], duration: [2], hasFlats: false })
     const [firstTimePlayed, setFirstTimePlayed] = useState(true);
-    const [recording, setRecording] = useState({ "id": 125, "sequence": [], "duration": [], song: "", key: { note: "D", major: false }, hasFlats: false },
+    const [recording, setRecording] = useState({ "id": data[data.length-1].id + 1, "sequence": [], "duration": [], song: "", key: { note: "D", major: false }, hasFlats: false },
     )
     const [fields, setFields] = useState({ hasFlats: false, isMajor: false })
     const [showDrum, setShowDrum] = useState(false);
@@ -183,7 +183,8 @@ export default function Practice() {
                     }
                     setRecording(prevRecording => ({
                         ...prevRecording,
-                        sequence: [...prevRecording.sequence, noteWithOctave]
+                        sequence: [...prevRecording.sequence, noteWithOctave],
+                        duration: [...prevRecording.duration, 1]
                     }));
 
                     /*Play the note in the same octave as the corresponding answer*/
@@ -301,6 +302,7 @@ export default function Practice() {
                                 <button type="button" className={styles.action} onClick={calculateBeats}><StopIcon /></button>
                                 <button type="button" className={styles.action} onClick={playRecording}><PlayArrowIcon /></button>
                                 <button type="button" className={styles.action} onClick={resetRhythm}><LoopIcon /></button>
+                                <button type="button" className={styles.action} onClick={() => playSequence(instrument, data[data.length-1], undefined, undefined, undefined, volume)}>Play</button>
                             </Grid>
                             <Grid item xl={8} className={styles.recordingBlock}>
                                 {showDrum && <PianoIcon onClick={recordBeat} className={styles.drum} />}
@@ -309,7 +311,8 @@ export default function Practice() {
 
                                 <div className={styles.recordingBlock}>
                                     <small>{JSON.stringify(clickTimes)}</small>
-                                    <br />
+                                </div>
+                                <div className={styles.recordingBlock}>
                                     {JSON.stringify(recording)}
                                     <p><ContentCopyIcon className={styles.copy} onClick={copy} /></p>
                                 </div>
