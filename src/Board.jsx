@@ -132,7 +132,7 @@ function Board({ answer, testMode }) {
           .querySelectorAll(`input[name^="note-${currentRow}"]`)
           .forEach((el) => el.classList.add(styles.correct));
         setMessage(
-          `🎉 Congratulations! You correctly guessed Song #${answer["id"]}: '${answer["song"]}' in ${guessAttempts}/${guess.length} tries${difficultyMode !== 'normal' ? ` in ${difficultyMode} mode` : ''}${usedBackSpace === false ? "🏅" : ""}${guessAttempts === 1 && "🥇"}!`
+          `🎉 Congratulations! You correctly guessed Song #${answer["id"]}: '${answer["song"]}' in ${guessAttempts}/${guess.length} tries${difficultyMode !== 'normal' ? ` in ${difficultyMode} mode` : ''}${usedBackSpace === false ? "🏅" : ""}${guessAttempts === 1 ? "🥇": ""}!`
         );
         //Update stats and open modal
         updateStats();
@@ -339,7 +339,7 @@ function Board({ answer, testMode }) {
   function shareResults() { //TODO: Refactor shareOutput to be calculated here without using state
     setIsOpen(false);
     let stat = gameWon ? guessAttempts : "X";
-    let beginText = `Perfect Pitch Puzzle - Song #${answer["id"]} ${stat}/${guess.length}${difficultyMode !== 'normal' ? ` in ${difficultyMode.toUpperCase()} mode` : ""} - ${getInstrument(instrument)} 🎵 ${usedBackSpace === false ? "🏅" : "" }${guessAttempts === 1 && "🥇"}\n`;
+    let beginText = `Perfect Pitch Puzzle - Song #${answer["id"]} ${stat}/${guess.length}${difficultyMode !== 'normal' ? ` in ${difficultyMode.toUpperCase()} mode` : ""} - ${getInstrument(instrument)} 🎵 ${usedBackSpace === false ? "🏅" : "" }${guessAttempts === 1 ? "🥇" : ""}\n`;
     navigator.clipboard
       .writeText(
         beginText +
