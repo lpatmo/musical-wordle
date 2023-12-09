@@ -1,0 +1,36 @@
+.keyboard {
+    margin-top: 3em;
+}
+.guessContainer {
+    max-width: 60%;
+    margin-right: 1em;
+}
+
+.recordingBlock {
+    max-width: '20em';
+    word-wrap: 'break-word';
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+}
+
+.recordingBlock .drum {
+    font-size: 4em;
+    cursor: pointer;
+}
+
+.action svg {
+    font-size: 1em;
+    position: relative;
+    top: 2px;
+}
+
+button.action {
+    width: auto;
+    height: auto;
+    margin: .1em;
+}
+p .copy {
+    cursor: pointer;
+    font-size: 2em;
+}
