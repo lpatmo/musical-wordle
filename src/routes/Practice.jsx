@@ -59,6 +59,14 @@ export default function Practice() {
                     major: !fields.isMajor
                 }
             }));
+        } else if (e.target.name === "key") {
+            setRecording(prevState => ({
+                ...prevState,
+                key: {
+                    ...prevState.key,
+                    note: e.target.value
+                }
+            }));
         } else if (e.target.name === "id") {
             setRecording((prevRecording) => ({
                 ...prevRecording, [e.target.name]: parseInt(e.target.value)
