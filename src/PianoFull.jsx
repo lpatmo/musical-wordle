@@ -18,7 +18,7 @@ function PianoFull({ handlePianoPress, octave, hasFlats, setOctave }) {
                         <li id="F3" onClick={() => handlePianoPress("F", 3)} className={styles.white}>F3</li>
                         <li id={hasFlats ? "Gflat3" : "Fsharp3"} onClick={() => handlePianoPress(hasFlats ? "Gb" : "F#", 3)} className={styles.black}>{hasFlats ? "Gb" : "F#"}</li>
                         <li id="G3" onClick={() => handlePianoPress("G", 3)} className={`${styles.white} ${styles.offset}`}>G{octave-1}</li>
-                        <li id={hasFlats ? "Aflat3" : "Gsharp3"} onClick={() => handlePianoPress(hasFlats ? "Ab" : "G#")} className={styles.black}>{hasFlats ? "Ab" : "G#"}</li>
+                        <li id={hasFlats ? "Aflat2" : "Gsharp3"} onClick={() => handlePianoPress(hasFlats ? "Ab" : "G#", 3)} className={styles.black}>{hasFlats ? "Ab" : "G#"}</li>
                         <li id="A3" onClick={() => handlePianoPress("A", 3)} className={`${styles.white} ${styles.offset}`}>A{octave-1}</li>
                         <li id={hasFlats ? "Bflat3" : "Asharp3"} onClick={() => handlePianoPress(hasFlats ? "Bb" : "A#", 3)} className={styles.black}>{hasFlats ? "Bb" : "A#"}</li>
                         <li id="B3" onClick={() => handlePianoPress("B", 3)} className={`${styles.white} ${styles.offset}`}>B{octave-1}</li>
