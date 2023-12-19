@@ -86,6 +86,7 @@ export default function Practice() {
     function getNewNote() {
         const selectedNote = getRandomElement(possibleNotes);
         const hasFlats = selectedNote[1] === "b";
+        setHasFlats(hasFlats)
         setAnswer({ sequence: [`${selectedNote}${getRandomElement(possibleOctaves)}`], duration: [1], hasFlats: hasFlats })
     }
     function startGame() {
