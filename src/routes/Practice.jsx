@@ -2,6 +2,7 @@ import { useState, useCallback, useEffect } from 'react';
 import Navbar from '../Navbar';
 import VolumeContext from '../contexts/VolumeContext'
 import PianoPractice from '../PianoPractice'
+import PianoFull from '../PianoFull'
 import isNote from '../helpers/isNote'
 import getNote from '../helpers/getNote'
 import getNoteWithOctave from '../helpers/getNoteWithOctave';
@@ -58,6 +59,14 @@ export default function Practice() {
                     major: !fields.isMajor
                 }
             }));
+        } else if (e.target.name === "key") {
+            setRecording(prevState => ({
+                ...prevState,
+                key: {
+                    ...prevState.key,
+                    note: e.target.value
+                }
+            }));
         } else if (e.target.name === "id") {
             setRecording((prevRecording) => ({
                 ...prevRecording, [e.target.name]: parseInt(e.target.value)
@@ -77,6 +86,7 @@ export default function Practice() {
     function getNewNote() {
         const selectedNote = getRandomElement(possibleNotes);
         const hasFlats = selectedNote[1] === "b";
+        setHasFlats(hasFlats)
         setAnswer({ sequence: [`${selectedNote}${getRandomElement(possibleOctaves)}`], duration: [1], hasFlats: hasFlats })
     }
     function startGame() {
@@ -93,8 +103,9 @@ export default function Practice() {
         playSequence(instrument, answer, undefined, undefined, undefined, volume);
     }
 
-    function handlePianoPress(note) {
-        handleKeyDown({ key: note });
+    function handlePianoPress(note, octave=null) {
+        console.log('octave', octave)
+        handleKeyDown({ key: note }, octave);
     }
     function compareNoteWithAnswer(note, answerNote) {
         //note: F. Ab C# G.
@@ -148,7 +159,8 @@ export default function Practice() {
     }
 
     const handleKeyDown = useCallback(
-        (event) => {
+        (event, oct) => {
+            console.log('oct inside callback', oct)
             switch (true) {
                 case document.activeElement.tagName === 'INPUT':
                     break;
@@ -175,7 +187,7 @@ export default function Practice() {
                 case isNote(event.key):
                     /*Update guess state after valid note*/
                     let note = getNote(event, hasFlats)
-                    let noteWithOctave = getNoteWithOctave(event, hasFlats, octave);
+                    let noteWithOctave = getNoteWithOctave(event, hasFlats, oct || octave);
                     if (note[1] === "b") {
                         note = note[0].toUpperCase() + note[1];
                     } else {
@@ -188,30 +200,31 @@ export default function Practice() {
                     }));
 
                     /*Play the note in the same octave as the corresponding answer*/
-                    playNote(instrument, note, answer, 0, 6, volume, octave);
+                    playNote(instrument, note, answer, 0, 6, volume, oct || octave);
                     //setError("");
 
                     //highlight piano keyboard notes
                     setTimeout(() => {
-                        if (note[1] === '.') {
-                            document.querySelector(`#${note[0]}`).classList.add('activeWhite')
+                        console.log('note inside setTimeout', noteWithOctave)
+                        if (noteWithOctave.length === 2) {
+                            document.querySelector(`#${noteWithOctave}`).classList.add('activeWhite')
                         } else {
                             if (hasFlats) {
-                                document.querySelector(`#${note[0]}flat`).classList.add('activeBlack')
+                                document.querySelector(`#${noteWithOctave[0]}flat${noteWithOctave[2]}`).classList.add('activeBlack')
                             } else {
-                                document.querySelector(`#${note[0]}sharp`).classList.add('activeBlack')
+                                document.querySelector(`#${noteWithOctave[0]}sharp${noteWithOctave[2]}`).classList.add('activeBlack')
                             }
                         }
                     }, 0)
 
                     setTimeout(() => {
-                        if (note[1] === '.') {
-                            document.querySelector(`#${note[0]}`).classList.remove('activeWhite')
+                        if (noteWithOctave.length === 2) {
+                            document.querySelector(`#${noteWithOctave}`).classList.remove('activeWhite')
                         } else {
                             if (hasFlats) {
-                                document.querySelector(`#${note[0]}flat`).classList.remove('activeBlack')
+                                document.querySelector(`#${noteWithOctave[0]}flat${noteWithOctave[2]}`).classList.remove('activeBlack')
                             } else {
-                                document.querySelector(`#${note[0]}sharp`).classList.remove('activeBlack')
+                                document.querySelector(`#${noteWithOctave[0]}sharp${noteWithOctave[2]}`).classList.remove('activeBlack')
                             }
                         }
                     }, 200)
@@ -269,6 +282,10 @@ export default function Practice() {
                     <Grid item xl={4} lg={5} md={7} className={styles.right}>
                         <PianoPractice handlePianoPress={handlePianoPress} octave={octave} hasFlats={hasFlats} className={styles.keyboard} setOctave={setOctave} />
                     </Grid>
+                    {/*TODO: show only during desktop mode*/}
+                    <Grid item xl={12} lg={12} md={12} className={styles.right}>
+                        <PianoFull handlePianoPress={handlePianoPress} octave={4} hasFlats={hasFlats} className={styles.keyboard} setOctave={setOctave} />
+                    </Grid>
                 </Grid>
                 <Grid container sx={{ mb: 5, mt: 5 }} spacing={1} justifyContent="center">
                     <NativeSelect
@@ -309,13 +326,13 @@ export default function Practice() {
                             </Grid>
                             <Grid item xl={8}>
 
-                                <div className={styles.recordingBlock}>
+                                <p className={styles.recordingBlock}>
                                     <small>{JSON.stringify(clickTimes)}</small>
-                                </div>
-                                <div className={styles.recordingBlock}>
+                                </p>
+                                <p className={styles.recordingBlock} style={{wordWrap: 'break-word'}}>
                                     {JSON.stringify(recording)}
-                                    <p><ContentCopyIcon className={styles.copy} onClick={copy} /></p>
-                                </div>
+                                </p>
+                                <p><ContentCopyIcon className={styles.copy} onClick={copy} /></p>
                             </Grid>
                         </Grid>
                     </>
