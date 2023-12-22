@@ -178,6 +178,7 @@ function Board({ answer, testMode }) {
             .classList.add(styles.misplaced);
           answerFreqCount[guessArr[i]] -= 1;
         } else if (answerArr[i] !== "X.") {
+          shareOutput[currentRow][i] = "⬛";
           document
             .querySelector(`input[name="note-${currentRow}-${i}"]`)
             .classList.add(styles.incorrect);
