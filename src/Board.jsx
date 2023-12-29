@@ -306,7 +306,7 @@ function Board({ answer, testMode }) {
             if (answer.sequence[0][1] !== '#' && answer.sequence[0][1] !== 'b') {
               return answer.sequence[0][0] + '.'
             } else {
-              return answer.sequence.slice(0,2);
+              return answer.sequence[0].slice(0,2);
             } 
           });
           setGuess(updatedGuess);
