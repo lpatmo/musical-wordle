@@ -81,6 +81,10 @@ function App() {
     setVolume(0);
   }
 
+  function handleAnswer(e) {
+    setAnswer(data[e.target.value - 1] || answer)
+  }
+
 
   return (
     <MidnightContext.Provider value={{ isMidnight, setIsMidnight }}>
@@ -122,6 +126,7 @@ function App() {
 
         </div>
         <footer>
+          <input type="number" name="choose song" min="1" max={data.length.toString()} onChange={handleAnswer}></input>
           <a href="https://discord.gg/8k3zA8nbsE" target="_blank" referrer="no-referrer" className="discordIcon"><FontAwesomeIcon icon={faDiscord} aria-labelledby="Join us on Discord" /></a>
         </footer>
       </VolumeContext.Provider>
