@@ -1,6 +1,6 @@
 
 import './App.css';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Board from './Board';
 import { data } from './data/data.js';
 import Slider from '@mui/material/Slider';
@@ -29,6 +29,7 @@ function App() {
   const [mobileOrSafari, setMobileOrSafari] = useState(false);
   const [testMode, setTestMode] = useState(false);
   const [showStats, setShowStats] = useState(false);
+  const resetBoardRef = useRef(null);
 
   function setGameIndex() {
     let startDate = new Date('2023-08-05');
@@ -83,6 +84,9 @@ function App() {
 
   function handleAnswer(e) {
     setAnswer(data[e.target.value - 1] || answer)
+    if (resetBoardRef.current) {
+      resetBoardRef.current.resetBoard();
+    }
   }
 
 
@@ -113,7 +117,7 @@ function App() {
                 </Stack>
 
               </Box>
-              <Board answer={answer} testMode={testMode} />
+              <Board answer={answer} testMode={testMode} ref={resetBoardRef} />
               <Box className="mobileShow">
 
                 <Stack spacing={3} direction="row" alignItems="center" className="audioSettings">
