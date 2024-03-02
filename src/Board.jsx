@@ -73,6 +73,7 @@ function Board({ answer, testMode }, ref) {
       new Array(numberTiles).fill(null).map((row) => {
         return Array(numberTiles).fill("⬛");
       }))
+    setPlayTuneTries(3);
 
     //Remove the colors for the bg tiles as well
     const inputTiles = document.querySelectorAll('input[name^="note-"]');
