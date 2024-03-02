@@ -22,7 +22,7 @@ import getInstrument from './helpers/getInstrument';
 import { instrumentMapping } from './helpers/getInstrument';
 
 
-function Board({ answer, testMode, ref }) {
+function Board({ answer, testMode }, ref) {
   const volume = useContext(VolumeContext);
   const modesToTiles = {
     'easy': 6,
