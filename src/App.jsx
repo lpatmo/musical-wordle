@@ -82,8 +82,9 @@ function App() {
     setVolume(0);
   }
 
-  function handleAnswer(e) {
-    setAnswer(data[e.target.value - 1] || answer)
+  function handleAnswer(e) { //set new song to user input, default to the current day if invalid input, or the previous answer if neither is valid
+    let newSongNumber = !testMode ? Math.min(e.target.value - 1, setGameIndex()) : e.target.value - 1;
+    setAnswer(data[newSongNumber] || answer)
     if (resetBoardRef.current) {
       resetBoardRef.current.resetBoard();
     }
