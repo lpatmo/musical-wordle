@@ -8,7 +8,7 @@ import CountdownTimer from './CountdownTimer';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDiscord } from '@fortawesome/free-brands-svg-icons'
 
-function Navbar({ showCountdown, handleAnswer }) {
+function Navbar({ showCountdown, handleAnswer, maxSongSelect = Infinity }) {
     const [showStats, setShowStats] = useState(false);
     const [showInstructions, setShowInstructions] = useState(false);
     useEffect(() => {
@@ -20,6 +20,7 @@ function Navbar({ showCountdown, handleAnswer }) {
             sessionStorage.setItem("perfectPitchPuzzleHasVisited", "true");
         }
     }, [])
+
 
     return (
         <div className={styles.navbar}>
@@ -34,7 +35,7 @@ function Navbar({ showCountdown, handleAnswer }) {
             {showCountdown && <CountdownTimer />}
             {showStats && <ModalStats setIsOpen={setShowStats} />}
             {showInstructions && <ModalInstructions setIsOpen={setShowInstructions} />}
-            <input id={styles.songSelector} type="number" name="choose song" placeholder="Enter Song Number" min="1" onChange={handleAnswer}></input>
+            <input id={styles.songSelector} type="number" name="choose song" placeholder="Enter Song Number" min="1" step="1" max={maxSongSelect.toString()} onChange={handleAnswer}></input>
         </div>
     )
 }
