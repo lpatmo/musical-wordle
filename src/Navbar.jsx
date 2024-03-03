@@ -7,8 +7,9 @@ import ModalInstructions from './ModalInstructions';
 import CountdownTimer from './CountdownTimer';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDiscord } from '@fortawesome/free-brands-svg-icons'
+import SongSelector from './SongSelector'
 
-function Navbar({ showCountdown, handleAnswer, maxSongSelect = Infinity }) {
+function Navbar({ showCountdown, songID, handleAnswer, maxSongSelect = Infinity }) {
     const [showStats, setShowStats] = useState(false);
     const [showInstructions, setShowInstructions] = useState(false);
     useEffect(() => {
@@ -35,7 +36,7 @@ function Navbar({ showCountdown, handleAnswer, maxSongSelect = Infinity }) {
             {showCountdown && <CountdownTimer />}
             {showStats && <ModalStats setIsOpen={setShowStats} />}
             {showInstructions && <ModalInstructions setIsOpen={setShowInstructions} />}
-            <input id={styles.songSelector} type="number" name="choose song" placeholder="Enter Song Number" min="1" step="1" max={maxSongSelect.toString()} onChange={handleAnswer}></input>
+            <SongSelector songID={songID} handleAnswer={handleAnswer} maxSongSelect={maxSongSelect} />
         </div>
     )
 }
