@@ -6,6 +6,8 @@ import AddIcon from '@mui/icons-material/Add';
 
 const NumberInput = React.forwardRef(function CustomNumberInput(props, ref) {
   return (
+    <section style={{display: 'flex', flexDirection: 'column', marginLeft: '20px'}}>
+    <h4 style={{fontSize: '1rem', lineHeight: '0.5'}}>Day #</h4>
     <BaseNumberInput
       slots={{
         root: StyledInputRoot,
@@ -25,11 +27,12 @@ const NumberInput = React.forwardRef(function CustomNumberInput(props, ref) {
       {...props}
       ref={ref}
     />
+    </section>
   );
 });
 
 export default function SongSelector({handleAnswer, maxSongSelect, songID}) {
-  return <NumberInput aria-label="Song Selector" min={1} max={maxSongSelect} value={songID} onChange={(e, val) => { handleAnswer(val) }} />
+  return <><NumberInput aria-label="Song Selector" min={1} max={maxSongSelect} value={songID} onChange={(e, val) => { handleAnswer(val) }} /></>
 }
 
 const blue = {
@@ -64,7 +67,6 @@ const StyledInputRoot = styled('div')(
   flex-flow: row nowrap;
   justify-content: center;
   align-items: center;
-  margin-left: 20px;
 `,
 );
 
