@@ -276,7 +276,7 @@ export default function Practice() {
     return (
         <>
             <VolumeContext.Provider value={volume}>
-                <Navbar handleAnswer={handlePuzzleReference} showCountdown={false} isPracticing={true} />
+                <Navbar songID={puzzleReference?.id} handleAnswer={handlePuzzleReference} maxSongSelect={data.length} showCountdown={false} isPracticing={true} />
                 <Grid container sx={{ mb: 5, mt: 5 }} justifyContent="center">
                     <div className={styles.guessContainer}>{guess}</div>
 
