@@ -36,7 +36,7 @@ function Navbar({ showCountdown, songID, handleAnswer, maxSongSelect = Infinity 
             {showCountdown && <CountdownTimer />}
             {showStats && <ModalStats setIsOpen={setShowStats} />}
             {showInstructions && <ModalInstructions setIsOpen={setShowInstructions} />}
-            {songID && handleAnswer && <SongSelector songID={songID} handleAnswer={handleAnswer} maxSongSelect={maxSongSelect} />}
+            {<SongSelector songID={songID} handleAnswer={handleAnswer} maxSongSelect={maxSongSelect} />}
         </div>
     )
 }

@@ -32,6 +32,7 @@ export default function Practice() {
     const [error, setError] = useState(null);
     const [guess, setGuess] = useState("");
     const [answer, setAnswer] = useState({ sequence: [`Ab${octave}`], duration: [2], hasFlats: false })
+    const [puzzleReference, setPuzzleReference] = useState(data[data.length-1])
     const [firstTimePlayed, setFirstTimePlayed] = useState(true);
     const [recording, setRecording] = useState({ "id": data[data.length-1].id + 1, "sequence": [], "duration": [], song: "", key: { note: "D", major: false }, hasFlats: false },
     )
@@ -158,6 +159,11 @@ export default function Practice() {
         setClickTimes([])
     }
 
+    function handlePuzzleReference(val) { //set new song to user input, default to the current day if invalid input, or the previous answer if neither is valid
+        let newSongNumber = !!data[val-1] ? Math.min(val - 1, data.length-1):puzzleReference;
+        setPuzzleReference(data[newSongNumber] || puzzleReference)
+    }
+
     const handleKeyDown = useCallback(
         (event, oct) => {
             console.log('oct inside callback', oct)
@@ -270,7 +276,7 @@ export default function Practice() {
     return (
         <>
             <VolumeContext.Provider value={volume}>
-                <Navbar showCountdown={false} isPracticing={true} />
+                <Navbar handleAnswer={handlePuzzleReference} showCountdown={false} isPracticing={true} />
                 <Grid container sx={{ mb: 5, mt: 5 }} justifyContent="center">
                     <div className={styles.guessContainer}>{guess}</div>
 
@@ -319,7 +325,7 @@ export default function Practice() {
                                 <button type="button" className={styles.action} onClick={calculateBeats}><StopIcon /></button>
                                 <button type="button" className={styles.action} onClick={playRecording}><PlayArrowIcon /></button>
                                 <button type="button" className={styles.action} onClick={resetRhythm}><LoopIcon /></button>
-                                <button type="button" className={styles.action} onClick={() => playSequence(instrument, data[data.length-1], undefined, undefined, undefined, volume)}>Play</button>
+                                <button type="button" className={styles.action} onClick={() => playSequence(instrument, puzzleReference, undefined, undefined, undefined, volume)}>Play</button>
                             </Grid>
                             <Grid item xl={8} className={styles.recordingBlock}>
                                 {showDrum && <PianoIcon onClick={recordBeat} className={styles.drum} />}
