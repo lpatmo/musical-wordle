@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDiscord } from '@fortawesome/free-brands-svg-icons'
 import SongSelector from './SongSelector'
 
-function Navbar({ showCountdown, songID, handleAnswer, maxSongSelect = Infinity }) {
+function Navbar({ showCountdown, songID, handleAnswer, showSongSelector=true, maxSongSelect = Infinity }) {
     const [showStats, setShowStats] = useState(false);
     const [showInstructions, setShowInstructions] = useState(false);
     useEffect(() => {
@@ -36,7 +36,7 @@ function Navbar({ showCountdown, songID, handleAnswer, maxSongSelect = Infinity 
             {showCountdown && <CountdownTimer />}
             {showStats && <ModalStats setIsOpen={setShowStats} />}
             {showInstructions && <ModalInstructions setIsOpen={setShowInstructions} />}
-            {<SongSelector songID={songID} handleAnswer={handleAnswer} maxSongSelect={maxSongSelect} />}
+            {showSongSelector && <SongSelector songID={songID} handleAnswer={handleAnswer} maxSongSelect={maxSongSelect} />}
         </div>
     )
 }
