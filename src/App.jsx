@@ -82,8 +82,8 @@ function App() {
     setVolume(0);
   }
 
-  function handleAnswer(e) { //set new song to user input, default to the current day if invalid input, or the previous answer if neither is valid
-    let newSongNumber = !testMode ? Math.min(e.target.value - 1, setGameIndex()) : e.target.value - 1;
+  function handleAnswer(val) { //set new song to user input, default to the current day if invalid input, or the previous answer if neither is valid
+    let newSongNumber = !testMode ? Math.min(val - 1, setGameIndex()) : val - 1;
     setAnswer(data[newSongNumber] || answer)
     if (resetBoardRef.current) {
       resetBoardRef.current.resetBoard();
@@ -96,27 +96,22 @@ function App() {
       <VolumeContext.Provider value={volume}>
         <div className="App">
           <header className="App-header">
-            <Navbar showCountdown={true} handleAnswer={handleAnswer} maxSongSelect={setGameIndex() + 1} />
+            <Navbar showCountdown={true} songID={answer?.id} handleAnswer={handleAnswer} maxSongSelect={setGameIndex() + 1} />
             {/* {JSON.stringify(setGameIndex())} */}
             {testMode && <div className="testMode"><h2>You are in test mode!
               <button onClick={() => { alert("Stats cleared!"); clearStorage() }}>Clear stats</button>
               <button onClick={() => setShowStats(true)}>Show stats</button>
               <button onClick={() => { alert('New random song selected! Your board will reset.'); setIsMidnight(true); setAnswer(data[Math.floor(Math.random() * data.length)]) }}>Try random song</button>
             </h2>
-
             </div>}
           </header>
           <div className="App-body">
             {showStats && <ModalStats setIsOpen={setShowStats} />}
             {mobileOrSafari ? <p className="error">Sorry, this game is not available on Safari or on mobile devices.</p> : <>
-
-
               <Box className="mobileHide">
-
                 <Stack spacing={3} direction="row" alignItems="center" className="audioSettings">
                   <VolumeDown onClick={handleMute} className="muteVolume" /> <Slider aria-label="Volume" value={volume} onChange={handleVolume} min={0} max={6} /> <VolumeUp />
                 </Stack>
-
               </Box>
               <Board answer={answer} testMode={testMode} ref={resetBoardRef} />
               <Box className="mobileShow">
@@ -128,7 +123,6 @@ function App() {
               </Box>
             </>}
           </div>
-
         </div>
         <footer>
           <a href="https://discord.gg/8k3zA8nbsE" target="_blank" referrer="no-referrer" className="discordIcon"><FontAwesomeIcon icon={faDiscord} aria-labelledby="Join us on Discord" /></a>
