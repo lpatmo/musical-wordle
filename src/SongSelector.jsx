@@ -7,7 +7,7 @@ import AddIcon from '@mui/icons-material/Add';
 const NumberInput = React.forwardRef(function CustomNumberInput(props, ref) {
   return (
     <section style={{display: 'flex', flexDirection: 'column', marginLeft: '20px'}}>
-    <h4 style={{fontSize: '1rem', lineHeight: '0.5'}}>Day #</h4>
+    <h4 style={{fontSize: '1rem', lineHeight: '0.5', textAlign:'center'}}>Day #</h4>
     <BaseNumberInput
       slots={{
         root: StyledInputRoot,
