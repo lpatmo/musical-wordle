@@ -7,14 +7,21 @@
     padding: 5px 0px;
     width: 100%;
 }
+
 .navbar svg {
     cursor: pointer;
 }
+
 .navbar img.logo {
     width: 100px;
 }
+
 .navbar img.note {
     display: none;
+}
+
+.navbar input#songSelector {
+    margin-left: 5vw;
 }
 
 .instructions {
@@ -38,6 +45,7 @@
         display: block;
         width: 12em;
     }
+
     .navbar img.logo {
         width: 180px;
     }

@@ -1,6 +1,6 @@
 
 import './App.css';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Board from './Board';
 import { data } from './data/data.js';
 import Slider from '@mui/material/Slider';
@@ -29,6 +29,7 @@ function App() {
   const [mobileOrSafari, setMobileOrSafari] = useState(false);
   const [testMode, setTestMode] = useState(false);
   const [showStats, setShowStats] = useState(false);
+  const resetBoardRef = useRef(null);
 
   function setGameIndex() {
     let startDate = new Date('2023-08-05');
@@ -81,35 +82,38 @@ function App() {
     setVolume(0);
   }
 
+  function handleAnswer(val) { //set new song to user input, default to the current day if invalid input, or the previous answer if neither is valid
+    let newSongNumber = !testMode ? Math.min(val - 1, setGameIndex()) : val - 1;
+    setAnswer(data[newSongNumber] || answer)
+    if (resetBoardRef.current) {
+      resetBoardRef.current.resetBoard();
+    }
+  }
+
 
   return (
     <MidnightContext.Provider value={{ isMidnight, setIsMidnight }}>
       <VolumeContext.Provider value={volume}>
         <div className="App">
           <header className="App-header">
-            <Navbar showCountdown={true} />
+            <Navbar showCountdown={true} songID={answer?.id} handleAnswer={handleAnswer} maxSongSelect={setGameIndex() + 1} />
             {/* {JSON.stringify(setGameIndex())} */}
             {testMode && <div className="testMode"><h2>You are in test mode!
               <button onClick={() => { alert("Stats cleared!"); clearStorage() }}>Clear stats</button>
               <button onClick={() => setShowStats(true)}>Show stats</button>
               <button onClick={() => { alert('New random song selected! Your board will reset.'); setIsMidnight(true); setAnswer(data[Math.floor(Math.random() * data.length)]) }}>Try random song</button>
             </h2>
-
             </div>}
           </header>
           <div className="App-body">
             {showStats && <ModalStats setIsOpen={setShowStats} />}
             {mobileOrSafari ? <p className="error">Sorry, this game is not available on Safari or on mobile devices.</p> : <>
-
-
               <Box className="mobileHide">
-
                 <Stack spacing={3} direction="row" alignItems="center" className="audioSettings">
                   <VolumeDown onClick={handleMute} className="muteVolume" /> <Slider aria-label="Volume" value={volume} onChange={handleVolume} min={0} max={6} /> <VolumeUp />
                 </Stack>
-
               </Box>
-              <Board answer={answer} testMode={testMode} />
+              <Board answer={answer} testMode={testMode} ref={resetBoardRef} />
               <Box className="mobileShow">
 
                 <Stack spacing={3} direction="row" alignItems="center" className="audioSettings">
@@ -119,7 +123,6 @@ function App() {
               </Box>
             </>}
           </div>
-
         </div>
         <footer>
           <a href="https://discord.gg/8k3zA8nbsE" target="_blank" referrer="no-referrer" className="discordIcon"><FontAwesomeIcon icon={faDiscord} aria-labelledby="Join us on Discord" /></a>

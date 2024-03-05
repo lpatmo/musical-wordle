@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useContext } from "react";
+import React, { useEffect, useState, useCallback, useContext, forwardRef, useImperativeHandle } from "react";
 import styles from "./Board.module.css";
 import { playNote, playSequence, playCelebrationSequence, stopAll, changeVolume } from "./helpers/playMusic";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -19,10 +19,10 @@ import ShareResults from './ShareResults'
 import InputLabel from '@mui/material/InputLabel';
 import NativeSelect from '@mui/material/NativeSelect';
 import getInstrument from './helpers/getInstrument';
-import {instrumentMapping} from './helpers/getInstrument';
+import { instrumentMapping } from './helpers/getInstrument';
 
 
-function Board({ answer, testMode }) {
+function Board({ answer, testMode }, ref) {
   const volume = useContext(VolumeContext);
   const modesToTiles = {
     'easy': 6,
@@ -73,6 +73,7 @@ function Board({ answer, testMode }) {
       new Array(numberTiles).fill(null).map((row) => {
         return Array(numberTiles).fill("⬛");
       }))
+    setPlayTuneTries(3);
 
     //Remove the colors for the bg tiles as well
     const inputTiles = document.querySelectorAll('input[name^="note-"]');
@@ -132,7 +133,7 @@ function Board({ answer, testMode }) {
           .querySelectorAll(`input[name^="note-${currentRow}"]`)
           .forEach((el) => el.classList.add(styles.correct));
         setMessage(
-          `🎉 Congratulations! You correctly guessed Song #${answer["id"]}: '${answer["song"]}' in ${guessAttempts}/${guess.length} tries${difficultyMode !== 'normal' ? ` in ${difficultyMode} mode` : ''}${usedBackSpace === false ? "🏅" : ""}${guessAttempts === 1 ? "🥇": ""}!`
+          `🎉 Congratulations! You correctly guessed Song #${answer["id"]}: '${answer["song"]}' in ${guessAttempts}/${guess.length} tries${difficultyMode !== 'normal' ? ` in ${difficultyMode} mode` : ''}${usedBackSpace === false ? "🏅" : ""}${guessAttempts === 1 ? "🥇" : ""}!`
         );
         //Update stats and open modal
         updateStats();
@@ -214,7 +215,7 @@ function Board({ answer, testMode }) {
         case isNote(event.key):
           /*Update guess state after valid note*/
           let note = getNote(event, answer?.hasFlats);
-     
+
           if (note[1] === "b") {
             note = note[0].toUpperCase() + note[1];
           } else {
@@ -250,7 +251,7 @@ function Board({ answer, testMode }) {
               }
             }
           }, 200)
-  
+
           if (guess[currentRow].length < (numberTiles * 2)) {
             setGuess(
               guess.map((guessNote, i) => {
@@ -301,18 +302,18 @@ function Board({ answer, testMode }) {
   }, [guess, currentRow, handleSubmit, handleKeyDown, isMidnight, difficultyMode, volume]);
 
   useEffect(() => {
-        //easy mode 
-        if (difficultyMode === "easy") {
-          const updatedGuess = guess.map(() => { 
-            if (answer.sequence[0][1] !== '#' && answer.sequence[0][1] !== 'b') {
-              return answer.sequence[0][0] + '.'
-            } else {
-              return answer.sequence[0].slice(0,2);
-            } 
-          });
-          setGuess(updatedGuess);
-          // console.log(document.querySelectorAll('div input[name^="note-"]:first'));
+    //easy mode 
+    if (difficultyMode === "easy") {
+      const updatedGuess = guess.map(() => {
+        if (answer.sequence[0][1] !== '#' && answer.sequence[0][1] !== 'b') {
+          return answer.sequence[0][0] + '.'
+        } else {
+          return answer.sequence[0].slice(0, 2);
         }
+      });
+      setGuess(updatedGuess);
+      // console.log(document.querySelectorAll('div input[name^="note-"]:first'));
+    }
   }, [difficultyMode])
 
   function isNote(str) {
@@ -340,7 +341,7 @@ function Board({ answer, testMode }) {
   function shareResults() { //TODO: Refactor shareOutput to be calculated here without using state
     setIsOpen(false);
     let stat = gameWon ? guessAttempts : "X";
-    let beginText = `Perfect Pitch Puzzle - Song #${answer["id"]} ${stat}/${guess.length}${difficultyMode !== 'normal' ? ` in ${difficultyMode.toUpperCase()} mode` : ""} - ${getInstrument(instrument)} 🎵 ${usedBackSpace === false ? "🏅" : "" }${guessAttempts === 1 ? "🥇" : ""}\n`;
+    let beginText = `Perfect Pitch Puzzle - Song #${answer["id"]} ${stat}/${guess.length}${difficultyMode !== 'normal' ? ` in ${difficultyMode.toUpperCase()} mode` : ""} - ${getInstrument(instrument)} 🎵 ${usedBackSpace === false ? "🏅" : ""}${guessAttempts === 1 ? "🥇" : ""}\n`;
     navigator.clipboard
       .writeText(
         beginText +
@@ -357,27 +358,29 @@ function Board({ answer, testMode }) {
         alert("Failed to copy results to clipboard");
       });
   }
-
+  useImperativeHandle(ref, () => ({
+    resetBoard
+  }));
 
   return (
     <Grid container spacing={1} justifyContent="center">
       <Grid item xl={4} lg={5} md={7} className={styles.left}>
         <Paper elevation={0}>
           <div className={styles.buttons}>
-          <button type="button" className={styles.action}
-            onClick={(e) => {
-              if (difficultyMode === "hard") {
-                if (playTuneTries === 0) {
-                  e.preventDefault();
-                  setError("You've maxed out the number of times you can play the tune")
-                  return;
+            <button type="button" className={styles.action}
+              onClick={(e) => {
+                if (difficultyMode === "hard") {
+                  if (playTuneTries === 0) {
+                    e.preventDefault();
+                    setError("You've maxed out the number of times you can play the tune")
+                    return;
+                  }
+                  setPlayTuneTries(playTuneTries - 1);
                 }
-                setPlayTuneTries(playTuneTries - 1);
+                playSequence(instrument, answer, undefined, undefined, numberTiles, volume);
               }
-              playSequence(instrument, answer, undefined, undefined, numberTiles, volume);
-            }
-            }>
-            <FontAwesomeIcon icon={faPlay} /> Play the tune {difficultyMode === 'hard' && `- ${playTuneTries} plays left`}</button>
+              }>
+              <FontAwesomeIcon icon={faPlay} /> Play the tune {difficultyMode === 'hard' && `- ${playTuneTries} plays left`}</button>
             <button type="submit" className={styles.submitMobile} onClick={handleSubmit}>
               Submit
             </button>
@@ -386,7 +389,7 @@ function Board({ answer, testMode }) {
             {guess.map((char, row) => {
               //char is the same thing as guess[row]
               const myRow = [];
-              for (let i=0; i<numberTiles; i++) {
+              for (let i = 0; i < numberTiles; i++) {
                 myRow.push(i);
               }
               return (
@@ -397,7 +400,7 @@ function Board({ answer, testMode }) {
                         key={column}
                         type="text"
                         name={`note-${row}-${column}`}
-                        disabled={currentRow !== row || (difficultyMode === 'easy' && column === 0) }
+                        disabled={currentRow !== row || (difficultyMode === 'easy' && column === 0)}
                         maxLength={1}
                         value={char.slice(column * 2, 2 * (column + 1)).split(".")[0] || ""}
                         tabIndex={-1}
@@ -453,7 +456,7 @@ function Board({ answer, testMode }) {
         <section className={styles.settings}>
           <div>
             <InputLabel variant="standard" htmlFor="instrument">
-              Instrument 
+              Instrument
             </InputLabel>
             <NativeSelect
               defaultValue="acoustic_grand_piano"
@@ -465,7 +468,7 @@ function Board({ answer, testMode }) {
               sx={{ fontSize: '1.6rem', mr: '2em' }}
             >
               {Object.keys(instrumentMapping).map((instrument) => {
-                return  <option value={instrument} key={instrument}>{instrumentMapping[instrument]}</option>
+                return <option value={instrument} key={instrument}>{instrumentMapping[instrument]}</option>
               })}
             </NativeSelect>
           </div>
@@ -480,8 +483,8 @@ function Board({ answer, testMode }) {
                 id: 'difficulty',
               }}
               onChange={(e) => {
-                setDifficultyMode(e.target.value); 
-                  resetBoard();
+                setDifficultyMode(e.target.value);
+                resetBoard();
               }}
               sx={{ fontSize: '1.6rem' }}
               disabled={gameOver}
@@ -505,4 +508,4 @@ function Board({ answer, testMode }) {
   );
 }
 
-export default Board;
+export default forwardRef(Board);
