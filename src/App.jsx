@@ -107,7 +107,8 @@ function App() {
           </header>
           <div className="App-body">
             {showStats && <ModalStats setIsOpen={setShowStats} />}
-            {/*mobileOrSafari ? <p className="error">Sorry, this game is not available on Safari or on mobile devices.</p> : <>
+            {/*mobileOrSafari ? <p className="error">Sorry, this game is not available on Safari or on mobile devices.</p> : <>*/
+              <>
               <Box className="mobileHide">
                 <Stack spacing={3} direction="row" alignItems="center" className="audioSettings">
                   <VolumeDown onClick={handleMute} className="muteVolume" /> <Slider aria-label="Volume" value={volume} onChange={handleVolume} min={0} max={6} /> <VolumeUp />
@@ -121,7 +122,7 @@ function App() {
                 </Stack>
 
               </Box>
-            </>*/}
+            </>}
           </div>
         </div>
         <footer>
