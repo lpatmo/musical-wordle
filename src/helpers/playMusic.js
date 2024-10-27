@@ -95,7 +95,9 @@ export function playCelebrationSequence(selectedInstrument, answer, volume) {
 export function playNote(selectedInstrument, note, answer, currentNote, numberTiles, volume, octave) {
     //Stop any previous melodies from playing
     stopAll();
+    if (window.navigator.audioSession){
     window.navigator.audioSession.type = "playback";
+}
     const instrument = instrumentsObj[selectedInstrument];
     instrument.output.setVolume(volume * 35);
 
