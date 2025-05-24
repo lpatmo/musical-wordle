@@ -668,8 +668,6 @@ export const data = [
     { "id": 667, "sequence": ["A#5", "G5", "E5", "G5", "D#5", "F#5", "A5", "F#5", "G#5", "F5", "D5", "F5"], "duration":[0.87, 0.87, 0.87, 0.87, 0.87, 0.87, 0.87, 0.87, 0.87, 0.87, 0.87, 0.87], "song":"Carnival of the Animals - VII. Aquarium (Saint-Saëns)", "key":{"note":"A", "major":false}, "hasFlats":false},
     { "id": 668, "sequence": ["G#5", "F5", "D5", "F5", "C#5", "E5", "G5", "E5", "F#5", "D#5", "C5", "D#5"], "duration":[0.87, 0.87, 0.87, 0.87, 0.87, 0.87, 0.87, 0.87, 0.87, 0.87, 0.87, 0.87], "song":"Carnival of the Animals - VII. Aquarium (Saint-Saëns)", "key":{"note":"A", "major":false}, "hasFlats":false},
     { "id": 669, "sequence": ["F#5", "D#5", "C5", "D#5", "B4", "D5", "F5", "D5", "E5", "C#5", "A#4", "C#5"], "duration":[0.87, 0.87, 0.87, 0.87, 0.87, 0.87, 0.87, 0.87, 0.87, 0.87, 0.87, 0.87], "song":"Carnival of the Animals - VII. Aquarium (Saint-Saëns)", "key":{"note":"A", "major":false}, "hasFlats":false},
-    { "id": 670, "sequence": ["E5", "C#5", "A#4", "C#5", "A#4", "C#5", "E5", "C#5", "B4", "D5", "E5"], "duration":[0.87, 0.87, 0.87, 0.87, 0.87, 0.87, 0.87, 0.87, 0.87, 0.87, 0.87], "song":"Carnival of the Animals - VII. Aquarium (Saint-Saëns)", "key":{"note":"A", "major":false}, "hasFlats":false},
-
-
+    { "id": 670, "sequence": ["E5", "C#5", "A#4", "C#5", "A#4", "C#5", "E5", "C#5", "B4", "D5", "E5"], "duration":[0.87, 0.87, 0.87, 0.87, 0.87, 0.87, 0.87, 0.87, 0.87, 0.87, 0.87], "song":"Carnival of the Animals - VII. Aquarium (Saint-Saëns)", "key":{"note":"A", "major":false}, "hasFlats":false}
    ]
 
