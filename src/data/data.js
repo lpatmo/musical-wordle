@@ -769,8 +769,6 @@ export const data = [
     { "id": 768, "sequence": ["A3", "C4", "D4", "A3", "E4", "F4", "A3", "E4", "D4", "A3", "C4", "B3"], "duration":[1.8, 1.8, 1.8, 1.8, 1.8, 1.8, 1.8, 1.8, 1.8, 1.8, 1.8, 1.8], "song":"Peer Gynt Suite No. 1, Op. 46  Part: III. Anitra's Dance (Grieg)", "key":{"note":"A", "major":false}, "hasFlats":false},
     { "id": 769, "sequence": ["E4", "A4", "B4", "A4", "G#4", "A4", "B4", "C5", "D5", "E5", "A5", "E5"], "duration":[1.8, 0.2, 0.2, 0.5, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 1.8], "song":"Peer Gynt Suite No. 1, Op. 46  Part: III. Anitra's Dance (Grieg)", "key":{"note":"A", "major":false}, "hasFlats":false},
     { "id": 770, "sequence": ["D5", "E5", "D5", "C5", "A5", "C5", "B4", "C5", "B4", "A4"], "duration":[0.2, 0.2, 1.4, 0.9, 0.9, 1.8, 0.2, 0.2, 1.8, 5.4], "song":"Peer Gynt Suite No. 1, Op. 46  Part: III. Anitra's Dance (Grieg)", "key":{"note":"A", "major":false}, "hasFlats":false}
-
-    
-   ]
+]
 //For October{"id":###,"sequence":["G4","B4","D5","D5", "D5", "E5","D5","B4","G4","D5","D5","D5","B4","G4","D4","D4","D4","D4","D4","D4","G4"],"duration":[2,1,1,1,1,3,3,2,1,1,1,1,3,3,1,1,1,1,1,1,4],"song":"March of the Volunteers (Nie Er) ","key":{"note":"G","major":true},"hasFlats":false},
     
