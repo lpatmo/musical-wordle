@@ -495,6 +495,9 @@ function Board({ answer, testMode }, ref) {
             </NativeSelect>
           </div>
         </section>
+        <a rel="sponsored"
+           href="https://simplypiano.sjv.io/c/6535299/1979850/16489" target="_blank" id="1979850">
+<img src="/simplypiano_banner1.jpg" border="0" alt="" width="100%" height="90"/></a><img height="0" width="0" src="https://imp.pxf.io/i/6535299/1979850/16489" style={{position: 'absolute', visible: 'hidden'}} border="0" />
         {testMode &&
           <>
             <p>Guess: {JSON.stringify(guess, 0, 2)}</p>
