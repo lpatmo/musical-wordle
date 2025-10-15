@@ -41,6 +41,7 @@ function Board({ answer, testMode }, ref) {
   const [showStatsModal, setShowStatsModal] = useState(false);
   const [usedBackSpace, setUsedBackspace] = useState(false);
   const [showBanner, setShowBanner] = useState(true);
+  const [bannerHovered, setBannerHovered] = useState(false);
   const { isMidnight } = useContext(MidnightContext);
 
   const [numberTiles, setNumberTiles] = useState(modesToTiles[difficultyMode]);
@@ -497,33 +498,69 @@ function Board({ answer, testMode }, ref) {
           </div>
         </section>
         {showBanner && (
-          <div style={{position: 'relative'}}>
-            <a rel="sponsored"
-               href="https://simplypiano.sjv.io/c/6535299/1979850/16489" target="_blank" id="1979850">
-              <img src="/simplypiano_banner1.jpg" border="0" alt="" width="100%" height="90"/>
-            </a>
-            <span
-              onClick={() => setShowBanner(false)}
-              style={{
-                position: 'absolute',
-                top: '5px',
-                right: '5px',
-                cursor: 'pointer',
-                background: 'white',
-                color: 'black',
-                width: '20px',
-                height: '20px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontWeight: 'bold',
-                borderRadius: '3px',
-                fontSize: '14px'
-              }}
+          <div>
+            <div
+              style={{position: 'relative'}}
+              onMouseEnter={() => setBannerHovered(true)}
+              onMouseLeave={() => setBannerHovered(false)}
             >
-              x
-            </span>
-            <img height="0" width="0" src="https://imp.pxf.io/i/6535299/1979850/16489" style={{position: 'absolute', visibility: 'hidden'}} border="0" />
+              <a rel="sponsored"
+                 href="https://simplypiano.sjv.io/c/6535299/1979850/16489"
+                 target="_blank"
+                 id="1979850">
+                <img src="/simplypiano_banner1.jpg" border="0" alt="" width="100%" height="90"/>
+              </a>
+              {bannerHovered && (
+                <div style={{
+                  position: 'absolute',
+                  bottom: '10px',
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  background: 'rgba(0, 0, 0, 0.85)',
+                  color: 'white',
+                  padding: '8px 12px',
+                  borderRadius: '6px',
+                  fontSize: '13px',
+                  whiteSpace: 'nowrap',
+                  pointerEvents: 'none',
+                  boxShadow: '0 2px 8px rgba(0, 0, 0, 0.3)',
+                  zIndex: 5
+                }}>
+                  Help support Perfect Pitch Puzzle!
+                </div>
+              )}
+              <span
+                onClick={() => setShowBanner(false)}
+                style={{
+                  position: 'absolute',
+                  top: '5px',
+                  right: '5px',
+                  cursor: 'pointer',
+                  background: 'white',
+                  color: 'black',
+                  width: '20px',
+                  height: '20px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontWeight: 'bold',
+                  borderRadius: '3px',
+                  fontSize: '14px',
+                  zIndex: 10
+                }}
+              >
+                x
+              </span>
+              <img height="0" width="0" src="https://imp.pxf.io/i/6535299/1979850/16489" style={{position: 'absolute', visibility: 'hidden'}} border="0" />
+            </div>
+            <div style={{
+              fontSize: '14px',
+              color: '#787c7e',
+              marginTop: '-2px',
+              textAlign: 'right'
+            }}>
+              Ad
+            </div>
           </div>
         )}
         {testMode &&
