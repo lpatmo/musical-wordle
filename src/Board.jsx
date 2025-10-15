@@ -40,6 +40,7 @@ function Board({ answer, testMode }, ref) {
   const [isOpen, setIsOpen] = useState(false);
   const [showStatsModal, setShowStatsModal] = useState(false);
   const [usedBackSpace, setUsedBackspace] = useState(false);
+  const [showBanner, setShowBanner] = useState(true);
   const { isMidnight } = useContext(MidnightContext);
 
   const [numberTiles, setNumberTiles] = useState(modesToTiles[difficultyMode]);
@@ -495,9 +496,36 @@ function Board({ answer, testMode }, ref) {
             </NativeSelect>
           </div>
         </section>
-        <a rel="sponsored"
-           href="https://simplypiano.sjv.io/c/6535299/1979850/16489" target="_blank" id="1979850">
-<img src="/simplypiano_banner1.jpg" border="0" alt="" width="100%" height="90"/></a><img height="0" width="0" src="https://imp.pxf.io/i/6535299/1979850/16489" style={{position: 'absolute', visible: 'hidden'}} border="0" />
+        {showBanner && (
+          <div style={{position: 'relative'}}>
+            <a rel="sponsored"
+               href="https://simplypiano.sjv.io/c/6535299/1979850/16489" target="_blank" id="1979850">
+              <img src="/simplypiano_banner1.jpg" border="0" alt="" width="100%" height="90"/>
+            </a>
+            <span
+              onClick={() => setShowBanner(false)}
+              style={{
+                position: 'absolute',
+                top: '5px',
+                right: '5px',
+                cursor: 'pointer',
+                background: 'white',
+                color: 'black',
+                width: '20px',
+                height: '20px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontWeight: 'bold',
+                borderRadius: '3px',
+                fontSize: '14px'
+              }}
+            >
+              x
+            </span>
+            <img height="0" width="0" src="https://imp.pxf.io/i/6535299/1979850/16489" style={{position: 'absolute', visibility: 'hidden'}} border="0" />
+          </div>
+        )}
         {testMode &&
           <>
             <p>Guess: {JSON.stringify(guess, 0, 2)}</p>
