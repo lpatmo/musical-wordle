@@ -1028,19 +1028,17 @@ export const data = [
     { "id": 1027, "sequence": ["A4", "G4", "F#4", "E4", "F#4", "E4", "D4", "C#4", "B3", "A3", "G#3", "A3"], "duration":[1.3, 1.3, 1.3, 1.3, 1.3, 1.3, 1.3, 1.3, 2.6, 1.3, 1.3, 5.2], "song":"Fantasia for a Gentleman - I. Villano y Ricercar (Joaquín Rodrigo)", "key":{"note":"A", "major":true}, "hasFlats":false},
     { "id": 1028, "sequence": ["E4", "D4", "C#4", "B3", "A4", "G4", "F#4", "E4", "G4", "F#4", "E4", "D4", "E4"], "duration":[1.3, 1.3, 1.3, 1.3, 1.3, 1.3, 1.3, 1.3, 1.3, 1.3, 1.3, 1.3, 5.2], "song":"Fantasia for a Gentleman - I. Villano y Ricercar (Joaquín Rodrigo)", "key":{"note":"A", "major":true}, "hasFlats":false},
     { "id": 1029, "sequence": ["G4", "A4", "B4", "C5", "G4", "E4", "D4", "C4", "B3", "A4", "G4"], "duration":[0.7, 0.7, 0.7, 2.1, 2.1, 2.1, 1.4, 0.7, 1.4, 0.7, 2.8], "song":"Seventy-Six Trombones (Meredith Wilson)", "key":{"note":"C", "major":true}, "hasFlats":false},
-    { "id": 1030, "sequence": ["G4", "A4", "B4", "C5", "C#5", "D5", "B4", "G4", "F4", "D4", "C4"], "duration":[0.7, 0.7, 0.7, 0.7, 0.7, 2.1, 2.1, 2.1, 1.4, 0.7, 3.5], "song":"Seventy-Six Trombones (Meredith Wilson)", "key":{"note":"C", "major":true}, "hasFlats":false}
-    
-
-
-
-
-
-
-
-
-
-
-
+    { "id": 1030, "sequence": ["G4", "A4", "B4", "C5", "C#5", "D5", "B4", "G4", "F4", "D4", "C4"], "duration":[0.7, 0.7, 0.7, 0.7, 0.7, 2.1, 2.1, 2.1, 1.4, 0.7, 3.5], "song":"Seventy-Six Trombones (Meredith Wilson)", "key":{"note":"C", "major":true}, "hasFlats":false},
+    { "id": 1031, "sequence": ["D5", "A4", "F#4", "G4", "A#4", "C#5", "D5", "A4", "F#4", "G4", "D#4", "C4", "D4", "A4", "G4", "C5", "A#4", "A4"], "duration":[6, 15, 4, 1.98, 1.98, 1.98, 9, 15, 4, 1.98, 1.98, 1.98, 6, 6, 6, 6, 9, 12], "song":"Lawrence of Arabia Overture (Maurice Jarre)", "key":{"note":"D", "major":true}, "hasFlats":false},
+    { "id": 1032, "sequence": ["G5", "Bb5", "Gb5", "F5", "G5", "Eb5", "C5", "D5", "Eb5", "B4", "D5", "Eb5"], "duration":[5.76, 2.88, 2.88, 5.76, 2.88, 2.88, 2.88, 2.88, 2.88, 2.88, 7.2, 4.32], "song":"Local Elevator (Kevin Macloed)", "key":{"note":"Eb", "major":true}, "hasFlats":true},
+    { "id": 1033, "sequence": ["G4", "C5", "D5", "Eb5", "D5", "C5", "Eb5", "D5", "C5", "C5", "Bb4", "Db5", "F4", "Db5", "C5", "B4", "C5", "C5", "Bb4", "Ab4", "G4"], "duration":[5, 5, 5, 6.65, 1.65, 1.65, 1.65, 1.65, 1.65, 10, 5, 2.2, 2.2, 4.4, 2.2, 2.2, 6.6, 2.2, 3.3, 1.1, 5.852], "song":"Trois Mélodies, Op. 7 - Après un rêve / After a Dream (Fauré)", "key":{"note":"Eb", "major":true}, "hasFlats":true},
+    { "id": 1034, "sequence": ["Db5", "F4", "Db5", "C5", "B4", "C5", "C5", "Bb4", "Ab4", "G4", "Ab4", "Bb4", "Ab4", "Bb4", "C5", "G4", "G4", "Eb4", "F4", "G4", "Ab4", "Bb4"], "duration":[2.2, 2.2, 4.4, 2.2, 2.2, 6.6, 2.2, 3.3, 1.1, 5.852, 1.452, 1.452, 1.452, 1.452, 1.452, 13.2, 4.4, 2.904, 1.452, 2.904, 1.452, 5.852], "song":"Trois Mélodies, Op. 7 - Après un rêve / After a Dream (Fauré)", "key":{"note":"Eb", "major":true}, "hasFlats":true},
+    { "id": 1035, "sequence": ["G4", "Ab4", "Bb4", "Ab4", "Bb4", "C5", "G4", "G4", "Eb4", "F4", "G4", "Ab4", "Bb4", "F4", "F4", "F4", "E4", "F4", "Ab4", "G4", "C5", "C5", "B4", "Bb4", "Eb4", "Eb4"], "duration":[5.852, 1.452, 1.452, 1.452, 1.452, 1.452, 13.2, 4.4, 2.904, 1.452, 2.904, 1.452, 5.852, 1.452, 1.452, 1.452, 1.452, 1.452, 8.8, 4.4, 4.4, 6.6, 2.2, 4.4, 4.4, 4.4], "song":"Trois Mélodies, Op. 7 - Après un rêve / After a Dream (Fauré)", "key":{"note":"Eb", "major":true}, "hasFlats":true},
+    { "id": 1036, "sequence": ["F4", "F4", "F4", "E4", "F4", "Ab4", "G4", "C5", "C5", "B4", "Bb4", "Eb4", "Eb4", "F4", "Gb4", "Ab4", "Gb4", "Ab4", "Ab4", "Bb4", "Eb4"], "duration":[1.452, 1.452, 1.452, 1.452, 1.452, 8.8, 4.4, 4.4, 6.6, 2.2, 4.4, 4.4, 4.4, 5.852, 1.452, 1.452, 1.452, 1.452, 1.452, 8.8, 4.4], "song":"Trois Mélodies, Op. 7 - Après un rêve / After a Dream (Fauré)", "key":{"note":"Eb", "major":true}, "hasFlats":true},
+    { "id": 1037, "sequence": ["F4", "Gb4", "Ab4", "Gb4", "Ab4", "Bb4", "Bb4", "Eb4", "G5", "C6", "D6", "Eb6", "D6", "C6", "Eb6", "D6", "C6", "C6", "Bb5"], "duration":[5.852, 1.452, 1.452, 1.452, 1.452, 1.452, 8.8, 22, 4.4, 4.4, 4.4, 5.852, 1.452, 1.452, 1.452, 1.452, 1.452, 8.8, 4.4], "song":"Trois Mélodies, Op. 7 - Après un rêve / After a Dream (Fauré)", "key":{"note":"Eb", "major":true}, "hasFlats":true},
+    { "id": 1038, "sequence": ["Bb3", "C4", "Db4", "F4", "Eb4", "Db4", "Eb4", "F4", "Ab4", "G4", "F4", "Eb4", "F4", "Bb3", "Eb4", "C4", "Db4", "Bb3", "C4"], "duration":[0.78, 0.78, 3.12, 3.12, 3.9, 0.78, 0.78, 3.12, 3.12, 3.9, 0.78, 0.78, 3.12, 3.12, 3.12, 3.12, 3.12, 3.12, 6.24], "song":"Sakiwafu Hana / Flower of Happiness (Keiichi Okabe)", "key":{"note":"Ab", "major":true}, "hasFlats":true},
+    { "id": 1039, "sequence": ["G4", "G5", "F5", "G4", "G5", "G4", "F5", "G5", "G4", "F5", "G5", "Bb4", "A4", "F4", "D4", "F4"], "duration":[0.66, 0.66, 0.66, 0.66, 0.66, 0.66, 0.66, 0.66, 0.66, 0.66, 0.66, 0.66, 0.66, 0.66, 0.66, 0.66], "song":"Corneria (Hajime Hirasawa)", "key":{"note":"G", "major":false}, "hasFlats":true},
+    { "id": 1040, "sequence": ["F4", "Eb4", "D4", "C4", "Bb3", "A3", "A3", "A3", "Eb3", "D4", "Eb4", "A3"], "duration":[0.65, 3.25, 0.65, 3.25, 0.65, 3.25, 0.65, 2.6, 0.65, 1.3, 0.65, 0.65], "song":"Mr. Magic (Ralph MacDonald, William Salter)", "key":{"note":"Eb", "major":true}, "hasFlats":true}
        
 
 ]
