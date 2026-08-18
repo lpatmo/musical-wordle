@@ -1120,9 +1120,4 @@ export const data = [
     { "id": 1119, "sequence": ["F#4", "G4", "A4", "F#4", "G4", "A4", "A4", "B4", "A4", "G4", "F#4", "D4", "A4", "B4", "A4", "G4", "F#4", "D4"], "duration":[2, 2, 4, 2, 2, 4, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 2, 2], "song":"Frère Jacques / Brother John (Traditional)", "key":{"note":"D", "major":true}, "hasFlats":false},
     { "id": 1120, "sequence": ["A4", "B4", "A4", "G4", "F#4", "D4", "D4", "A3", "D4", "D4", "A3", "D4"], "duration":[1, 1, 1, 1, 2, 2, 2, 2, 4, 2, 2, 4], "song":"Frère Jacques / Brother John (Traditional)", "key":{"note":"D", "major":true}, "hasFlats":false}
 
-
-
-    
-    
-//jubilate deo
 ]
