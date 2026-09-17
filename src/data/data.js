@@ -1138,10 +1138,18 @@ export const data = [
     { "id": 1137, "sequence": ["E5", "D5", "C5", "B4", "A4", "A5", "D5", "C5", "B4", "A4", "G4", "G5"], "duration":[.5, .5, .5, .5, 2, 2, .5, .5, .5, .5, 2, 2], "song":"Minuet in G major, K.1, 1e (Mozart)", "key":{"note":"G", "major":true}, "hasFlats":false},
     { "id": 1138, "sequence": ["D5", "C5", "B4", "A4", "G4", "G5", "D5", "B4", "A4", "G4", "E5", "D5", "F#4", "A4", "G4"], "duration":[.5, .5, .5, .5, 2, 2, .5, .5, .5, .5, 2, 2, 2, 2, 2], "song":"Minuet in G major, K.1, 1e (Mozart)", "key":{"note":"G", "major":true}, "hasFlats":false},
     { "id": 1139, "sequence": ["D5", "B4", "A4", "G4", "E5", "D5", "F#4", "A4", "G4"], "duration":[.5, .5, .5, .5, 2, 2, 2, 2, 2], "song":"Minuet in G major, K.1, 1e (Mozart)", "key":{"note":"G", "major":true}, "hasFlats":false},
-    { "id": 1140, "sequence": ["E5", "D5", "F#4", "A4", "G4", "D5", "B4", "G#4", "F5", "E5", "D5", "C5"], "duration":[2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2], "song":"Minuet in G major, K.1, 1e (Mozart)", "key":{"note":"G", "major":true}, "hasFlats":false}
-
-
-
+    { "id": 1140, "sequence": ["E5", "D5", "F#4", "A4", "G4", "D5", "B4", "G#4", "F5", "E5", "D5", "C5"], "duration":[2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2], "song":"Minuet in G major, K.1, 1e (Mozart)", "key":{"note":"G", "major":true}, "hasFlats":false},
+    { "id": 1141, "sequence": ["Eb4", "Eb4", "Eb5", "C5", "Ab4", "Bb4", "G4", "Eb4", "Ab4", "Bb4", "C5", "G4", "Bb4"], "duration":[2, 2, 8, 2, 2, 8, 2, 2, 4, 4, 4, 1, 7], "song":"Wiegenlied \"Lullaby/Cradle Song\" Op. 49,  No. 4 (Brahms)", "key":{"note":"Eb", "major":true}, "hasFlats":true},
+    { "id": 1142, "sequence": ["F#5", "G#5", "F#5", "E5", "D#5", "B4", "C#5", "E5", "C#5", "E5", "C#5", "B4"], "duration":[0.15, 0.45, 0.6, 0.6, 1.2, 1.2, 1.8, 1.2, 0.6, 0.3, 0.3, 1.2], "song":"Bluey Theme Song (Joff Bush)", "key":{"note":"E", "major":true}, "hasFlats":false},
+    { "id": 1143, "sequence": ["B4", "C#5", "D5", "D5", "C#5", "A4", "B4", "A4", "B4", "A4", "F#4", "D4"], "duration":[0.99, 0.99, 3, 3, 0.99, 2.01, 0.99, 0.99, 3.99, 3, 0.99, 2.01], "song":"Harvest (Neil Young)", "key":{"note":"D", "major":true}, "hasFlats":false},
+    { "id": 1144, "sequence": ["F#4", "A4", "B4", "A4", "C#5", "D5", "C#5", "C#5", "D5", "C#5", "B4", "A4", "B4"], "duration":[2, 2, 1, 2, 2, 1, 5, 1, 1, 1, 1, 2, 2], "song":"September (Al McKay, Allee Willis, Maurice White)", "key":{"note":"A", "major":true}, "hasFlats":false},    
+    { "id": 1145, "sequence": ["B5", "B5", "C#6", "B5", "A#5", "E6", "A5", "E6", "A5", "G#5", "B5"], "duration":[4, 0.8, 0.8, 0.8, 2.4, 4.8, 2.4, 2.4, 1.6, 2.4, 4], "song":"The Star Festival (Koji Kondo, Mahito Yokota)", "key":{"note":"D", "major":false}, "hasFlats":false},
+    { "id": 1146, "sequence": ["G4", "G#4", "A4", "A#4", "B4", "G4", "E4", "C4", "B4", "C5", "D5", "C5", "B4"], "duration":[1.2, 1.2, 1.2, 1.2, 1.2, 1.2, 1.2, 1.2, 10.8, 1.2, 1.2, 1.2, 3.6], "song":"Early Autumn (Ralph Burns, Woody Herman)", "key":{"note":"C", "major":true}, "hasFlats":false},
+    { "id": 1147, "sequence": ["G4", "C5", "E5", "G5", "C5", "B4", "E5", "G5", "G5", "A5", "B5", "C6", "A5", "G5"], "duration":[1.55, 4.65, 1.55, 4.65, 1.55, 4.65, 1.55, 4.65, 1.55, 4.65, 1.55, 4.65, 1.55, 9.3], "song":"The Moon Represents My Heart (Weng Ching-hsi)", "key":{"note":"C", "major":true}, "hasFlats":false},
+    { "id": 1148, "sequence": ["A#4", "A#4", "A#4", "G#4", "F#4", "G#4", "A#4", "A#4", "A#4", "F#4", "G#4", "A#4", "D#4"], "duration":[3, 1.5, 1.5, 1.5, 1.5, 3, 1.5, 4.5, 3, 1.5, 3, 1.5, 9], "song":"Gazing at the Moon (Yin Qing)", "key":{"note":"F#", "major":true}, "hasFlats":false},
+    { "id": 1149, "sequence": ["E4", "E4", "F4", "E4", "D4", "E4", "E4", "F4", "E4", "D4", "E4"], "duration":[2.2, 1.1, 1.1, 1.1, 1.1, 2.2, 1.1, 1.1, 1.1, 1.1, 2.2], "song":"Solaris & Lunaris (Kamil Orman-Janowski Kamil Orman-Janowski)", "key":{"note":"D", "major":false}, "hasFlats":true},
+    { "id": 1150, "sequence": ["F4", "Ab3", "Eb4", "Ab3", "Db4", "Eb4", "F4", "Gb4", "Eb4", "Ab4"], "duration":[4.4, 4.4, 4.4, 4.4, 2.2, 2.2, 2.2, 2.2, 4.4, 4.4], "song":"The Music of the Night (Andrew Lloyd Webber)", "key":{"note":"Db", "major":true}, "hasFlats":true}
+    
 
 
 
